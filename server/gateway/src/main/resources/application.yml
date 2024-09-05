@@ -1,0 +1,82 @@
+server:
+  port: 8181
+
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        # eureka service routing
+        - id: eureka
+          # Will only work when docker is used
+          # uri: http://${app.eureka-server}:8761
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        - id: eureka-static
+          # Will only work when docker is used
+          # uri: http://${app.eureka-server}:8761
+          uri: http://localhost:8761
+          predicates:
+            - Path=/eureka/**
+        # dummy service routing
+        - id: dummy
+          uri: lb://dummy
+          predicates:
+            - Path=/api/v1/dummy/**
+          filters:
+            - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
+  security:
+    user:
+      name: admin
+      password: admin
+
+
+# Keycloak configuration for the future
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: ${KEYCLOAK_URL}/realms/LearningPulse
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+springdoc:
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - name: Gateway API
+        url: /v3/api-docs
+      - name: Dummy Service API
+        url: /api/v1/dummy/v3/api-docs
+
+eureka:
+  client:
+    service-url:
+      #defaultZone: http://localhost:8761/eureka
+      # Will only work when docker is used
+      defaultZone: http://eureka-server:8761/eureka
+
+logging:
+  file:
+    name: ././logs/gateway.log

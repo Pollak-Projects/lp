@@ -1,0 +1,22 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: localhost
+
+spring:
+  application:
+    name: eureka
+  security:
+    # TODO remove after testing
+    user:
+      name: admin
+      password: admin
+
+logging:
+  file:
+    name: ././logs/eureka.log

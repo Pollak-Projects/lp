@@ -1,0 +1,33 @@
+on:
+  push:
+    branches: ["dev", "build-test"]
+
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: https://github.com/actions/checkout@v4
+      
+      - name: Set up QEMU
+        uses: https://github.com/docker/setup-qemu-action@v3
+      
+      - name: Set up Docker Buildx
+        uses: https://github.com/docker/setup-buildx-action@v3
+      
+      - name: Login to GitHub Container Registry
+        uses: https://github.com/docker/login-action@v3
+        with:
+          registry: git.4o1x5.dev
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          platforms: linux/amd64
+          push: true
+          tags: |
+            learning-pulse/web-client:dev
+        # TODO deploy

@@ -1,0 +1,72 @@
+
+
+version: "3"
+# https://scribe.rip/@kadampritesh46/microservices-part-4-dockerization-and-beyond-55693a2419e7
+networks:
+  learningpulse: {}
+services:
+  eureka:
+    image: git.4o1x5.dev/learningpulse/server/eureka:dev
+    restart: always
+    hostname: eureka-server
+    ports:
+      - 8761:8761
+    networks:
+      - learningpulse
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  # to test
+  # curl http://admin:admin@localhost:8181/api/v1/dummy/test -v;
+  dummy:
+    image: git.4o1x5.dev/learningpulse/server/dummy:dev
+    restart: always
+    depends_on:
+      - eureka
+    networks:
+      - learningpulse
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
+  gateway:
+    image: git.4o1x5.dev/learningpulse/server/gateway:dev
+    restart: always
+    depends_on:
+      - eureka
+      - dummy
+    ports:
+      - 8181:8181
+    networks:
+      - learningpulse
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+#
+# TODO once implemented into gateway
+# keycloak:
+#   container_name: keycloak
+#   hostname: keycloak
+#   image: quay.io/keycloak/keycloak:latest
+#   command: ["start-dev", "--import-realm"]
+#   ports:
+#     - "3212:8080"
+#   volumes:
+#     - ./realms:/opt/keycloak/data/import
+#   environment:
+#     KC_DB: ${DB_NAME}
+#     KC_DB_URL: ${DB_URL}
+#     KC_DB_USERNAME: ${DB_USERNAME}
+#     KC_DB_PASSWORD: ${DB_PASSWORD}
+#     KC_DB_SCHEMA: ${DB_SCHEMA}
+#     KEYCLOAK_ADMIN: admin
+#     KEYCLOAK_ADMIN_PASSWORD: admin
+#     KC_HTTP_ENABLED: true
+
+# TODO once implemented into service(s)
+# database:
+#   image: postgres
+#   restart: always
+#   hostname: database
+#   environment:
+#     POSTGRES_USER: ${DABATASE_USER}
+#     POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+#     POSTGRES_DB: ${DATABASE_NAME}

@@ -2,7 +2,7 @@ name: Mirror dev branch to remote
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["master"]
 
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Clone bare dev branch
-        run: git clone --bare https://git.4o1x5.dev/${{ github.repository }} -b dev
+        run: git clone --bare https://git.4o1x5.dev/${{ github.repository }} -b master
       - name: Cd into directory
         run: cd learningpulse
       - name: Mirror to github

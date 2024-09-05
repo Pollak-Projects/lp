@@ -2,7 +2,7 @@ name: Build docker images, publish them, deploy to test server
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["master"]
 
 
 jobs:

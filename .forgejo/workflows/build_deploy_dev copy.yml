@@ -50,13 +50,3 @@ jobs:
           key: linux-maven
           restore-keys: |
             linux-maven
-            
-      # TODO trigger pull with docker
-      - name: executing remote ssh commands using ssh key
-        uses: https://github.com/appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: cd services/server && git fetch --all && git reset --hard origin/dev && docker compose pull && docker compose up -d

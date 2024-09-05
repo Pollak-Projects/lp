@@ -12,10 +12,10 @@ jobs:
     steps:
       - name: Clone bare dev branch
         run: git clone --bare https://git.4o1x5.dev/${{ github.repository }} -b master
-      - name: Cd into directory
-        run: cd learningpulse.git
       - name: Mirror to github
-        run: git push --mirror https://nezsha:${{ secrets.MIRROR_USER_PASSWORD }}@github.com/nezsha/lp
+        run: |
+         cd learningpulse.git && \
+         git push --mirror https://nezsha:${{ secrets.MIRROR_USER_PASSWORD }}@github.com/nezsha/lp.git
 
 
 

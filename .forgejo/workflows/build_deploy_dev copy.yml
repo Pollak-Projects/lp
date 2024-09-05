@@ -19,8 +19,8 @@ jobs:
 
       - uses: https://github.com/actions/checkout@v4
         with:
-          repository: 'learningpulse/server'
-          ref: 'dev'
+          repository: 'learningpulse/learningpulse'
+          ref: 'master'
           token: '${{ secrets.token }}'
 
       - name: 'Set up java 22'

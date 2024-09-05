@@ -1,0 +1,47 @@
+name: Feature request
+about: File a feature request to be embedded into the documentation
+title: "[FEATURE]: "
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: What feature would you like to add?
+      description: Describe carefully what you want to add to the documentation. 
+      placeholder: It'd be great if the frontend had....
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: What part of the software does this affect?
+      multiple: true
+      options:
+        - Frontend theme
+        - Frontend quality of life
+        - Frontend functionality
+        - Backend
+        - Authentication
+        - Phone client
+        - Desktop client
+        - Backend quality of life
+        - Technologies
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: other
+    attributes:
+      description: If it's not included in the list above this section then what does this feature affect?
+      label: What other part does this affect?
+      placeholder: Other
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: not-bloat
+    attributes:
+      label: Are you sure this will route us to a brighter future?
+      options:
+        - label: Yes I think this will have an impact for the better
+          required: true

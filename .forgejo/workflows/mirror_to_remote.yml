@@ -1,0 +1,21 @@
+name: Mirror dev branch to remote
+
+on:
+  push:
+    branches: ["dev"]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone bare dev branch
+        run: git clone --bare https://git.4o1x5.dev/${{ github.repository }} -b dev
+      - name: Cd into directory
+        run: cd learningpulse
+      - name: Mirror to github
+        run: git push --mirror https://nezsha:${{ secrets.MIRROR_USER_PASSWORD }}@github.com/nezsha/lp
+
+
+

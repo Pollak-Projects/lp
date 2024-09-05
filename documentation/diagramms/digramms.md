@@ -1,0 +1,26 @@
+```mermaid
+---
+title: Classroom
+---
+
+erDiagram
+    PERSON ||--|| STUDENT : becomes
+    PERSON ||--|| TEACHER : becomes
+    PERSON ||--|| ADMIN : becomes
+
+    TEACHER |o--o{ CLASSROOM : makes
+    TEACHER }o--o{ ASSIGMENT : makes
+    TEACHER ||--o{ "TEACHER-STUDENT CHAT" : "part of"
+
+    ASSIGMENT }o--o{ STUDENT : gets
+
+    CLASSROOM }o--o{ STUDENT : has
+    CLASSROOM ||--|| "TEACHER-STUDENT CHAT" : contains
+
+    TEACHER }o--o{ MATERIALS : makes
+
+    ASSIGMENT ||--o| CHAT : has
+    CHAT ||--|{ STUDENT : "part of"
+
+    STUDENT ||--o{ "TEACHER-STUDENT CHAT" : "part of"
+```

@@ -1,3 +1,4 @@
+```mermaid
 ---
 title: Classroom
 ---
@@ -10,15 +11,27 @@ erDiagram
     TEACHER |o--o{ CLASSROOM : makes
     TEACHER }o--o{ ASSIGMENT : makes
     TEACHER ||--o{ "TEACHER-STUDENT CHAT" : "part of"
+    TEACHER }o--o{ MATERIALS : makes
+    TEACHER ||--|{ ROLES : has
 
     ASSIGMENT }o--o{ STUDENT : gets
 
+    MATERIALS }o--|| ASSIGMENT : contains
+    MATERIALS }|--|| DRIVE : accesses
+
     CLASSROOM }o--o{ STUDENT : has
     CLASSROOM ||--|| "TEACHER-STUDENT CHAT" : contains
-
-    TEACHER }o--o{ MATERIALS : makes
+    CLASSROOM ||--o{ ASSIGMENT : contains
 
     ASSIGMENT ||--o| CHAT : has
     CHAT ||--|{ STUDENT : "part of"
 
     STUDENT ||--o{ "TEACHER-STUDENT CHAT" : "part of"
+    STUDENT ||--o{ ROLES : has
+
+    ADMIN ||--o{ ROLES : creates
+
+    STUDENT ||--|| DRIVE : "uploads to"
+    TEACHER ||--|| DRIVE : "uploads to"
+    ADMIN ||--|| DRIVE : "uploads to"
+```

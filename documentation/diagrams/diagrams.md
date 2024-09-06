@@ -4,34 +4,87 @@ title: Classroom
 ---
 
 erDiagram
-    PERSON ||--|| STUDENT : becomes
-    PERSON ||--|| TEACHER : becomes
-    PERSON ||--|| ADMIN : becomes
+    USER ||--o{ USER_CLASSROOM : "part of"
+    USER_CLASSROOM }o--|| CLASSROOM : allows
+    USER ||--|| STUDENT : is
+    USER ||--|| ADMIN : is
+    USER ||--|| TEACHER : is
 
-    TEACHER |o--o{ CLASSROOM : makes
-    TEACHER }o--o{ ASSIGMENT : makes
-    TEACHER ||--o{ "TEACHER-STUDENT CHAT" : "part of"
-    TEACHER }o--o{ MATERIALS : makes
-    TEACHER ||--|{ ROLES : has
+%%    TEACHER }o--o{ CLASSROOM : creates
+    TEACHER ||--o{ QUIZ : creates
+%%    TEACHER }o--o{ ASSIGMENT : makes
+    ROLES }|--|| TEACHER : has
 
-    ASSIGMENT }o--o{ STUDENT : gets
+    QUIZ ||--|{ QUESTION : contains
 
-    MATERIALS }o--|| ASSIGMENT : contains
-    MATERIALS }|--|| DRIVE : accesses
+%%    STUDENT }o--o{ ASSIGMENT : gets
 
-    CLASSROOM }o--o{ STUDENT : has
-    CLASSROOM ||--|| "TEACHER-STUDENT CHAT" : contains
+    "TEACHER-STUDENT CHAT" ||--|| CLASSROOM : contains
+
+    MATERIAL }o--|| ASSIGMENT : contains
+    DRIVE ||--|{ MATERIAL : accesses
+
+%%    STUDENT }o--o{ CLASSROOM : "part of"
+    "TEACHER-STUDENT CHAT" }o--|| TEACHER : "part of"
     CLASSROOM ||--o{ ASSIGMENT : contains
 
     ASSIGMENT ||--o| CHAT : has
-    CHAT ||--|{ STUDENT : "part of"
+    STUDENT ||--|{ CHAT : "part of"
 
-    STUDENT ||--o{ "TEACHER-STUDENT CHAT" : "part of"
+    STUDENT ||--o{  "TEACHER-STUDENT CHAT" : "part of"
     STUDENT ||--o{ ROLES : has
-
-    ADMIN ||--o{ ROLES : creates
 
     STUDENT ||--|| DRIVE : "uploads to"
     TEACHER ||--|| DRIVE : "uploads to"
+%%    TEACHER }o--o{ MATERIAL : makes
+    ADMIN ||--o{ ROLES : creates
     ADMIN ||--|| DRIVE : "uploads to"
+
+    USER ||--o{ TEACHER_MATERIAL : "part of"
+    TEACHER_MATERIAL }o--|| MATERIAL : allows
+
+    USER ||--o{ USER_ASSIGNMENT : "part of"
+    USER_ASSIGNMENT }o--|| ASSIGMENT : allows
+
+
+%% Connection tables
+    USER_CLASSROOM {
+        uuid userId PK, FK
+        uuid classroomId PK, FK
+    }
+
+    USER_ASSIGNMENT {
+        uuid userId PK, FK
+        uuid assigmentId PK, FK
+    }
+
+    TEACHER_MATERIAL {
+        uuid userId PK, FK
+        uuid materialId PK, FK
+    }
+
+
+%% Definitions of attributes
+    USER {
+        uuid userId PK
+    %% TODO figure out what keycloak gives as an identifier
+        uuid keyCloakId FK
+        enum userType
+        string name
+        string nickname
+        string email
+    }
+
+    TEACHER {
+    %% uuid userId FK
+    }
+
+    CLASSROOM {
+        uuid classroomId PK
+        uuid creatorId FK
+    }
+
+    ASSIGMENT {
+        uuid assigmentId PK, FK
+    }
 ```

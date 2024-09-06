@@ -228,7 +228,7 @@ public Image getImage(URL url, String name) {
 
 ## Testing
 
-Junit will be used to perform tests as it is the most popular testing frameworks for java.
+For the testing we decided on JUnit, as it simply met our standards, making testing on quote: "programmer-friendly". It was designed to test Java and JVM. Also it is one of the most popular and better frameworks for testing Java.
 
 ```java
 public class UserServiceTests {
@@ -243,7 +243,8 @@ public class UserServiceTests {
 
 # Frontend
 
-Documenting the frontend is quite hard, but since there will be state management and complicated classes for managing data it has to be all written down.
+Documenting the frontend of the project can be quite tricky, making our already miserable life even more miserable (joke). We will be working hard on making sure that every important aspect of the frontend is well-documented, and written down.
+
 
 **For methods and classes, JSDoc for typescript is the perfect fit.**
 
@@ -291,7 +292,8 @@ stateDiagram-v2
 
 ## Testing
 
-For testing typescript classes and it's methods [Jest](https://jestjs.io/docs/getting-started) (jestjs) will be used.
+It is also important to test the Javascript part of the project. For that we decided on using [Jest](https://jestjs.io/docs/getting-started) (jestjs) as it's easy and simple to use, as well as it's one of the most popular Javascript frameworks for testing the language. The framework is well-documented (just as we wish our project would be) and it also provides some extra statistics for the ones who need it.
+
 
 Example:
 

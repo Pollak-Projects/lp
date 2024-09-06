@@ -12,6 +12,9 @@ erDiagram
     TEACHER ||--o{ "TEACHER-STUDENT CHAT" : "part of"
     TEACHER }o--o{ MATERIALS : makes
     TEACHER ||--|{ ROLES : has
+    TEACHER ||--o{ QUIZ : makes
+
+    QUIZ ||--|{ QUESTION : contains
 
     ASSIGMENT }o--o{ STUDENT : gets
 

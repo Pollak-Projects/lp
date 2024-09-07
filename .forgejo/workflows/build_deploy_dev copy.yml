@@ -36,11 +36,10 @@ jobs:
         with:
           maven-version: 3.9.6
 
-      - name: Goto server
-        run: cd server
-        
       - name: Build with Maven
-        run: mvn -Dtoken=${{ secrets.token }} clean compile jib:build -e
+        run: |
+          cd server && \
+          mvn -Dtoken=${{ secrets.token }} clean compile jib:build -e 
 
       - name: Cache local Maven repository
         uses: https://github.com/actions/cache/save@v4

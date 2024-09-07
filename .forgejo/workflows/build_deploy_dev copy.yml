@@ -3,6 +3,9 @@ name: Build docker images, publish them, deploy to test server
 on:
   push:
     branches: ["master"]
+    paths:
+      - server/**
+
 
 
 jobs:

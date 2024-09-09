@@ -23,7 +23,7 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          repository: 'learningpulse/learningpulse'
+          repository: 'nezsha/lp'
           ref: 'master'
           token: '${{ secrets.GITHUB_TOKEN }}'
 

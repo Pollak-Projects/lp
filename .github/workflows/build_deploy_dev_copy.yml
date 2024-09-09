@@ -42,7 +42,7 @@ jobs:
 
       - name: Build with Maven
         run: |
-          cd server/gateway && \
+          cd server/gateway/src && \
           mvn -Ddockerusername=${{ secrets.DOCKER_USERNAME }} -Ddockerpassword=${{ secrets.DOCKER_PASSWORD }} -Dtoken=${{ secrets.GITHUB_TOKEN }} clean compile jib:build -e 
 
       - name: Cache local Maven repository

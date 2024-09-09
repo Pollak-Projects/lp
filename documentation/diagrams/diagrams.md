@@ -100,7 +100,12 @@ erDiagram
         uuid assigmentId PK, FK
         uuid containingChatId
         datetime creationDateTime
-
+        %% i have aneurysm
+        enum isGraded
+        int maximumPoints
+        int earnedPoints
+        int numericGradeGiven
+        int percentageGradeGiven
 
     }
 

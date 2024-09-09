@@ -1,11 +1,9 @@
 import "@/styles/globals.css";
-import { Metadata, Viewport } from "next";
-
-
+import { Viewport } from "next";
 
 import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
 
+import { Navbar } from "@/components/navbar";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -21,12 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="en">
-      <head/>
+      <head />
       <body>
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <Navbar />
           <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-
             {children}
           </main>
         </Providers>

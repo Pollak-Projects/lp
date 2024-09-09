@@ -16,7 +16,8 @@ _[go to top](#contents)_
 
 ## Classroom
 
-Upon entering the platform this is the first thing students (end-users) will see. A list of classes where the student is enrolled in. In them, the students will be able to see assginments, comments, posts, and materials uploaded by the teacher.
+
+When the end-users enter the application they will be greeted with a classroom join-prompt. After signing up for a classroom, they will become the students of it. By being a member, they will be able to see all the materials, quizes, and files the teacher (the creator and manager of the classroom) uploads in it. Later, the teacher will be able to give marks on the assignment they gave out by using points. 
 
 ### Assignments
 
@@ -36,59 +37,67 @@ Teachers may submit work papers or any other material that students may need to 
 
 Students may direct message their teachers inside the class. They can ask for help or link any document from their drive/ the classes documents. They may also attach any kind of media file in that chat window
 
+### Marking
+
+Each and every assignment will have an option to be marked as "Graded". With picking this option, the teacher will be able to give points and marks for the students' work, and then grade them. The amount of point the teacher can give out will be entirely dependent on the teacher. After the teacher grades the assignent (or if the assgnment was a quiz, the teacher can even import the points from the completed quizes and set them as the actual points for the grading) the system will give out a percentage and based on that the system will automatically assign a grade for that assignment. Also, the teacher will be able to change the interval the grades are set in.
+
 # Quiz
 
 _[go to top](#contents)_
 
-Teachers can create quizzes that students may fill out. This test is server-side only and students may only know the answer upon finishing it. It can also be disabled by the teacher to prevent cheating
+Teachers can creater quizzes that students may fill out as many times as the teache sets the maximum amount for filling out. The tests are server-side only and students may only know the answer for them upon finishing them. Showing the correct answers after the test can also be disabled by the teacher to prevent cheating. 
 
 ## Question types
 
 - ### Text input
 
-  A basic text input field with a title. A character or word limit can also be set.  
+  A basic text input field with a title for the question. A character or word limit can also be set. 
+
   **Rewarding:**  
   Depends. The teacher may give the field a maximum achievable point that user can see when filling out. Then after the test is sent in teachers may grade accordingly.
 
 - ### Basic select
 
-  A list of radio buttons are show which only one may be selected.  
+  A list of radio buttons are shown where only one may be selected.  
+
   **Rewarding:**  
-  One point
+  One point by default, can be modified by the teacher.
 
 - ### Complex select
 
   A list of checkboxes are show where multiple (or all) can be selected at once.
-  The creator of the quiz may also create limits on the concurrent selections.  
+  The creator of the quiz may also create limits on the concurrent selections. 
+
   **Rewarding:**  
   As many points as many good answers.
 
 - ### Pair match
 
-  An even number of cards are given that can either be an image or text. Or vise versa.  
-  The user has to pair these cards. Order does not matter only if they match.
+  An even or odd number of cards are given that can either be an image or text. Or vise versa. Not every card has to be paired, there can be bonus cards.
+  The user has to pair these cards. The order does not matter only if they match.
+
   **Rewarding:**  
-  One point for each right selected pair.
-
-  #### Rewarding:
-
-  As many points as many good answers.
+  One point for each right selected pair by default, can be modified by the teacher.
 
 - ### Ordering
 
-  A list of text is show, the user has to order them accordingly.
+  A list of cards of texts are shown, the user has to order them from top to bottom, or bottom to top, according to the teacher's instructions.
 
   #### Rewarding:
 
-  One point for every correctly ordered card.
+  One point for every correctly ordered card by default, can be modified by the teacher.
 
 - ### File upload(s)
 
-  A field where users can select file(s) from their own drive and upload.
+  A field where users can select file(s) from their own drive or conputer and upload them to the question.
+
+  Automatic evaluation is not possible with this type of question.
 
   #### Rewarding:
 
-  Depends. The teacher may give the field a maximum achievable point that user can see when filling out. Then after the test is sent in teachers may grade accordingly.
+  Entirely dependent on the teacher's personal evaluation. They will have to decide if the work is adequate of the constrains the teacher has set or not.
+
+
 
 ## Role
 

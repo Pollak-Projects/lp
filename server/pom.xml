@@ -90,9 +90,9 @@
                         </platforms>
                     </from>
                     <to>
-                        <image>git.4o1x5.dev/learningpulse/server/${project.artifactId}:dev</image>
+                        <image>github.com/nezsha/lp/${project.artifactId}:dev</image>
                         <auth>
-                            <username>hydrabot</username>
+                            <username>nezsha</username>
                             <password>${token}</password>
                         </auth>
                     </to>

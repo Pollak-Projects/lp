@@ -32,12 +32,12 @@ erDiagram
     STUDENT ||--|{ CHAT : "part of"
 
     STUDENT ||--o{  "TEACHER-STUDENT MESSAGES" : "part of"
-    STUDENT ||--o{ ROLES : has
 
     STUDENT ||--o{ "PRIVATE-MESSAGE": "part of"
-    TEACHER ||--o{ "PRIVATE-MESSAGE": "part of"
+    STUDENT ||--o{ ROLES : has
 
     STUDENT ||--|| DRIVE : "uploads to"
+    TEACHER ||--o{ "PRIVATE-MESSAGE": "part of"
     TEACHER ||--|| DRIVE : "uploads to"
 %%    TEACHER }o--o{ MATERIAL : makes
     ADMIN ||--o{ ROLES : creates
@@ -82,16 +82,10 @@ erDiagram
         %% active = just like on discord, so the teachers can spy on the students if they're doing their work in class or just scrolling through TikTok
     }
 
-    TEACHER {
-        uuid userId PK, FK
-        uuid roleId FK
-        uuid createdClassroomId
-
-    }
-
     CLASSROOM {
         uuid classroomId PK
         uuid creatorId FK
+        uuid createdByUsedId
         datetime creationDateTime
     }
 
@@ -111,19 +105,6 @@ erDiagram
         text messageText
     }
 
-    ADMIN {
-        uuid userId PK, FK
-        uuid createdRoleId
-        %% the admin creates a role and gets the id back in order to determine which admin created the role. i guess
-    }
-
-    STUDENT {
-        uuid userId PK, FK
-        uuid roleId FK
-
-
-    }
-
     "TEACHER-STUDENT MESSAGES" {
         uuid teacherStudentMessageId PK
         uuid senderId
@@ -133,6 +114,7 @@ erDiagram
 
     ROLES {
         uuid roleId PK
+        uuid createdByUsedId
         datetime creationDateTime
         string roleName
         %% idk about these

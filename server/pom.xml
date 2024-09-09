@@ -90,7 +90,7 @@
                         </platforms>
                     </from>
                     <to>
-                        <image>github.com/nezsha/lp/server/${project.artifactId}:dev</image>
+                        <image>ghcr.io/nezsha/lp/${project.artifactId}:dev</image>
                         <auth>
                             <username>nezsha</username>
                             <password>${token}</password>

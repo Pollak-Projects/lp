@@ -1,14 +1,14 @@
 # LearningPulse software surface level documentation
 
 > **❗ Important!**  
-> This documentation may change in the future.
+> This documentation is subject to change in the future.
 
 # Abstract
 
 _[go to top](#contents)_
 
 Learning Pulse is an innovative learning platform that blends the strength of Redmenta and Google Classroom to create a collaborative educational environment.
-The objective is to provide a comprehensive feature package, aiming to incorporate as many elements as possible while maintaining focus on stability. The feature list includes interactive quizzes, dedicated classrooms and assignments, designated study and file-sharing drives for students, and administrator panels.
+The objective is to provide a comprehensive feature package, aiming to incorporate as many elements as possible while maintaining focus on stability and ease-of-use. LearningPulse features interactive quizzes, dedicated classrooms and assignments, material uploads, designated study and file-sharing drives for students, and administrator panels.
 
 # Feature set
 
@@ -16,13 +16,13 @@ _[go to top](#contents)_
 
 ## Classroom
 
-Upon entering the platform this is the first thing students (end-users) will see. A list of classes where the student is enrolled in. In them, the students will be able to see assginments, comments, posts, and materials uploaded by the teacher.
+When the users enter the application they will be greeted with a classroom join-prompt. After signing up for a classroom, they will become the students of it. By being a member, they will be able to see all the materials, quizes, and files the teacher (the creator and manager of the classroom) uploads in it. Later, the teacher will be able to give marks on the assignment they gave out by using points. Although the maximum points the teacher can give out to one assginment will be entirely dependent on the teacher themself. 
 
 ### Assignments
 
 #### Single
 
-Students are assigned assignments by the teacher in this group which they have to fill out by a certain deadline. They can attach any type of document, file or code from their own drive.
+Students are assigned assignments by the teacher in this classroom which they have to fill out by a certain deadline. They can attach any type of document, file or code from their own drive, or complete the quiz the teacher may give out.
 
 #### Cooperative
 

@@ -1,4 +1,4 @@
-package com.learningpulse.forum;
+package com.learningpulse.classroom;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,20 +15,25 @@ import org.springframework.data.annotation.CreatedDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "forum", schema = "forum")
+@Table(name = "classroom", schema = "classroom")
 /**
  * The forum database entry
  */
-public class Forum implements Serializable {
+public class Classroom implements Serializable {
 
     @Id
     @GeneratedValue
     private UUID id;
+
+    private String name;
 
     @CreatedDate
     private Timestamp createdAt;
 
     /// The code that users can join via
     private String joinCode;
+    private UUID creatorId;
+
+    private java.util.List<UUID> members;
 
 }

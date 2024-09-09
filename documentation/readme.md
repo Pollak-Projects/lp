@@ -1,7 +1,7 @@
 # LearningPulse software surface level documentation
 
 > **❗ Important!**  
-> This documentation is subject to change in the future.
+> This documentation may change in the future.
 
 # Abstract
 
@@ -16,7 +16,7 @@ _[go to top](#contents)_
 
 ## Classroom
 
-When the users enter the application they will be greeted with a classroom join-prompt. After signing up for a classroom, they will become the students of it. By being a member, they will be able to see all the materials, quizes, and files the teacher (the creator and manager of the classroom) uploads in it. Later, the teacher will be able to give marks on the assignment they gave out by using points. Although the maximum points the teacher can give out to one assginment will be entirely dependent on the teacher themself. 
+Upon entering the platform this is the first thing students (end-users) will see. A list of classes where the student is enrolled in. In them, the students will be able to see assginments, comments, posts, and materials uploaded by the teacher.
 
 ### Assignments
 
@@ -94,6 +94,7 @@ Teachers can create quizzes that students may fill out. This test is server-side
 
 Roles like what discord has will be implemented too. Basically administrators can create roles and assign it to members of LearningPulse.  
 Roles will have permissions that provide users with abilities to do certain actions.
+This will be achieved using the OpenId specification.
 
 Examples:  
 `learningpulse.administrator` - Administrator privileges, overwrites all and has permission to do anything  
@@ -114,7 +115,7 @@ The frontend of the project will be built using React as its one of the most pop
 
 ## Themes
 
-The frontend will allow users to select from a curated list of themes, making the application highly customizable, while keeping the ease-of-use at high priority, so our users can feel right at home. These themes will be made using the following css overrides for Bootstrap:
+The frontend will allow users to select from a curated list of themes, making the application highly customizable, while keeping the ease-of-use at high priority, so our users can feel right at home. An example of the few themes LearningPulse will come with.
 
 - [Windows 95](https://github.com/themesberg/windows-95-ui-kit)
 - [Neumorphism](https://demo.themesberg.com/neumorphism-ui/)
@@ -122,9 +123,7 @@ The frontend will allow users to select from a curated list of themes, making th
 
 ## Wireframing
 
-At first wireframing won't be needed since the application has to work first.  
-After the alpha stage is done, wireframing will begin using [Penpot](https://penpot.app/) as it is an open-source and spyware free Figma alternative.  
-Each theme will have to have it's own wireframe.
+Wireframing involves creating a visual guide that represents the skeleton framework of our frontends.
 
 ![](https://opensource.com/sites/default/files/penpot-design.jpg)
 
@@ -145,7 +144,7 @@ And as such, for authentication Keycloak will be used to minimize security holes
 
 ## Data storage
 
-Our objective with data storage was to provide a safe, reliable, and well performing method of storing data, which is not only a must have, but is also one of the elementary requirements for any project - let it be small or big - with more complex data handling. Knowing this, PostgreSQL caught our eye, whlist not only meeting our demands for standards, but also having a strong reputation for itself. 
+Our objective with data storage was to provide a safe, reliable, and well performing method of storing data, which is not only a must have, but is also one of the elementary requirements for any project - let it be small or big - with more complex data handling. Knowing this, PostgreSQL caught our eye, whlist not only meeting our demands for standards, but also having a strong reputation for itself.
 
 We truly think that with this ORDBMS (object-relational database management system), we chose adaquate considering the competition of DBM systems.
 
@@ -245,7 +244,6 @@ public class UserServiceTests {
 
 Documenting the frontend of the project can be quite tricky, making our already miserable life even more miserable (joke). We will be working hard on making sure that every important aspect of the frontend is well-documented, and written down.
 
-
 **For methods and classes, JSDoc for typescript is the perfect fit.**
 
 ```typescript
@@ -294,7 +292,6 @@ stateDiagram-v2
 
 It is also important to test the Javascript part of the project. For that we decided on using [Jest](https://jestjs.io/docs/getting-started) (jestjs) as it's easy and simple to use, as well as it's one of the most popular Javascript frameworks for testing the language. The framework is well-documented (just as we wish our project would be) and it also provides some extra statistics for the ones who need it.
 
-
 Example:
 
 1. Define the test in `tests/test.ts`
@@ -320,29 +317,25 @@ npm test
 
 ## CI _Continuous Integration_
 
-If plans go right, nixos Hydra will be used to compile packages, create docker images and also package source code in zip files.  
-By default the repos (both server and clients) will have a nix flake with `hydraJobs` that describe every step on how to build it.  
-If plans go south, as a backup actions will be used for this process.
+Continuous integration allows us to take development to the next with automated building.
+~~Github~~ forgejo actions will be used to compile a docker images of each service then uploaded to the image registry of our own forgejo instance. This can later co-op with _CD_ to automatically deploy to our test servers and later even production.
 
 ```mermaid
 flowchart LR
     A(Git push)
     A --> B(Build services)
     B --> C(Run tests)
-    C --> D(Deploy to test server)
 ```
 
-## CD _Continuous Deployment_
+## CD _Continuous Delivery_
 
-After hydra build the packages, via actions a system configuration will be compiled and deployed onto a nixos virtual machine running on [4o1x5](https://git.4o1x5.dev/4o1x5.dev)'s nix server.  
-It will we a publicly accessible developer demo for testing.
+After images are built, they need to be deployed to some server for e2e and unit testing. Instead of us going thru all the servers and manually pulling the latest images, docker compose webhooks can be used to trigger the pull.
 
 ```mermaid
 flowchart LR
-    P[Push to dev] -->
-    A[Hydra builds packages]
-    A --> B[Actions issue a remote build to vm]
-    B --> C[VM restarts service]
+    P[Push to master] -->
+    A[Actions build images]
+    A --> B[Actions issue a remote pull for containers]
 ```
 
 ## Git _Version control_
@@ -378,9 +371,9 @@ gitGraph
     merge dev
 ```
 
-## Developer shells _nix_
+## Developer shells using _nix_
 
-For every client and for the backend a developer shell via nix will be included. This insures that all developers in the project have the same version of java, or any other packages formatters required for the project.
+A root `flake.nix` is included with the project to ensure that all of our developers use the same version of java, nodejs and other miscellaneous development tools. Flakes also allow us to easily reproduce the same errors on every type of machine.
 
 # Staging
 

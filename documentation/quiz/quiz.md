@@ -71,6 +71,6 @@ Teachers can creater quizzes that students may fill out as many times as the tea
 
   Entirely dependent on the teacher's personal evaluation. They will have to decide if the work is adequate of the constrains the teacher has set or not.
     #### Implementation
-    I have fucking clue
+    I have no fucking clue
 
 

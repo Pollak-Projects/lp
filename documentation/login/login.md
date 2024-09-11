@@ -7,9 +7,17 @@
 
 [Keycloak docs](https://www.keycloak.org/docs/latest/server_development/#_themes) this is how we can make a custom login page.
 
+---
+
 ### Keycloak with in the backend
 
 [Bealdung](https://www.baeldung.com/spring-boot-keycloak) this may be useful for the backend.
+
+[may come in handy](https://stackoverflow.com/questions/76534031/how-to-integrate-keycloak-into-simple-spring-boot-back-end-with-spring-security)
+
+For the userIds we can ask keycloak directly `String userId = accessToken.getSubject();` or we can save it into the
+`USER`
+table [link](https://stackoverflow.com/questions/66242851/keycloak-to-save-newly-registered-user-into-application-database)
 
 ---
 
@@ -69,3 +77,5 @@ services:
       timeout: 5s
       retries: 20
 ```
+
+

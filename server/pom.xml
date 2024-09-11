@@ -17,7 +17,7 @@
     <modules>
         <module>gateway</module>
         <module>eureka</module>
-        <module>dummy</module>
+        <module>classroom</module>
     </modules>
     <properties>
         <java.version>21</java.version>
@@ -74,10 +74,6 @@
                 <configuration>
                     <from>
                         <image>eclipse-temurin:21-jre</image>
-                        <!-- <auth>
-                            <username>${dockerusername}</username>
-                            <password>${dockerpassword}</password>
-                        </auth> -->
                         <platforms>
                             <platform>
                                 <architecture>amd64</architecture>

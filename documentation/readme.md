@@ -180,6 +180,8 @@ v2.0.0
 
 Documenting software is key to an open-source project like this. Each class, method and implementation will and have to be documented.
 
+Documentation will be approached in a similar fashion as development; it will be vertically segmented instead of horizontally. Each feature or part of the project will be documented at the same time rather than split into the database-backend-frontend model, eg: the `classroom` feature's database-backend-frontend will be thought out in the same timeframe.
+
 ## Server
 
 Javadoc will be used to generate the documentation for each class and their inherited methods and so on.

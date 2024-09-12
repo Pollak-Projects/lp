@@ -1,4 +1,3 @@
-
 erDiagram
 
     User {
@@ -11,7 +10,7 @@ erDiagram
         DateTime createdAt
         uuid assignments FK
         uuid posts FK
-        uuid attachments 
+        uuid attachments
     }
     Classroom ||--o{ User : "contains"
 
@@ -34,7 +33,7 @@ erDiagram
         DateTime createdAt
         uuid files FK
     }
-  
+
     Classroom ||--o{ Post : "contains"
     Post ||--o{ File : "contains"
     Post ||--o{ User : "contains"
@@ -42,18 +41,18 @@ erDiagram
     Post {
         uuid id PK
         string title
-        string contents 
+        string contents
         uuid createdBy
         DateTime createdAt
         uuid ClassroomId FK
-        uuid attachments 
+        uuid attachments
     }
 
     File ||--o{ User : "contains"
     File {
         uuid id PK
         string name
-        string mimetype 
+        string mimetype
         DateTime createdAt
         uuid Classroom FK
         uuid owner

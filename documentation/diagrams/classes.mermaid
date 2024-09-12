@@ -1,0 +1,36 @@
+classDiagram
+
+    class Classroom{
+      +uuid id
+      +String name
+      +User createdBy
+      +DateTime createdAt
+      +List<Assignment> assignments
+      +List<Post> posts
+      +List<Attachment> attachements
+      
+      +getId*()
+      +getName*()
+      +getCreatedBy*()
+      +getCreatedAt*()
+      +getAssignments*()
+      +getPosts*()
+      +getAttachments*()
+    }
+
+    class Post{
+      +uuid Id
+      +String Title
+      +String contents
+      +User createdBy
+      +DateTime createdAt
+      +uuid classroomId
+      +List<Attachment> attachements
+
+      -getId()
+      -getTitle()
+      -getContents()
+      -getCreatedBy()
+      -getClassroomId()
+      -getAttachments()
+    }

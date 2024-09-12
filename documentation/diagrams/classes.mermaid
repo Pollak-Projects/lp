@@ -5,9 +5,10 @@ classDiagram
       +String name
       +User createdBy
       +DateTime createdAt
-      +List<Assignment> assignments
+      +List.Assignment assignments
       +List<Post> posts
-      +List<Attachment> attachements
+      +List<Attachment> attachments
+
       
       +getId*()
       +getName*()
@@ -16,6 +17,7 @@ classDiagram
       +getAssignments*()
       +getPosts*()
       +getAttachments*()
+      +getMembers*()
     }
 
     class Post{
@@ -25,7 +27,7 @@ classDiagram
       +User createdBy
       +DateTime createdAt
       +uuid classroomId
-      +List<Attachment> attachements
+      +List<Attachment> attachments
 
       -getId()
       -getTitle()

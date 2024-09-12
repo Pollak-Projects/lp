@@ -6,6 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.UUID;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -34,6 +35,9 @@ public class Classroom implements Serializable {
     private String joinCode;
     private UUID creatorId;
 
-    private java.util.List<UUID> members;
+    /// Subject id of users
+    private List<UUID> members;
+    /// UUID of tests attached to this classroom
+    private List<UUID> tests;
 
 }

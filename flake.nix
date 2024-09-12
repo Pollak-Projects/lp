@@ -16,8 +16,11 @@
           maven
           jdk22
           jre8
-          # top run actions locally
-          act
+          nodejs
+          nodePackages.pnpm
+          nodePackages.typescript
+          nodePackages.typescript-language-server
+
         ];
       };
     };

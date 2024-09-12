@@ -1,0 +1,162 @@
+
+erDiagram
+
+    User {
+        uuid subjectId PK
+    }
+    Classroom {
+        uuid id PK
+        string name
+        uuid createdBy
+        DateTime createdAt
+        uuid assignments FK
+        uuid posts FK
+        uuid attachments 
+    }
+    Classroom ||--o{ User : "contains"
+
+    Classroom ||--o{ Classroom_MEMBERS : "creates"
+    Classroom_MEMBERS ||--o{ User : "contains"
+
+    Classroom_MEMBERS {
+        uuid userId PK
+        uuid ClassroomId FK
+    }
+
+    Classroom ||--o{ Assignment : "contains"
+    Assignment ||--o{ File : "contains"
+    Assignment ||--o{ User : "contains"
+    Assignment {
+        uuid id PK
+        string name
+        uuid createdBy
+        uuid ClassroomId FK
+        DateTime createdAt
+        uuid files FK
+    }
+  
+    Classroom ||--o{ Post : "contains"
+    Post ||--o{ File : "contains"
+    Post ||--o{ User : "contains"
+
+    Post {
+        uuid id PK
+        string title
+        string contents 
+        uuid createdBy
+        DateTime createdAt
+        uuid ClassroomId FK
+        uuid attachments 
+    }
+
+    File ||--o{ User : "contains"
+    File {
+        uuid id PK
+        string name
+        string mimetype 
+        DateTime createdAt
+        uuid Classroom FK
+        uuid owner
+        uuid sharedWith
+        string key
+    }
+
+    Chat ||--o{ CHAT_MEMBERS : "creates"
+    Chat ||--o{ User : "contains"
+
+    Chat {
+        uuid id PK
+        string name
+        datetime createdAt
+        uuid createdBy FK
+    }
+
+    CHAT_MEMBERS ||--o{ User : "contains"
+    CHAT_MEMBERS {
+        uuid chatId FK
+        uuid userId FK
+    }
+
+
+    QUIZ ||--|{  QUESTION_TEXT : contains
+    QUESTION_TEXT {
+        uuid id PK
+        uuid quizId FK
+        string title
+        string answer
+    }
+
+    QUIZ ||--|{  QUESTION_RADIO : contains
+    QUESTION_RADIO {
+        uuid id PK
+        uuid quizId FK
+        string title
+    }
+    QUESTION_RADIO ||--|{  QUESTION_RADIO_OPTIONS : contains
+    QUESTION_RADIO_OPTIONS {
+        uuid id PK
+        uuid radioId FK
+        string title
+        bool answer
+    }
+
+    QUIZ ||--|{  QUESTION_CHECKBOX : contains
+    QUESTION_CHECKBOX {
+        uuid id PK
+        uuid quizId FK
+        string title
+    }
+    QUESTION_CHECKBOX ||--|{  QUESTION_CHECKBOX_OPTIONS : contains
+    QUESTION_CHECKBOX_OPTIONS {
+        uuid id PK
+        uuid quizId FK
+        string name
+        bool answer
+    }
+
+    QUIZ ||--|{  QUESTION_PAIRS : contains
+    QUESTION_PAIRS {
+        uuid id PK
+        uuid quizId FK
+        string title
+    }
+
+    QUIZ ||--|{  QUESTION_PAIRS : contains
+    QUESTION_PAIRS ||--|{  QUESTION_PAIRS_PAIR : contains
+    "QUESTION_PAIRS_PAIR" {
+        uuid id PK
+        uuid questionPairId FK
+        jsonb leftPair
+        jsonb rightPair
+    }
+
+    QUIZ ||--|{  QUESTION_ORDER : contains
+    "QUESTION_ORDER" {
+        uuid id PK
+        uuid quizId FK
+        string title
+    }
+    QUESTION_ORDER ||--|{  QUESTION_ORDER_OPTIONS : contains
+    QUESTION_ORDER_OPTIONS {
+        uuid id PK
+        uuid orderId FK
+        string title
+        int place "1...3"
+    }
+
+    QUIZ ||--|{  QUESTION_FILE : contains
+    QUESTION_FILE ||--|{  File : contains
+    QUESTION_FILE {
+        uuid id PK
+        uuid quizId FK
+        string title
+        uuid fileId FK
+    }
+
+    QUIZ ||--o{ User : "contains"
+    QUIZ {
+        uuid id PK
+        string name
+        uuid createdBy FK
+        datetime createdAt
+    }

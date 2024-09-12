@@ -63,7 +63,7 @@ erDiagram
 
     Chat ||--o{ CHAT_MEMBERS : "creates"
     Chat ||--o{ User : "contains"
-
+    Chat ||--o{ CHAT_MESSAGES : "contains"
     Chat {
         uuid id PK
         string name
@@ -76,6 +76,22 @@ erDiagram
         uuid chatId FK
         uuid userId FK
     }
+    CHAT_MESSAGES {
+        uuid id
+        uuid sentBy
+        uuid sentTo
+        uuid contents
+        datetime sentAt
+    }
+    CHAT_MESSAGES ||--o{ CHAT_MESSAGE_ATTACHMENTS : "contains"
+    CHAT_MESSAGE_ATTACHMENTS ||--o{ File : "contains"
+
+    CHAT_MESSAGE_ATTACHMENTS {
+        uuid messageId
+        uuid fileId
+
+    }
+
 
 
     QUIZ ||--|{  QUESTION_TEXT : contains

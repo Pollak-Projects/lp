@@ -5,7 +5,7 @@ classDiagram
       +String name
       +User createdBy
       +DateTime createdAt
-      +List.Assignment assignments
+      +List<Assignment> assignments
       +List<Post> posts
       +List<Attachment> attachments
 
@@ -31,8 +31,17 @@ classDiagram
 
       -getId()
       -getTitle()
-      -getContents()
+      -getContents()1
       -getCreatedBy()
       -getClassroomId()
       -getAttachments()
+    }
+
+    class Assignment {
+        +uuid id
+        +string name
+        +uuid createdBy
+        +uuid classroomId
+        +dateTime createdAt
+        +List<File> files
     }

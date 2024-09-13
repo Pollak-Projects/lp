@@ -1,13 +1,17 @@
+%% https://creately.com/guides/class-diagram-relationships/ good reference for the types of arrows
 classDiagram
+    Classroom "1" o-- "*" Post
+    Classroom "1" o-- "*" Assignment
+
 
     class Classroom{
       +uuid id
       +String name
       +User createdBy
       +DateTime createdAt
-      +List<Assignment> assignments
-      +List<Post> posts
-      +List<Attachment> attachments
+      +List~Assignment~ assignments
+      +List~Post~ posts
+      +List~Attachment~ attachments
 
       
       +getId*()
@@ -22,16 +26,16 @@ classDiagram
 
     class Post{
       +uuid Id
-      +String Title
+      +String title
       +String contents
       +User createdBy
       +DateTime createdAt
       +uuid classroomId
-      +List<Attachment> attachments
+      +List~Attachment~ attachments
 
       -getId()
       -getTitle()
-      -getContents()1
+      -getContents()
       -getCreatedBy()
       -getClassroomId()
       -getAttachments()
@@ -39,9 +43,20 @@ classDiagram
 
     class Assignment {
         +uuid id
-        +string name
+        +String name
+        +String contents
         +uuid createdBy
         +uuid classroomId
         +dateTime createdAt
-        +List<File> files
+        +List~File~ files
+        +List~string~ links
+
+        -getId()uuid
+        -getContents() String
+        -getCreatedBy() uuid
+        -getCreatedByUsername() String
+        -getClassroomId() uuid
+        -getClassroomName() String
+        -getCreatedAt() dateTime
+        -getFiles() List~File~
     }

@@ -26,7 +26,7 @@
         Classroom_MEMBERS ||--o{ User : contains
         Classroom_MEMBERS {
             uuid userId PK
-            uuid ClassroomId FK
+            uuid classroomId FK
         }
 
 
@@ -67,7 +67,7 @@
             string contents
             uuid createdBy
             DateTime createdAt
-            uuid ClassroomId FK
+            uuid classroomId FK
             uuid attachments
         }
 
@@ -81,24 +81,12 @@
             string name
             string mimetype
             DateTime createdAt
-            uuid Classroom FK
+            uuid classroom FK
             uuid owner
             uuid sharedWith
             string key
             bool systemFile
         }
-
-
-        %% URL
-
-        Post ||--o{ Url : contains
-        Assignment ||--o{ Url : contains
-        Url {
-            uuid id PK
-            string url
-            string title
-        }
-
 
         %% CHAT
 
@@ -123,7 +111,7 @@
             uuid id
             uuid sentBy
             uuid sentTo
-            uuid contents
+            string contents
             datetime sentAt
         }
 

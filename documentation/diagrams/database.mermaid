@@ -6,9 +6,9 @@
         }
   
 
-        %% 
+
         %% CLASSROOM
-        %% 
+
         Classroom {
             uuid id PK
             string name
@@ -30,9 +30,8 @@
         }
 
 
-        %% 
         %% ASSIGNMENT
-        %% 
+
         Classroom ||--o{ Assignment : contains
         Assignment ||--o{ File : contains
         Assignment ||--o{ User : contains
@@ -45,14 +44,14 @@
             DateTime createdAt
             uuid files FK
         }
-        User ||--o{  SUBMITTED_ASIGNMENT : creates
-        SUBMITTED_ASIGNMENT {
+        User ||--o{  SUBMITTED_ASSIGNMENT : creates
+        SUBMITTED_ASSIGNMENT {
             uuid assignmentId
             uuid userId
             datetime submittedAt
         }
-        SUBMITTED_ASIGNMENT_ATTACHMENTS ||--o{ SUBMITTED_ASIGNMENT : contains
-        SUBMITTED_ASIGNMENT_ATTACHMENTS {
+        SUBMITTED_ASSIGNMENT_ATTACHMENTS ||--o{ SUBMITTED_ASSIGNMENT : contains
+        SUBMITTED_ASSIGNMENT_ATTACHMENTS {
             uuid submittedAssignmentId FK
             uuid fileId FK
         }
@@ -60,6 +59,7 @@
         Classroom ||--o{ Post : contains
         Post ||--o{ File : contains
         Post ||--o{ User : contains
+
 
         Post {
             uuid id PK
@@ -72,9 +72,9 @@
         }
 
 
-        %% 
+
         %% FILE
-        %% 
+
         File ||--o{ User : contains
         File {
             uuid id PK
@@ -88,9 +88,20 @@
             bool systemFile
         }
 
-        %% 
+
+        %% URL
+
+        Post ||--o{ Url : contains
+        Assignment ||--o{ Url : contains
+        Url {
+            uuid id PK
+            string url
+            string title
+        }
+
+
         %% CHAT
-        %% 
+
         Chat ||--o{ CHAT_MEMBERS : creates
         Chat ||--o{ User : contains
         User ||--o{ Chat : creates
@@ -125,9 +136,9 @@
         }
 
 
-        %% 
+
         %% QUESTIONS/QUIZ
-        %% 
+
         QUIZ ||--|{  QUESTION_TEXT : contains
         QUESTION_TEXT {
             uuid id PK

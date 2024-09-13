@@ -1,62 +1,187 @@
 %% https://creately.com/guides/class-diagram-relationships/ good reference for the types of arrows
 classDiagram
-    Classroom "1" o-- "*" Post
-    Classroom "1" o-- "*" Assignment
 
-
+    %% CLASSROOM
+    Classroom "1" *-- "*" Post
+    Classroom "1" *-- "*" Assignment
     class Classroom{
-      +uuid id
-      +String name
-      +User createdBy
-      +DateTime createdAt
-      +List~Assignment~ assignments
-      +List~Post~ posts
-      +List~Attachment~ attachments
+      -uuid id
+      -String name
+      -User createdBy   
+      -DateTime createdAt
+      -List~Assignment~ assignments
+      -List~Post~ posts
+      %% Mate please explain why is this here
+      -List~Attachment~ attachments
 
-      
-      +getId*()
-      +getName*()
-      +getCreatedBy*()
-      +getCreatedAt*()
-      +getAssignments*()
-      +getPosts*()
-      +getAttachments*()
-      +getMembers*()
+      +~~Create~~ Classroom(\n name: String,\n createdBy: User)
+      +getId() uuid
+      +getName() String
+      +getCreatedBy() User
+      +getCreatedAt() DateTime
+      +getAssignments() List~Assignment~
+      +getPosts() List~Post~
+
+      +getMembers() List~User~
+
+      +setName() void
+
+      +addAssignment() Assignment
+      +addPost() Post
+
+      +removeAssignment() void
+      +removePost() void
+
     }
 
+    %% POST
+    Post "1" o-- "*" File
     class Post{
-      +uuid Id
-      +String title
-      +String contents
-      +User createdBy
-      +DateTime createdAt
-      +uuid classroomId
-      +List~Attachment~ attachments
+      -uuid Id
+      -String title
+      -String contents
+      -User createdBy
+      -DateTime createdAt
+      -Classroom classroom
+      -List~File~ attachments
 
-      -getId()
-      -getTitle()
-      -getContents()
-      -getCreatedBy()
-      -getClassroomId()
-      -getAttachments()
+      +~~Create~~ Classroom(\n title: String,\n contents: String, \n createdBy: uuid, \n createdBy: User, \n attachments: List~File~)
+      +getId() uuid
+      +getTitle() String
+      +getContents() String
+      +getCreatedBy() User
+      +getClassroom() Classroom
+      +getAttachments() List~File~
+
+      +setTitle() void
+      +setContents() void
+      +setAttachments() void
     }
 
+    %% ASSIGNMENT
+    Assignment "1" o-- "*" File
     class Assignment {
-        +uuid id
-        +String name
-        +String contents
-        +uuid createdBy
-        +uuid classroomId
-        +dateTime createdAt
-        +List~File~ files
-        +List~string~ links
+        -uuid id
+        -String name
+        -String contents
+        -User createdBy
+        -dateTime createdAt
+        -List~File~ files
 
-        -getId()uuid
-        -getContents() String
-        -getCreatedBy() uuid
-        -getCreatedByUsername() String
-        -getClassroomId() uuid
-        -getClassroomName() String
-        -getCreatedAt() dateTime
-        -getFiles() List~File~
+        +~~Create~~ Assignment(\n name: String, \n contents: String, \n createdBy: User, \n files: List~File~)
+        +getId() uuid
+        +getContents() String
+        +getCreatedBy() User
+        +getCreatedAt() dateTime
+        +getFiles() List~File~
+        +getCreatedByUsername() String
+        +getClassroomName() String
+
+        +setName() void
+        +setContents() void
+        +setFiles() void
+    }
+
+    %% USER
+    User "0..*" -- "0..*" User
+    User "1" --> "*" File
+    User "1" --> "*" Post
+    User "1" --> "*" Classroom
+    User "1" --> "*" Assignment
+    User "1" --> "1" ChatMembers
+    User "1" --> "*" Chat
+    User "1" --> "*" ChatMessages
+    class User {
+        -uuid subjectId
+        -File profilePicture
+        -enum role
+
+        +getSubjectId() uuid
+        +getProfilePicture() File
+        +getRole() enum
+        +uploadProfilePicture() void
+    }
+
+    %% FILE
+    class File {
+        -uuid id
+        -String name
+        -String mimeType
+        -DateTime createdAt
+        -Classroom classroom
+        -User owner
+        -List~User~ sharedWith
+        -string key
+        -bool systemFile
+
+        +~~Create~~ File(\n name: String, \n mimeType: String, \n Classroom: classroom, \n owner: User, \n sharedWith: List~User~, \n key: string, \n systemFile: bool)
+        +getId() uuid
+        +getName() String
+        +getMimeType() String
+        +getCreatedAt() DateTime
+        +getClassroom() Classroom
+        +getOwner() User
+        +getSharedWith() List~User~
+        +getKey() string
+        +isSystemFile() bool
+
+        +setName(string name) void
+        +addToSharedWith(List~User~) void
+
+    }
+
+    %% CHAT
+    Chat "1" *-- "*" ChatMembers
+    Chat "1" *-- "*" ChatMessages
+    class Chat {
+        -uuid id
+        -String name
+        -DateTime createdAt
+        -User createdBy
+        -List~ChatMembers~ members
+        -List~ChatMessages~ messages
+
+        +getId() uuid
+        +getName() String
+        +getCreatedAt() DateTime
+        +getCreatedBy() User
+        +getMembers() List~ChatMembers~
+        +getMessages() List~ChatMessages~
+    }
+
+    %% CHAT MEMBERS
+    class ChatMembers {
+        -uuid id
+        -User user
+
+        +getId() uuid
+        +getUser() User
+    }
+
+    %% CHAT MESSAGES
+    ChatMessages "1" *-- "*" ChatMessageAttachments
+    class ChatMessages {
+        -uuid id
+        -DateTime createdAt
+        -User createdBy
+        -String contents
+        -DateTime sentAt
+        -List~ChatMessageAttachments~ attachments
+
+        +getId() uuid
+        +getCreatedAt() DateTime
+        +getCreatedBy() User
+        +getContents() String
+        +getSentAt() DateTime
+        +getAttachments() List~ChatMessageAttachments~
+    }
+
+    %% CHAT MESSAGE ATTACHMENTS
+    ChatMessageAttachments "1" o-- "*" File
+    class ChatMessageAttachments {
+        -uuid id
+        -File fileId
+
+        +getId() uuid
+        +getFileId() File
     }

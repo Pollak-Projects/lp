@@ -86,9 +86,9 @@
                         </platforms>
                     </from>
                     <to>
-                        <image>ghcr.io/nezsha/lp/${project.artifactId}:dev</image>
+                        <image>ghcr.io/pollak-projects/lp/${project.artifactId}:dev</image>
                         <auth>
-                            <username>nezsha</username>
+                            <username>pollak-projects</username>
                             <password>${token}</password>
                         </auth>
                     </to>

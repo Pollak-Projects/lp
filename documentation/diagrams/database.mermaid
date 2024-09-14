@@ -12,7 +12,7 @@
         Classroom {
             uuid id PK
             string name
-            uuid createdBy
+            uuid createdBy FK
             DateTime createdAt
             uuid chatId FK
         }
@@ -43,17 +43,6 @@
             uuid belongTo FK
             uuid createdBy FK
         }
-
-        CLASSROOM_POSTS ||--o{ Classroom : contains 
-        CLASSROOM_POSTS ||--o{ User : contains 
-        CLASSROOM_POSTS ||--o{ Post : contains 
-        User ||--o{ CLASSROOM_POSTS : creates 
-        CLASSROOM_POSTS {
-            uuid postId FK
-            uuid belongTo FK
-            uuid createdBy FK
-        }
-
 
 
 
@@ -103,10 +92,12 @@
         Post {
             uuid id PK
             string title
+            %% markdown contents
             string contents
             uuid createdBy
             DateTime createdAt
-            uuid ClassroomId FK
+            %% which classroom does the post belong to
+            uuid belongsTo FK
             uuid attachments
         }
 
@@ -320,6 +311,10 @@
             string name
             uuid createdBy FK
             datetime createdAt
+            datetime deadline
+            %% whether the user can view the results after they have submitted it
+            %% false = only can view if everyone has finished i t
+            bool viewAfterSubmittion
         }
         %% TODO comments for post
         %% TODO groups for assignments

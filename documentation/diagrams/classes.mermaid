@@ -5,57 +5,58 @@ classDiagram
     Classroom "1" *-- "*" Post
     Classroom "1" *-- "*" Assignment
     class Classroom{
-      -uuid id
-      -String name
-      -User createdBy   
-      -DateTime createdAt
-      -List~Assignment~ assignments
-      -List~Post~ posts
-      %% Mate please explain why is this here
-      -List~Attachment~ attachments
+        -uuid id
+        -String name
+        -User createdBy
+        -DateTime createdAt
+        -List~Assignment~ assignments
+        -List~Post~ posts
+        %% Mate please explain why is this here
+        -List~Attachment~ attachments
 
-      +~~Create~~ Classroom(\n name: String,\n createdBy: User)
-      +getId() uuid
-      +getName() String
-      +getCreatedBy() User
-      +getCreatedAt() DateTime
-      +getAssignments() List~Assignment~
-      +getPosts() List~Post~
+        +~~Create~~ Classroom(\n name: String,\n createdBy: User)
+        +getId() uuid
+        +getName() String
+        +getCreatedBy() User
+        +getCreatedAt() DateTime
+        +getAssignments() List~Assignment~
+        +getPosts() List~Post~
 
-      +getMembers() List~User~
+        +getMembers() List~User~
 
-      +setName() void
+        +setName(string name) void
 
-      +addAssignment() Assignment
-      +addPost() Post
+        +removeAssignment(uuid assignmentId) void
+        +removePost(uuid PostId) void
 
-      +removeAssignment() void
-      +removePost() void
-
+        +addAssignment(Assignment assignment) void
+        +addPost(Post post) void
     }
 
     %% POST
     Post "1" o-- "*" File
     class Post{
-      -uuid Id
-      -String title
-      -String contents
-      -User createdBy
-      -DateTime createdAt
-      -Classroom classroom
-      -List~File~ attachments
+        -uuid Id
+        -String title
+        -String contents
+        -User createdBy
+        -DateTime createdAt
+        -Classroom classroom
+        -List~File~ attachments
 
-      +~~Create~~ Classroom(\n title: String,\n contents: String, \n createdBy: uuid, \n createdBy: User, \n attachments: List~File~)
-      +getId() uuid
-      +getTitle() String
-      +getContents() String
-      +getCreatedBy() User
-      +getClassroom() Classroom
-      +getAttachments() List~File~
+        +~~Create~~ Classroom(\n title: String,\n contents: String, \n createdBy: String, \n createdBy: User, \n attachments: List~File~)
+        +getId() uuid
+        +getTitle() String
+        +getContents() String
+        +getCreatedBy() User
+        +getClassroom() Classroom
+        +getAttachments() List~File~
 
-      +setTitle() void
-      +setContents() void
-      +setAttachments() void
+        +setTitle(string title) void
+        +setContents(string contents) void
+        +setAttachments(List~File~ attachments) void
+
+        +addAttachments(File attachments) void
     }
 
     %% ASSIGNMENT
@@ -77,20 +78,40 @@ classDiagram
         +getCreatedByUsername() String
         +getClassroomName() String
 
-        +setName() void
-        +setContents() void
-        +setFiles() void
+        +setName(string name) void
+        +setContents(string contents) void
+        +setFiles(List~File~ files) void
+
+        +addFile(File file) void
+    }
+
+    class SubmittedAssignment {
+        -uuid id
+        -Assignment assignment
+        -User submittedBy
+        -DateTime submittedAt
+        -List~File~ files
+
+        +~~Create~~ SubmittedAssignment(\n assignment: Assignment, \n submittedBy: User, \n submittedAt: DateTime, \n files: List~File~)
+        +getId() uuid
+        +getAssignment() Assignment
+        +getSubmittedBy() User
+        +getSubmittedAt() DateTime
+        +getFiles() List~File~
+
+        +setFiles(List~File~ files) void
     }
 
     %% USER
+    User "1" --> "*" Quiz
     User "0..*" -- "0..*" User
     User "1" --> "*" File
     User "1" --> "*" Post
     User "1" --> "*" Classroom
     User "1" --> "*" Assignment
-    User "1" --> "1" ChatMembers
+    User "1" --> "1" ChatMember
     User "1" --> "*" Chat
-    User "1" --> "*" ChatMessages
+    User "1" --> "*" ChatMessage
     class User {
         -uuid subjectId
         -File profilePicture
@@ -99,7 +120,37 @@ classDiagram
         +getSubjectId() uuid
         +getProfilePicture() File
         +getRole() enum
-        +uploadProfilePicture() void
+
+        +setRole(enum role) void
+        +setProfilePicture(File profilePicture) void
+    }
+
+    %% This class is responsible for the submissions of the assignments,
+    %% and all the different types of answers, by a specific user
+    Submission <|.. AssignmentSubmission
+    Submission <|.. QuestionSubmission
+    class Submission {
+        <<interface>>
+        -User submittedBy
+        -DateTime submittedAt
+
+    }
+
+    class AssignmentSubmission {
+        -Assignment assignment
+
+        +createSubmittedAssignment() SubmittedAssignment
+    }
+
+    class QuestionSubmission {
+        -List~Questions~A
+
+        +createQuestionPairAnswer() QuestionPairAnswer
+        +createQuestionFileAnswer() QuestionFileAnswer
+        +createQuestionOrderAnswer() QuestionOrderAnswer
+        +createQuestionCheckboxAnswer() QuestionCheckboxAnswer
+        +createRadioAnswer() RadioAnswer
+        +createTextAnswer() TextAnswer
     }
 
     %% FILE
@@ -126,62 +177,155 @@ classDiagram
         +isSystemFile() bool
 
         +setName(string name) void
-        +addToSharedWith(List~User~) void
+        +setSharedWith(List~User~ sharedWith) void
 
+        +addToSharedWith(List~User~) void
+        +addToSharedWith(User) void
     }
 
     %% CHAT
-    Chat "1" *-- "*" ChatMembers
-    Chat "1" *-- "*" ChatMessages
+    Chat "1" *-- "*" ChatMember
+    Chat "1" *-- "*" ChatMessage
     class Chat {
         -uuid id
         -String name
         -DateTime createdAt
         -User createdBy
-        -List~ChatMembers~ members
-        -List~ChatMessages~ messages
+        -List~ChatMember~ members
+        -List~ChatMessage~ messages
 
+        +~~Create~~ Chat(\n name: String, \n createdBy: User, \n members: List~ChatMember~, \n messages: List~ChatMessage~)
         +getId() uuid
         +getName() String
         +getCreatedAt() DateTime
         +getCreatedBy() User
-        +getMembers() List~ChatMembers~
-        +getMessages() List~ChatMessages~
+        +getMembers() List~ChatMember~
+        +getMessages() List~ChatMessage~
+
+        +setName(string name) void
+        +setMembers(List~ChatMember~ members) void
+        +setMessages(List~ChatMessage~ messages) void
+
+        +addMember(ChatMember member) void
+        +addMessage(ChatMessage message) void
     }
 
-    %% CHAT MEMBERS
-    class ChatMembers {
+    %% CHAT MEMBER
+    class ChatMember {
         -uuid id
         -User user
+        -List~QuestionOrderAnswer~ questionOrderAnswers
 
+        +~~Create~~ ChatMember(\n user: User)
         +getId() uuid
         +getUser() User
+
+        +setUser(User user) void
     }
 
-    %% CHAT MESSAGES
-    ChatMessages "1" *-- "*" ChatMessageAttachments
-    class ChatMessages {
+    %% CHAT MESSAGE
+    ChatMessage "1" *-- "*" ChatMessageAttachment
+    class ChatMessage {
         -uuid id
         -DateTime createdAt
         -User createdBy
         -String contents
         -DateTime sentAt
-        -List~ChatMessageAttachments~ attachments
+        -List~ChatMessageAttachment~ attachments
 
+        +~~Create~~ ChatMessage(\n createdBy: User, \n contents: String, \n attachments: List~ChatMessageAttachment~)
         +getId() uuid
         +getCreatedAt() DateTime
         +getCreatedBy() User
         +getContents() String
         +getSentAt() DateTime
-        +getAttachments() List~ChatMessageAttachments~
+        +getAttachments() List~ChatMessageAttachment~
+
+        +setContents(string contents) void
+        +setAttachments(List~ChatMessageAttachment~ attachments) void
+
+        +addAttachment(ChatMessageAttachment attachment) void
     }
 
-    %% CHAT MESSAGE ATTACHMENTS
-    ChatMessageAttachments "1" o-- "*" File
-    class ChatMessageAttachments {
+    %% CHAT MESSAGE ATTACHMENT
+    ChatMessageAttachment "1" o-- "*" File
+    class ChatMessageAttachment {
         -uuid id
-        -File fileId
+        -File file
 
+        +~~Create~~ ChatMessageAttachment(\n file: File)
         +getId() uuid
-        +getFileId() File
+        +getFile() File
+    }
+
+    %% QUIZ
+    Quiz "1" *-- "*" Question
+    class Quiz {
+        -uuid id
+        -String name
+        -uuid createdBy
+        -DateTime createdAt
+        -List~Question~ questions
+    }
+
+    %% QUESTION
+    Question <|-- QuestionPair
+    Question <|-- QuestionFile
+    Question <|-- QuestionOrder
+    Question <|-- QuestionCheckbox
+    Question <|-- QuestionRadio
+    Question <|-- QuestionText
+    class Question {
+        -uuid id
+        -String title
+    }
+
+    class QuestionPair {
+        -String contents
+        -List~List~Map~String-String~~~ questionPairs
+    }
+
+    class QuestionFile {
+        -String contents
+        -File file
+    }
+
+    QuestionOrder "1" *-- "*" QuestionOrderOption
+    class QuestionOrder {
+        %% This will be sorted by the QUESTION-ORDER-OPTIONS table's column
+        -List~QuestionOrderOptions~ options
+    }
+
+    class QuestionOrderOption {
+        -uuid id
+        -String title
+        -int place
+    }
+
+    QuestionCheckbox "1" *-- "*" QuestionCheckboxOption
+    class QuestionCheckbox {
+        -List~QuestionCheckboxOption~ options
+    }
+
+    class QuestionCheckboxOption {
+        -uuid id
+        -String name
+        -bool answer
+    }
+
+    QuestionRadio "1" *-- "*" QuestionRadioOption
+    class QuestionRadio {
+        -List~QuestionRadioOption~ options
+    }
+
+    class QuestionRadioOption {
+        -uuid id
+        -String title
+        -bool answer
+    }
+
+    class QuestionText {
+        -uuid id
+        -String title
+        -String answer
     }

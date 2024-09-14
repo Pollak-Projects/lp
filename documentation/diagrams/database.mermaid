@@ -6,19 +6,17 @@
         }
   
 
-
+        %% 
         %% CLASSROOM
-
+        %% 
         Classroom {
             uuid id PK
             string name
             uuid createdBy
             DateTime createdAt
-            uuid assignments FK
-            uuid posts FK
             uuid chatId FK
-            uuid attachments
         }
+
         Classroom ||--o{ User : contains
         User ||--o{ Classroom : creates
         Classroom ||--o{ Classroom_MEMBERS : creates
@@ -26,12 +24,42 @@
         Classroom_MEMBERS ||--o{ User : contains
         Classroom_MEMBERS {
             uuid userId PK
+            uuid ClassroomId FK
+        }
+        CLASSROOM_ATTACHMENTS ||--o{ Classroom : contains
+        CLASSROOM_ATTACHMENTS {
+            uuid fileId fk
             uuid classroomId FK
+            datetime attachedAt
+            %% topic?
+            string topic
+        }
+        CLASSROOM_ASSIGNMENTS ||--o{ Classroom : contains 
+        CLASSROOM_ASSIGNMENTS ||--o{ User : contains 
+        CLASSROOM_ASSIGNMENTS ||--o{ Assignment : contains 
+        User ||--o{ CLASSROOM_ASSIGNMENTS : creates 
+        CLASSROOM_ASSIGNMENTS {
+            uuid assignmentId FK
+            uuid belongTo FK
+            uuid createdBy FK
+        }
+
+        CLASSROOM_POSTS ||--o{ Classroom : contains 
+        CLASSROOM_POSTS ||--o{ User : contains 
+        CLASSROOM_POSTS ||--o{ Post : contains 
+        User ||--o{ CLASSROOM_POSTS : creates 
+        CLASSROOM_POSTS {
+            uuid postId FK
+            uuid belongTo FK
+            uuid createdBy FK
         }
 
 
-        %% ASSIGNMENT
 
+
+        %% 
+        %% ASSIGNMENT
+        %% 
         Classroom ||--o{ Assignment : contains
         Assignment ||--o{ File : contains
         Assignment ||--o{ User : contains
@@ -44,22 +72,33 @@
             DateTime createdAt
             uuid files FK
         }
-        User ||--o{  SUBMITTED_ASSIGNMENT : creates
-        SUBMITTED_ASSIGNMENT {
+        User ||--o{  SUBMITTED_ASIGNMENT : creates
+        SUBMITTED_ASIGNMENT ||--o{  Assignment : contains
+        SUBMITTED_ASIGNMENT {
             uuid assignmentId
             uuid userId
             datetime submittedAt
         }
-        SUBMITTED_ASSIGNMENT_ATTACHMENTS ||--o{ SUBMITTED_ASSIGNMENT : contains
-        SUBMITTED_ASSIGNMENT_ATTACHMENTS {
+        SUBMITTED_ASIGNMENT_ATTACHMENTS ||--o{ SUBMITTED_ASIGNMENT : contains
+        SUBMITTED_ASIGNMENT_ATTACHMENTS {
             uuid submittedAssignmentId FK
             uuid fileId FK
+        }
+
+        ASSIGNMENT_COMMENT ||--o{ Assignment : contains
+        ASSIGNMENT_COMMENT ||--o{ User : contains
+        User ||--o{ ASSIGNMENT_COMMENT : creates
+        %% A table that contains all the comments made under an assignment these are public to everyone
+        ASSIGNMENT_COMMENT {
+            uuid belongsTo FK
+            uuid userId FK
+            datetime createdAt
+
         }
 
         Classroom ||--o{ Post : contains
         Post ||--o{ File : contains
         Post ||--o{ User : contains
-
 
         Post {
             uuid id PK
@@ -67,29 +106,33 @@
             string contents
             uuid createdBy
             DateTime createdAt
-            uuid classroomId FK
+            uuid ClassroomId FK
             uuid attachments
         }
 
 
-
+        %% 
         %% FILE
-
+        %% 
         File ||--o{ User : contains
         File {
             uuid id PK
             string name
             string mimetype
-            DateTime createdAt
-            uuid classroom FK
+            datetime createdAt
+            datetime updatedAt
+            uuid Classroom FK
             uuid owner
             uuid sharedWith
             string key
+            %% if user attaches it to a quiz or assignment the system locks the file so it cannot be edited after submission
+            bool locked 
             bool systemFile
         }
 
+        %% 
         %% CHAT
-
+        %% 
         Chat ||--o{ CHAT_MEMBERS : creates
         Chat ||--o{ User : contains
         User ||--o{ Chat : creates
@@ -111,7 +154,7 @@
             uuid id
             uuid sentBy
             uuid sentTo
-            string contents
+            uuid contents
             datetime sentAt
         }
 
@@ -124,9 +167,9 @@
         }
 
 
-
+        %% 
         %% QUESTIONS/QUIZ
-
+        %% 
         QUIZ ||--|{  QUESTION_TEXT : contains
         QUESTION_TEXT {
             uuid id PK
@@ -134,12 +177,15 @@
             string title
             string answer
         }
-        QUESTION_TEXT ||--|{  QUESTION_TEXT_ANSWER : contains
+        QUESTION_TEXT_ANSWER ||--|{  QUESTION_TEXT : contains
+        QUESTION_TEXT_ANSWER ||--|{  User : contains
         User ||--|{  QUESTION_TEXT_ANSWER : creates
         QUESTION_TEXT_ANSWER {
             uuid belongsTo FK
             string answer
+            uuid createdBy FK
         }
+   
 
         QUIZ ||--|{  QUESTION_RADIO : contains
         QUESTION_RADIO {
@@ -158,9 +204,13 @@
         QUESTION_RADIO_ANSWER ||--o{ QUESTION_RADIO : contains
         QUESTION_RADIO_ANSWER ||--o{ QUESTION_RADIO_OPTIONS : contains
         QUESTION_RADIO_ANSWER {
+            %% The quiz question this answer is replyting to
             uuid answerTo FK
+            %% user.id
             uuid createdBy FK
-            uuid option FK
+            %% option selected by the user (question_radio_options.id)
+            uuid selectedId FK
+
         }
 
 
@@ -173,7 +223,7 @@
         QUESTION_CHECKBOX ||--|{  QUESTION_CHECKBOX_OPTIONS : contains
         QUESTION_CHECKBOX_OPTIONS {
             uuid id PK
-            uuid quizId FK
+            uuid belongsTo FK
             string name
             bool answer
         }
@@ -182,8 +232,11 @@
         QUESTION_CHECKBOX_ANSWER ||--|{  User : contains
         User ||--|{  QUESTION_CHECKBOX_ANSWER : creates
         QUESTION_CHECKBOX_ANSWER {
-            uuid selected FK
+            %% selected = question_checkbox_options.id
+            uuid selectedId FK
+            %% user.id
             uuid createdBy FK
+            %% question_checkbox.id
             uuid questionId FK
         }
 
@@ -268,3 +321,7 @@
             uuid createdBy FK
             datetime createdAt
         }
+        %% TODO comments for post
+        %% TODO groups for assignments
+        %% TODO chat for assignment groups
+        

@@ -1,36 +1,49 @@
 %% https://creately.com/guides/class-diagram-relationships/ good reference for the types of arrows
 classDiagram
 
+    %% Example on how each class should be defined
+
     %% CLASSROOM
+    %% Connections to other classes
     Classroom "1" *-- "*" Post
     Classroom "1" *-- "*" Assignment
     class Classroom{
+        %% Attributes
         -uuid id
         -String name
         -User createdBy
         -DateTime createdAt
         -List~Assignment~ assignments
         -List~Post~ posts
-        %% Mate please explain why is this here
-        -List~Attachment~ attachments
+        -List~User~ members
 
+        %% Constructor
         +~~Create~~ Classroom(\n name: String,\n createdBy: User)
+        %% Attribute getters
         +getId() uuid
         +getName() String
         +getCreatedBy() User
         +getCreatedAt() DateTime
         +getAssignments() List~Assignment~
         +getPosts() List~Post~
-
         +getMembers() List~User~
 
+        %% Custom getters
+        +getPaginatedPosts(int page, int pageSize) List~Post~
+        +getPaginatedAssignments(int page, int pageSize) List~Assignment~
+        +getPaginatedMembers(int page, int pageSize) List~User~
+
+        %% Attribute setters
         +setName(string name) void
 
+        %% Custom functions
         +addAssignment(Assignment assignment) void
         +addPost(Post post) void
+        +addMember(User member) void
 
         +removeAssignment(uuid assignmentId) void
         +removePost(uuid PostId) void
+        +removeMember(uuid memberId) void
     }
 
     %% POST
@@ -52,13 +65,15 @@ classDiagram
         +getClassroom() Classroom
         +getAttachments() List~File~
 
+        +getPaginatedAttachments(int page, int pageSize) List~File~
+
         +setTitle(string title) void
         +setContents(string contents) void
         +setAttachments(List~File~ attachments) void
 
         +addAttachments(File attachments) void
-
         +removeAttachment(uuid attachmentId) void
+
     }
 
     %% ASSIGNMENT
@@ -80,6 +95,8 @@ classDiagram
         +getCreatedByUsername() String
         +getClassroomName() String
 
+        +getPaginatedFiles(int page, int pageSize) List~File~
+
         +setName(string name) void
         +setContents(string contents) void
         +setFiles(List~File~ files) void
@@ -87,6 +104,7 @@ classDiagram
         +addFile(File file) void
 
         +removeFile(uuid fileId) void
+
     }
 
     %% USER
@@ -149,9 +167,10 @@ classDiagram
         +getFiles() List~File~
         +isMarkedAsDone() Boolean
 
+        +getPaginatedFiles(int page, int pageSize) List~File~
+
         +setMarkedAsDone(Boolean isMarkedAsDone) void
         +setFiles(List~File~ files) void
-
     }
 
     QuizSubmission "1" *-- "*" QuestionPairAnswer
@@ -168,6 +187,8 @@ classDiagram
         +getQuiz() Quiz
         +getUserSubmittedAnswers() List~QuestionAnswer~T~~
 
+        +getPaginatedUserSubmittedAnswers(int page, int pageSize) List~QuestionAnswer~T~~
+
         +addToUserSubmittedAnswers(Question question) void
 
         +createQuestionPairAnswer(QuestionPair answerTo, List~QuestionPairOption~ userSubmittedQuestionPairs) QuestionPairAnswer
@@ -176,6 +197,7 @@ classDiagram
         +createQuestionCheckboxAnswer(QuestionCheckbox answerTo, List~QuestionCheckboxOption~ userSubmittedAnswers) QuestionCheckboxAnswer
         +createQuestionRadioAnswer(QuestionRadio answerTo, List~QuestionRadioOption~ userSubmittedAnswer) QuestionRadioAnswer
         +createQuestionTextAnswer(QuestionText answerTo, String userSubmittedAnswer) QuestionTextAnswer
+
     }
 
     QuestionAnswer <|-- QuestionFileAnswer
@@ -263,6 +285,8 @@ classDiagram
         +getKey() string
         +isSystemFile() bool
 
+        +getPaginatedSharedWith(int page, int pageSize) List~User~
+
         +setName(string name) void
         +setSharedWith(List~User~ sharedWith) void
 
@@ -292,6 +316,9 @@ classDiagram
         +getMembers() List~ChatMember~
         +getMessages() List~ChatMessage~
 
+        +getPaginatedMembers(int page, int pageSize) List~ChatMember~
+        +getPaginatedMessages(int page, int pageSize) List~ChatMessage~
+
         +setName(string name) void
         +setMembers(List~ChatMember~ members) void
         +setMessages(List~ChatMessage~ messages) void
@@ -307,7 +334,6 @@ classDiagram
     class ChatMember {
         -uuid id
         -User user
-        -List~QuestionOrderAnswer~ questionOrderAnswers
 
         +~~Create~~ ChatMember(\n user: User)
         +getId() uuid
@@ -333,6 +359,8 @@ classDiagram
         +getContents() String
         +getSentAt() DateTime
         +getAttachments() List~ChatMessageAttachment~
+
+        +getPaginatedAttachments(int page, int pageSize) List~ChatMessageAttachment~
 
         +setContents(string contents) void
         +setAttachments(List~ChatMessageAttachment~ attachments) void
@@ -368,6 +396,8 @@ classDiagram
         +getCreatedBy() User
         +getCreatedAt() DateTime
         +getQuestions() List~Question~
+
+        +getPaginatedQuestions(int page, int pageSize) List~Question~
 
         +setName(string name) void
 

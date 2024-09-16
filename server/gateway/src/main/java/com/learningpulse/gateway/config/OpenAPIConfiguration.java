@@ -28,7 +28,7 @@ public class OpenAPIConfiguration {
                 .description("This is the API documentation for the Learning Pulse project.")
                 .contact(new Contact()
                         .name("Learning Pulse")
-                        .url("https://git.4o1x5.dev/LearningPulse"))
+                        .url("https://github.com/pollak-projects/lp"))
         );
     }
 }

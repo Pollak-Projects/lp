@@ -34,9 +34,22 @@ spring:
           filters:
             - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
   security:
-    user:
-      name: admin
-      password: admin
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/LearningPulse
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/LearningPulse
+        registration:
+          keycloak:
+            provider: LearningPulse
+            authorization-grant-type: authorization_code
+            client-id: LearningPulse-confidential
+            # TODO: add actual secret
+            client-secret: secret
+            scope: openid
 
 
 # Keycloak configuration for the future

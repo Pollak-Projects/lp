@@ -6,6 +6,7 @@
 		<groupId>com.learningpulse</groupId>
 		<artifactId>server</artifactId>
 		<version>0.0.1</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>gateway</artifactId>
 	<version>0.0.1</version>

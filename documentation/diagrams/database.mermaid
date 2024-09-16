@@ -231,33 +231,33 @@
             uuid questionId FK
         }
 
-        QUIZ ||--|{  QUESTION_PAIRS : contains
-        QUESTION_PAIRS {
+        QUIZ ||--|{  QUESTION_PAIR_COLLECTION : contains
+        QUESTION_PAIR_COLLECTION {
             uuid id PK
             uuid quizId FK
             string title
         }
-        QUIZ ||--|{  QUESTION_PAIRS : contains
-        QUESTION_PAIRS ||--|{  QUESTION_PAIRS_PAIR : contains
-        QUESTION_PAIRS_PAIR ||--|{   QUESTION_PAIR_OPTIONS: contains
-        QUESTION_PAIRS_PAIR {
+        QUIZ ||--|{  QUESTION_PAIR_COLLECTION : contains
+        QUESTION_PAIR_COLLECTION ||--|{  QUESTION_PAIR_COLLECTION_PAIR : contains
+        QUESTION_PAIR_COLLECTION_PAIR ||--|{   QUESTION_PAIR_OPTIONS: contains
+        QUESTION_PAIR_COLLECTION_PAIR {
             uuid questionPairId FK
             uuid left FK
             uuid right FK
         }
 
-        QUESTION_PAIR_OPTIONS ||--|{   QUESTION_PAIRS : contains
+        QUESTION_PAIR_OPTIONS ||--|{   QUESTION_PAIR_COLLECTION : contains
         QUESTION_PAIR_OPTIONS {
             uuid id PK
             uuid belongsTo FK
             string contents
         }
 
-        User ||--|{   QUESTION_PAIRS_ANSWER: creates
-        QUESTION_PAIRS_ANSWER ||--|{   User: contains
-        QUESTION_PAIRS_ANSWER ||--|{   QUESTION_PAIR_OPTIONS: contains
-        QUESTION_PAIRS_ANSWER ||--|{   QUESTION_PAIRS: contains
-        QUESTION_PAIRS_ANSWER {
+        User ||--|{   QUESTION_PAIR_COLLECTION_ANSWER: creates
+        QUESTION_PAIR_COLLECTION_ANSWER ||--|{   User: contains
+        QUESTION_PAIR_COLLECTION_ANSWER ||--|{   QUESTION_PAIR_OPTIONS: contains
+        QUESTION_PAIR_COLLECTION_ANSWER ||--|{   QUESTION_PAIR_COLLECTION: contains
+        QUESTION_PAIR_COLLECTION_ANSWER {
             uuid questionPairId FK
             uuid createdBy FK
             uuid left FK

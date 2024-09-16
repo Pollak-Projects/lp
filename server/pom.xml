@@ -18,6 +18,7 @@
         <module>gateway</module>
         <module>eureka</module>
         <module>classroom</module>
+        <module>quiz</module>
     </modules>
     <properties>
         <java.version>21</java.version>

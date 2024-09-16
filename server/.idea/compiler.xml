@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="dummy" />
+        <module name="quiz" />
         <module name="classroom" />
         <module name="gateway" />
         <module name="eureka" />
@@ -20,6 +21,7 @@
       <module name="dummy" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="quiz" options="-parameters" />
     </option>
   </component>
 </project>

@@ -7,10 +7,12 @@
         <groupId>com.learningpulse</groupId>
         <artifactId>server</artifactId>
         <version>0.0.1</version>
-        <!--        <relativePath/>-->
     </parent>
 
     <artifactId>quiz</artifactId>
+    <version>0.0.1</version>
+    <name>quiz</name>
+    <description>Quiz service for LearningPulse</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

@@ -5,7 +5,6 @@
   };
   outputs = { self, nixpkgs, ... }:
     let
-      # TODO add more systems
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
     in
@@ -17,10 +16,6 @@
           jdk22
           jre8
           nodejs
-          nodePackages.pnpm
-          nodePackages.typescript
-          nodePackages.typescript-language-server
-
         ];
       };
     };

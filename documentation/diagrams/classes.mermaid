@@ -11,11 +11,13 @@ classDiagram
         %% Attributes
         -uuid id
         -String name
+        -String joinCode
         -User createdBy
         -DateTime createdAt
         -List~Assignment~ assignments
         -List~Post~ posts
         -List~User~ members
+        -List~File~ files
 
         %% Constructor
         +~~Create~~ Classroom(\n name: String,\n createdBy: User)

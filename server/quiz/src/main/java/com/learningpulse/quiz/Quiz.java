@@ -1,9 +1,12 @@
 package com.learningpulse.quiz;
 
 // Useful link to understand the difference between @OntToOne and @ManyToOne: https://stackoverflow.com/questions/16119531/hibernate-jpa-manytoone-vs-onetomany
+// https://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html#entity-mapping-association
+
+// TODO add (cascade = CascadeType.ALL, fetch = FetchType.EAGER) to all OneToMany and ManyToOne relationships
 
 
-import com.learningpulse.question.*;
+import com.learningpulse.question.type.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
@@ -41,6 +44,8 @@ public class Quiz {
     private LocalDateTime deadline;
 
     private boolean viewAfterSubmission;
+
+    // This seems really inefficient @nezsha please advise 2024-09-17
 
     @OneToMany(mappedBy = "quiz")
     private Set<QuestionText> questionTexts;

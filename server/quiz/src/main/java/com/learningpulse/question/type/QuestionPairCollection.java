@@ -1,5 +1,6 @@
-package com.learningpulse.question;
+package com.learningpulse.question.type;
 
+import com.learningpulse.question.answer.QuestionPairCollectionAnswer;
 import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,4 +29,7 @@ public class QuestionPairCollection {
 
     @OneToMany(mappedBy = "questionPairCollection")
     private Set<QuestionPairCollectionPair> options;
+
+    @ManyToOne
+    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 }

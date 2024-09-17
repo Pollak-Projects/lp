@@ -1,5 +1,6 @@
-package com.learningpulse.question;
+package com.learningpulse.question.type;
 
+import com.learningpulse.question.answer.QuestionOrderAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,17 +14,19 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUIZ", schema = "QUIZ")
-public class QuestionRadioOptions {
+@Table(name = "QUESTION_ORDER_OPTIONS", schema = "QUESTION_ORDER_OPTIONS")
+public class QuestionOrderOptions {
     @Id
     @GeneratedValue
     private UUID id;
 
     @ManyToOne
-    private QuestionRadio questionRadio;
+    private QuestionOrder questionOrder;
 
     private String title;
 
-    private boolean answer;
+    private int place;
 
+    @ManyToOne
+    private QuestionOrderAnswer questionOrderAnswer;
 }

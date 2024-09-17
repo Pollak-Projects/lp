@@ -1,4 +1,4 @@
-package com.learningpulse.question;
+package com.learningpulse.question.type;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,16 +13,18 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_CHECKBOX_OPTIONS", schema = "QUESTION_CHECKBOX_OPTIONS")
-public class QuestionCheckboxOptions {
+@Table(name = "QUESTION_PAIR_COLLECTION_PAIR", schema = "QUESTION_PAIR_COLLECTION_PAIR")
+public class QuestionPairCollectionPair {
     @Id
     @GeneratedValue
     private UUID id;
 
     @ManyToOne
-    private QuestionCheckbox questionCheckbox;
+    private QuestionPairCollection questionPairCollection;
 
-    private String name;
+    @OneToOne
+    private QuestionPairOptions left;
 
-    private boolean answer;
+    @OneToOne
+    private QuestionPairOptions right;
 }

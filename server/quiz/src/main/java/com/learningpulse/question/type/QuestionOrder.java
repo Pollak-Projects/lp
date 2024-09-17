@@ -1,10 +1,11 @@
-package com.learningpulse.question;
+package com.learningpulse.question.type;
 
 import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -14,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_TEXT", schema = "QUESTION_TEXT")
-public class QuestionText {
+@Table(name = "QUESTION_ORDER", schema = "QUESTION_ORDER")
+public class QuestionOrder {
     @Id
     @GeneratedValue
     private UUID id;
@@ -25,5 +26,6 @@ public class QuestionText {
 
     private String title;
 
-    private String answer;
+    @OneToMany(mappedBy = "questionOrder")
+    private Set<QuestionOrderOptions> options;
 }

@@ -1,5 +1,6 @@
-package com.learningpulse.question;
+package com.learningpulse.question.type;
 
+import com.learningpulse.question.answer.QuestionPairCollectionAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,4 +24,7 @@ public class QuestionPairOptions {
     private QuestionPairCollectionPair questionPairCollectionPair;
 
     private String contents;
+
+    @ManyToOne
+    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 }

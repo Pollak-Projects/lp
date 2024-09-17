@@ -10,6 +10,7 @@
         <module name="dummy" />
         <module name="quiz" />
         <module name="classroom" />
+        <module name="user" />
         <module name="gateway" />
         <module name="eureka" />
       </profile>
@@ -22,6 +23,7 @@
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="quiz" options="-parameters" />
+      <module name="user" options="-parameters" />
     </option>
   </component>
 </project>

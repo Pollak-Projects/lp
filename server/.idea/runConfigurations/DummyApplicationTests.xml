@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DummyApplicationTests" type="JUnit" factoryName="JUnit">
+    <module name="dummy" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.learningpulse.dummy.*" />

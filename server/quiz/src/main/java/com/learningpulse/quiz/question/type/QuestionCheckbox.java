@@ -1,6 +1,6 @@
-package com.learningpulse.question.type;
+package com.learningpulse.quiz.question.type;
 
-import com.learningpulse.question.answer.QuestionTextAnswer;
+import com.learningpulse.quiz.question.answer.QuestionCheckBoxAnswer;
 import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,8 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_TEXT", schema = "QUESTION_TEXT")
-public class QuestionText {
+@Table(name = "QUESTION_CHECKBOX", schema = "QUESTION_CHECKBOX")
+public class QuestionCheckbox {
     @Id
     @GeneratedValue
     private UUID id;
@@ -27,8 +27,10 @@ public class QuestionText {
 
     private String title;
 
-    private String answer;
+    @OneToMany(mappedBy = "questionCheckbox")
+    private Set<QuestionCheckboxOptions> options;
 
-    @OneToMany(mappedBy = "belongsTo")
-    private Set<QuestionTextAnswer> questionTextAnswers;
+
+    @ManyToOne
+    private QuestionCheckBoxAnswer questionCheckBoxAnswer;
 }

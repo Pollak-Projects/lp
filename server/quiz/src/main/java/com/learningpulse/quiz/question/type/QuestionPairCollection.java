@@ -1,6 +1,6 @@
-package com.learningpulse.question.type;
+package com.learningpulse.quiz.question.type;
 
-import com.learningpulse.question.answer.QuestionRadioAnswer;
+import com.learningpulse.quiz.question.answer.QuestionPairCollectionAnswer;
 import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,8 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_RADIO", schema = "QUESTION_RADIO")
-public class QuestionRadio {
+@Table(name = "QUESTION_PAIR_COLLECTION", schema = "QUESTION_PAIR_COLLECTION")
+public class QuestionPairCollection {
     @Id
     @GeneratedValue
     private UUID id;
@@ -27,10 +27,9 @@ public class QuestionRadio {
 
     private String title;
 
-    @OneToMany(mappedBy = "questionRadio")
-    private Set<QuestionRadioOptions> options;
+    @OneToMany(mappedBy = "questionPairCollection")
+    private Set<QuestionPairCollectionPair> options;
 
-    // review this @nezsha is this what you meant? 2024-09-17
     @ManyToOne
-    private QuestionRadioAnswer questionRadioAnswer;
+    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 }

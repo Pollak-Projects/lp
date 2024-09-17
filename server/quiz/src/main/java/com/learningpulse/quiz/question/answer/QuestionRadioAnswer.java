@@ -1,7 +1,7 @@
-package com.learningpulse.question.answer;
+package com.learningpulse.quiz.question.answer;
 
-import com.learningpulse.question.type.QuestionRadio;
-import com.learningpulse.question.type.QuestionRadioOptions;
+import com.learningpulse.quiz.question.type.QuestionRadio;
+import com.learningpulse.quiz.question.type.QuestionRadioOptions;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;

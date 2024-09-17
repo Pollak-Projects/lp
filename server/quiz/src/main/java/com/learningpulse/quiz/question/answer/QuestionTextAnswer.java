@@ -1,6 +1,6 @@
-package com.learningpulse.question.answer;
+package com.learningpulse.quiz.question.answer;
 
-import com.learningpulse.question.type.QuestionText;
+import com.learningpulse.quiz.question.type.QuestionText;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;

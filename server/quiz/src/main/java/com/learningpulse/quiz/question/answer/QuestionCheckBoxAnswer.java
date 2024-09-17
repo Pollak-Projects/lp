@@ -1,7 +1,7 @@
-package com.learningpulse.question.answer;
+package com.learningpulse.quiz.question.answer;
 
-import com.learningpulse.question.type.QuestionCheckbox;
-import com.learningpulse.question.type.QuestionCheckboxOptions;
+import com.learningpulse.quiz.question.type.QuestionCheckbox;
+import com.learningpulse.quiz.question.type.QuestionCheckboxOptions;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;

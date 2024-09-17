@@ -1,6 +1,6 @@
-package com.learningpulse.question.type;
+package com.learningpulse.quiz.question.type;
 
-import com.learningpulse.question.answer.QuestionPairCollectionAnswer;
+import com.learningpulse.quiz.question.answer.QuestionTextAnswer;
 import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,8 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_PAIR_COLLECTION", schema = "QUESTION_PAIR_COLLECTION")
-public class QuestionPairCollection {
+@Table(name = "QUESTION_TEXT", schema = "QUESTION_TEXT")
+public class QuestionText {
     @Id
     @GeneratedValue
     private UUID id;
@@ -27,9 +27,8 @@ public class QuestionPairCollection {
 
     private String title;
 
-    @OneToMany(mappedBy = "questionPairCollection")
-    private Set<QuestionPairCollectionPair> options;
+    private String answer;
 
-    @ManyToOne
-    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
+    @OneToMany(mappedBy = "belongsTo")
+    private Set<QuestionTextAnswer> questionTextAnswers;
 }

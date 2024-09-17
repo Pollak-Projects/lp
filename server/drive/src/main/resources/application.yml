@@ -3,14 +3,20 @@ server:
 
 spring:
   application:
-    name: quiz
+    name: drive
+
+  # TODO remove after testing
+  security:
+    user:
+      name: admin
+      password: admin
 
 springdoc:
   api-docs:
     enabled: true
-    path: /api/v1/quiz/v3/api-docs
+    path: /api/v1/drive/v3/api-docs
   swagger-ui:
-    path: /api/v1/quiz/swagger-ui.html
+    path: /api/v1/drive/swagger-ui.html
 
 management:
   endpoints:
@@ -25,4 +31,4 @@ eureka:
 
 logging:
   file:
-    name: ././logs/quiz.log
+    name: ././logs/drive.log

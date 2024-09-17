@@ -6,11 +6,11 @@ package com.learningpulse.quiz;
 // TODO add (cascade = CascadeType.ALL, fetch = FetchType.EAGER) to all OneToMany and ManyToOne relationships
 
 
-import com.learningpulse.question.type.*;
+import com.learningpulse.quiz.question.type.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.sql.Timestamp;
@@ -38,7 +38,7 @@ public class Quiz {
     // TODO change this to User
     private UUID createdBy;
 
-    @CreatedDate
+    @CreationTimestamp
     private Timestamp createdAt;
 
     private LocalDateTime deadline;

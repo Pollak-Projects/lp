@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="DummyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <module name="dummy" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.learningpulse.dummy.DummyApplication" />
     <method v="2">
       <option name="Make" enabled="true" />

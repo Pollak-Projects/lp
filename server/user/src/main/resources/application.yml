@@ -3,14 +3,14 @@ server:
 
 spring:
   application:
-    name: quiz
+    name: user
 
 springdoc:
   api-docs:
     enabled: true
-    path: /api/v1/quiz/v3/api-docs
+    path: /api/v1/user/v3/api-docs
   swagger-ui:
-    path: /api/v1/quiz/swagger-ui.html
+    path: /api/v1/user/swagger-ui.html
 
 management:
   endpoints:
@@ -25,4 +25,4 @@ eureka:
 
 logging:
   file:
-    name: ././logs/quiz.log
+    name: ././logs/user.log

@@ -1,7 +1,6 @@
 package com.learningpulse.gateway.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.MethodParameter;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
@@ -16,8 +15,7 @@ import java.util.stream.Collectors;
 public class AuthenticationConverter {
     @Bean
     GrantedAuthoritiesMapper authenticationConverter(
-            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter
-    ) {
+            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter) {
         return (authorities) -> authorities.stream()
                 .filter(authority -> authority instanceof OidcUserAuthority)
                 .map(OidcUserAuthority.class::cast)
@@ -30,8 +28,7 @@ public class AuthenticationConverter {
 
     @Bean
     JwtAuthenticationConverter jwtAuthenticationConverter(
-            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter
-    ) {
+            Converter<Map<String, Object>, Collection<GrantedAuthority>> authoritiesConverter) {
         var authenticationConverter = new JwtAuthenticationConverter();
         authenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
             return authoritiesConverter.convert(jwt.getClaims());

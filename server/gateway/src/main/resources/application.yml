@@ -26,6 +26,9 @@ spring:
           uri: http://localhost:8761
           predicates:
             - Path=/eureka/**
+
+        ########### Service routing ###########
+
         # dummy service routing
         - id: dummy
           uri: lb://dummy
@@ -33,23 +36,45 @@ spring:
             - Path=/api/v1/dummy/**
           filters:
             - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/LearningPulse
-      client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/LearningPulse
-        registration:
-          keycloak:
-            provider: LearningPulse
-            authorization-grant-type: authorization_code
-            client-id: LearningPulse-confidential
-            # TODO: add actual secret
-            client-secret: secret
-            scope: openid
+        # user service routing
+        - id: user
+          uri: lb://user
+          predicates:
+            - Path=/api/v1/user/**
+          filters:
+            - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
+        # quiz service routing
+        - id: quiz
+          uri: lb://quiz
+          predicates:
+            - Path=/api/v1/quiz/**
+          filters:
+            - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
+        # file service routing
+        - id: file
+          uri: lb://file
+          predicates:
+            - Path=/api/v1/file/**
+          filters:
+            - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
+# TODO enable when needed
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8080/realms/LearningPulse
+#      client:
+#        provider:
+#          keycloak:
+#            issuer-uri: http://localhost:8080/realms/LearningPulse
+#        registration:
+#          keycloak:
+#            provider: LearningPulse
+#            authorization-grant-type: authorization_code
+#            client-id: LearningPulse-confidential
+#            # TODO: add actual secret
+#            client-secret: secret
+#            scope: openid
 
 
 # Keycloak configuration for the future
@@ -82,13 +107,19 @@ springdoc:
         url: /v3/api-docs
       - name: Dummy Service API
         url: /api/v1/dummy/v3/api-docs
+      - name: User Service API
+        url: /api/v1/user/v3/api-docs
+      - name: Quiz Service API
+        url: /api/v1/quiz/v3/api-docs
+      - name: File Service API
+        url: /api/v1/file/v3/api-docs
 
 eureka:
   client:
     service-url:
-      #defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka
       # Will only work when docker is used
-      defaultZone: http://eureka-server:8761/eureka
+#      defaultZone: http://eureka-server:8761/eureka
 
 logging:
   file:

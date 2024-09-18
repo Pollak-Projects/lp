@@ -1,23 +1,23 @@
-package com.learningpulse.quiz;
+package com.learningpulse.user;
 
-import com.learningpulse.quiz.external.UserDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/quiz")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
-public class QuizController {
-
-    private final QuizService quizService;
+public class UserController {
 
     @GetMapping("/webclient")
-    public @ResponseBody Mono<UserDTO> webclient() {
-        return quizService.webclient();
+    public @ResponseBody User webclient() {
+        return User.builder()
+                .id(UUID.randomUUID())
+                .profilePicture(null)
+                .build();
     }
 }

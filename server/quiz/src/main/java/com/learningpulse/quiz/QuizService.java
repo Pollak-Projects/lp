@@ -4,18 +4,18 @@ import com.learningpulse.quiz.external.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 
 @Service
 @RequiredArgsConstructor
 public class QuizService {
     private final WebClient webClient;
-    public UserDTO webclient() {
+
+    public Mono<UserDTO> webclient() {
         return webClient.get()
-                .uri("http://localhost:8080/api/v1/user/webclient")
+                .uri("http://localhost:8181/api/v1/user/webclient")
                 .retrieve()
-                .bodyToFlux(UserDTO.class)
-                // TODO make this non blocking
-                .blockFirst();
+                .bodyToMono(UserDTO.class);
     }
 }

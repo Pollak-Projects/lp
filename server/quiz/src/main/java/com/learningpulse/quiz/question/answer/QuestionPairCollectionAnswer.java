@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_PAIR_COLLECTION_ANSWER", schema = "QUESTION_PAIR_COLLECTION_ANSWER")
+@Table(name = "QUESTION_PAIR_COLLECTION_ANSWER", schema = "quiz")
 public class QuestionPairCollectionAnswer {
     @Id
     @GeneratedValue
@@ -32,9 +32,9 @@ public class QuestionPairCollectionAnswer {
     @CreatedBy
     private UUID createdBy;
 
-    @OneToMany(mappedBy = "QuestionPairCollectionAnswer")
+    @OneToMany(mappedBy = "questionPairCollectionAnswer")
     private Set<QuestionPairOptions> left;
 
-    @OneToMany(mappedBy = "QuestionPairCollectionAnswer")
+    @OneToMany(mappedBy = "questionPairCollectionAnswer")
     private Set<QuestionPairOptions> right;
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_TEXT_ANSWER", schema = "QUESTION_TEXT_ANSWER")
+@Table(name = "QUESTION_TEXT_ANSWER", schema = "quiz")
 public class QuestionTextAnswer {
     @Id
     @GeneratedValue

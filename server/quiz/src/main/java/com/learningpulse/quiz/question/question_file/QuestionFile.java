@@ -1,10 +1,11 @@
-package com.learningpulse.quiz.question.type;
+package com.learningpulse.quiz.question.question_file;
 
 import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
@@ -14,8 +15,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_FILE", schema = "QUESTION_FILE")
-public class QuestionFile {
+@Table(name = "question_file", schema = "quiz")
+public class QuestionFile implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -28,4 +29,6 @@ public class QuestionFile {
     // TODO actually add file entity to somewhere
     // UUID is only a placeholder
     private UUID file;
+    @ManyToOne(optional = false)
+    private QuestionFileAnswer questionFileAnswers;
 }

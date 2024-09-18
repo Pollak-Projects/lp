@@ -18,16 +18,11 @@
             uuid chatId FK
         }
 
-        Classroom ||--o{ User : contains
-        User ||--o{ Classroom : creates
-        Classroom ||--o{ Classroom_MEMBERS : creates
         
-        Classroom_MEMBERS ||--o{ User : contains
         Classroom_MEMBERS {
             uuid userId PK
             uuid ClassroomId FK
         }
-        CLASSROOM_ATTACHMENTS ||--o{ Classroom : contains
         CLASSROOM_ATTACHMENTS {
             uuid fileId fk
             uuid classroomId FK
@@ -35,10 +30,6 @@
             %% topic?
             string topic
         }
-        CLASSROOM_ASSIGNMENTS ||--o{ Classroom : contains 
-        CLASSROOM_ASSIGNMENTS ||--o{ User : contains 
-        CLASSROOM_ASSIGNMENTS ||--o{ Assignment : contains 
-        User ||--o{ CLASSROOM_ASSIGNMENTS : creates 
         CLASSROOM_ASSIGNMENTS {
             uuid assignmentId FK
             uuid belongTo FK
@@ -50,9 +41,6 @@
         %% 
         %% ASSIGNMENT
         %% 
-        Classroom ||--o{ Assignment : contains
-        Assignment ||--o{ File : contains
-        Assignment ||--o{ User : contains
         Assignment {
             uuid id PK
             string name
@@ -62,22 +50,17 @@
             DateTime createdAt
             uuid files FK
         }
-        User ||--o{  SUBMITTED_ASIGNMENT : creates
-        SUBMITTED_ASIGNMENT ||--o{  Assignment : contains
+
         SUBMITTED_ASIGNMENT {
             uuid assignmentId
             uuid userId
             datetime submittedAt
         }
-        SUBMITTED_ASIGNMENT_ATTACHMENTS ||--o{ SUBMITTED_ASIGNMENT : contains
         SUBMITTED_ASIGNMENT_ATTACHMENTS {
             uuid submittedAssignmentId FK
             uuid fileId FK
         }
 
-        ASSIGNMENT_COMMENT ||--o{ Assignment : contains
-        ASSIGNMENT_COMMENT ||--o{ User : contains
-        User ||--o{ ASSIGNMENT_COMMENT : creates
         %% A table that contains all the comments made under an assignment these are public to everyone
         ASSIGNMENT_COMMENT {
             uuid belongsTo FK
@@ -85,10 +68,6 @@
             datetime createdAt
 
         }
-
-        Classroom ||--o{ Post : contains
-        Post ||--o{ File : contains
-        Post ||--o{ User : contains
 
         Post {
             uuid id PK
@@ -106,7 +85,6 @@
         %% 
         %% FILE
         %% 
-        File ||--o{ User : contains
         File {
             uuid id PK
             string name
@@ -125,10 +103,6 @@
         %% 
         %% CHAT
         %% 
-        Chat ||--o{ CHAT_MEMBERS : creates
-        Chat ||--o{ User : contains
-        User ||--o{ Chat : creates
-        Chat ||--o{ CHAT_MESSAGES : contains
         Chat {
             uuid id PK
             string name
@@ -136,7 +110,6 @@
             uuid createdBy FK
         }
 
-        CHAT_MEMBERS ||--o{ User : "is"
         CHAT_MEMBERS {
             uuid chatId FK
             uuid userId FK
@@ -150,8 +123,6 @@
             datetime sentAt
         }
 
-        CHAT_MESSAGES ||--o{ CHAT_MESSAGE_ATTACHMENTS : contains
-        CHAT_MESSAGE_ATTACHMENTS ||--o{ File : contains
         CHAT_MESSAGE_ATTACHMENTS {
             uuid messageId
             uuid fileId
@@ -162,16 +133,12 @@
         %% 
         %% QUESTIONS/QUIZ
         %% 
-        QUIZ ||--|{  QUESTION_TEXT : contains
         QUESTION_TEXT {
             uuid id PK
             uuid quizId FK
             string title
             string answer
         }
-        QUESTION_TEXT_ANSWER ||--|{  QUESTION_TEXT : contains
-        QUESTION_TEXT_ANSWER ||--|{  User : contains
-        User ||--|{  QUESTION_TEXT_ANSWER : creates
         QUESTION_TEXT_ANSWER {
             uuid belongsTo FK
             string answer
@@ -179,22 +146,17 @@
         }
    
 
-        QUIZ ||--|{  QUESTION_RADIO : contains
         QUESTION_RADIO {
             uuid id PK
             uuid quizId FK
             string title
         }
-        QUESTION_RADIO ||--|{  QUESTION_RADIO_OPTIONS : contains
         QUESTION_RADIO_OPTIONS {
             uuid id PK
             uuid radioId FK
             string title
             bool answer
         }
-        User ||--o{ QUESTION_RADIO_ANSWER : creates
-        QUESTION_RADIO_ANSWER ||--o{ QUESTION_RADIO : contains
-        QUESTION_RADIO_ANSWER ||--o{ QUESTION_RADIO_OPTIONS : contains
         QUESTION_RADIO_ANSWER {
             %% The quiz question this answer is replyting to
             uuid answerTo FK
@@ -206,23 +168,17 @@
         }
 
 
-        QUIZ ||--|{  QUESTION_CHECKBOX : contains
         QUESTION_CHECKBOX {
             uuid id PK
             uuid quizId FK
             string title
         }
-        QUESTION_CHECKBOX ||--|{  QUESTION_CHECKBOX_OPTIONS : contains
         QUESTION_CHECKBOX_OPTIONS {
             uuid id PK
             uuid belongsTo FK
             string name
             bool answer
         }
-        QUESTION_CHECKBOX_ANSWER ||--|{  QUESTION_CHECKBOX_OPTIONS : contains
-        QUESTION_CHECKBOX_ANSWER ||--|{  QUESTION_CHECKBOX_OPTIONS : contains
-        QUESTION_CHECKBOX_ANSWER ||--|{  User : contains
-        User ||--|{  QUESTION_CHECKBOX_ANSWER : creates
         QUESTION_CHECKBOX_ANSWER {
             %% selected = question_checkbox_options.id
             uuid selectedId FK
@@ -232,32 +188,23 @@
             uuid questionId FK
         }
 
-        QUIZ ||--|{  QUESTION_PAIR_COLLECTION : contains
         QUESTION_PAIR_COLLECTION {
             uuid id PK
             uuid quizId FK
             string title
         }
-        QUIZ ||--|{  QUESTION_PAIR_COLLECTION : contains
-        QUESTION_PAIR_COLLECTION ||--|{  QUESTION_PAIR_COLLECTION_PAIR : contains
-        QUESTION_PAIR_COLLECTION_PAIR ||--|{   QUESTION_PAIR_OPTIONS: contains
         QUESTION_PAIR_COLLECTION_PAIR {
             uuid questionPairId FK
             uuid left FK
             uuid right FK
         }
 
-        QUESTION_PAIR_OPTIONS ||--|{   QUESTION_PAIR_COLLECTION : contains
         QUESTION_PAIR_OPTIONS {
             uuid id PK
             uuid belongsTo FK
             string contents
         }
 
-        User ||--|{   QUESTION_PAIR_COLLECTION_ANSWER: creates
-        QUESTION_PAIR_COLLECTION_ANSWER ||--|{   User: contains
-        QUESTION_PAIR_COLLECTION_ANSWER ||--|{   QUESTION_PAIR_OPTIONS: contains
-        QUESTION_PAIR_COLLECTION_ANSWER ||--|{   QUESTION_PAIR_COLLECTION: contains
         QUESTION_PAIR_COLLECTION_ANSWER {
             uuid questionPairId FK
             uuid createdBy FK
@@ -265,21 +212,17 @@
             uuid right FK
         }
 
-        QUIZ ||--|{  QUESTION_ORDER : contains
         QUESTION_ORDER {
             uuid id PK
             uuid quizId FK
             string title
         }
-        QUESTION_ORDER_ANSWER ||--|{  QUESTION_ORDER_OPTIONS : contains
-        User ||--|{  QUESTION_ORDER_ANSWER : creates
         QUESTION_ORDER_ANSWER {
             uuid optionId FK
             int place
             uuid createdBy FK
         }
 
-        QUESTION_ORDER ||--|{  QUESTION_ORDER_OPTIONS : contains
         QUESTION_ORDER_OPTIONS {
             uuid id PK
             uuid orderId FK
@@ -287,17 +230,12 @@
             int place "1...3"
         }
 
-        QUIZ ||--|{  QUESTION_FILE : contains
-        QUESTION_FILE ||--|{  File : contains
         QUESTION_FILE {
             uuid id PK
             uuid quizId FK
             string title
             uuid fileId FK
         }
-        User ||--o{ QUESTION_FILE_ANSWER : creates
-        QUESTION_FILE_ANSWER ||--o{ QUESTION_FILE : contains
-        QUESTION_FILE_ANSWER ||--o{ File : contains
         QUESTION_FILE_ANSWER {
             uuid answerTo FK
             uuid createdBy FK
@@ -305,8 +243,6 @@
         }
 
      
-        User ||--o{ QUIZ : creates
-        QUIZ ||--o{ User : contains
         QUIZ {
             uuid id PK
             string name

@@ -7,14 +7,15 @@ import NextLink from "next/link";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+
+    <NextUINavbar  className="rounded-md w-79/80 mx-3 bg-[#191919]" maxWidth="full">
+      <NavbarContent className="" justify="start">
+        <ul className="flex gap-4 justify-start">
           <NavbarItem>
             <NextLink href={"/"}>Home</NextLink>
           </NavbarItem>
           <NavbarItem>
-            <NextLink href={"/dashboard"}>Dashboard</NextLink>
+            <NextLink href={"/quiz"}>Quiz</NextLink>
           </NavbarItem>
         </ul>
       </NavbarContent>

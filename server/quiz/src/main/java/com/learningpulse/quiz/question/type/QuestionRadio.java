@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,8 +17,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_RADIO", schema = "QUESTION_RADIO")
-public class QuestionRadio {
+@Table(name = "QUESTION_RADIO", schema = "quiz")
+public class QuestionRadio implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;

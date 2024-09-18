@@ -62,11 +62,33 @@ services:
 #     KC_HTTP_ENABLED: true
 
 # TODO once implemented into service(s)
-# database:
-#   image: postgres
-#   restart: always
-#   hostname: database
-#   environment:
-#     POSTGRES_USER: ${DABATASE_USER}
-#     POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-#     POSTGRES_DB: ${DATABASE_NAME}
+  database:
+    container_name: lp_database
+    image: postgres
+    restart: always
+    hostname: database
+    environment:
+     POSTGRES_USER: ${DB_USER}
+     POSTGRES_PASSWORD: ${DB_PASSWORD}
+     POSTGRES_DB: learning_pulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - learning_pulse_pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_USERNAME: admin
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+        - learning_pulse_pgadmin:/var/lib/pgadmin
+
+volumes:
+  learning_pulse_pgdata:
+  learning_pulse_pgadmin:

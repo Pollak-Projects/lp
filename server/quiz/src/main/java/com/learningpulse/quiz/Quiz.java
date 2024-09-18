@@ -6,6 +6,7 @@ package com.learningpulse.quiz;
 // TODO add (cascade = CascadeType.ALL, fetch = FetchType.EAGER) to all OneToMany and ManyToOne relationships
 
 
+import com.learningpulse.quiz.question.question_file.QuestionFile;
 import com.learningpulse.quiz.question.type.*;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,7 +26,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUIZ", schema = "QUIZ")
+@Table(name = "QUIZ", schema = "quiz")
 public class Quiz {
     @Id
     @GeneratedValue
@@ -33,7 +34,6 @@ public class Quiz {
 
     private String name;
 
-    @ManyToOne
     @CreatedBy
     // TODO change this to User
     private UUID createdBy;

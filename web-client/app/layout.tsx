@@ -20,10 +20,12 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="en">
       <head />
-      <body>
+      <body className="bg-gradient-to-r from-cyan-500 to-blue-900  h-96 pt-2">
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-          <Navbar />
-          <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+
+            <Navbar />
+
+          <main className=" flex flex-col items-center justify-center w-400 flex-grow">
             {children}
           </main>
         </Providers>

@@ -13,12 +13,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "USER", schema = "USER")
+@Table(name = "user", schema = "user_schema")
 public class User {
     @Id
+    @GeneratedValue
     private UUID id;
 
     // TODO add actual class
     @OneToOne
-    private UUID profilePicture;
+    private File profilePicture;
 }

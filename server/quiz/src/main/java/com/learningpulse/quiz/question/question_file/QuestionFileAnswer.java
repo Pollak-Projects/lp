@@ -1,11 +1,11 @@
-package com.learningpulse.quiz.question.answer;
+package com.learningpulse.quiz.question.question_file;
 
-import com.learningpulse.quiz.question.type.QuestionFile;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,14 +16,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_FILE_ANSWER", schema = "QUESTION_FILE_ANSWER")
-public class QuestionFileAnswer {
+@Table(name = "question_file_answer", schema = "quiz")
+public class QuestionFileAnswer implements Serializable {
     @Id
     @GeneratedValue
     // Isn't defined in the database diagram
     private UUID id;
 
-    @OneToMany(mappedBy = "answerTo")
+    @OneToMany(mappedBy = "questionFileAnswers")
     private Set<QuestionFile> answerTo;
 
     // TODO replace this with the actual user type
@@ -32,6 +32,6 @@ public class QuestionFileAnswer {
     private UUID createdBy;
 
     // TODO replace this with the actual File type
-    @OneToMany(mappedBy = "file")
+
     private UUID file;
 }

@@ -17,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_RADIO_ANSWER", schema = "QUESTION_RADIO_ANSWER")
+@Table(name = "QUESTION_RADIO_ANSWER", schema = "quiz")
 public class QuestionRadioAnswer {
     @Id
     @GeneratedValue
@@ -36,7 +36,7 @@ public class QuestionRadioAnswer {
 
     // TODO complete this
     // ask @nezsha about what is this for
-    @OneToMany(mappedBy = "selected")
+    @OneToMany(mappedBy = "questionRadioAnswer")
     private Set<QuestionRadioOptions> selected;
 
 }

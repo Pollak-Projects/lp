@@ -1,5 +1,6 @@
 package com.learningpulse.quiz.question.answer;
 
+import com.learningpulse.quiz.external.UserDTO;
 import com.learningpulse.quiz.question.type.QuestionCheckbox;
 import com.learningpulse.quiz.question.type.QuestionCheckboxOptions;
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_CHECKBOX_ANSWER", schema = "QUESTION_CHECKBOX_ANSWER")
+@Table(name = "QUESTION_CHECKBOX_ANSWER", schema = "quiz")
 public class QuestionCheckBoxAnswer {
     @Id
     @GeneratedValue
@@ -30,6 +31,7 @@ public class QuestionCheckBoxAnswer {
     // TODO replace this with the actual user type
     // FIXME CreatedBy will not work right now because the Auditor haven't yet been tested
     @CreatedBy
+
     private UUID createdBy;
 
     // please review this @nezsha 2024-09-17

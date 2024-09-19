@@ -1,5 +1,6 @@
 package com.learningpulse.user;
 
+import com.learningpulse.user.external.FileDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,6 +21,5 @@ public class User {
     private UUID id;
 
     // TODO add actual class
-    @OneToOne
-    private File profilePicture;
+    private UUID profilePicture;
 }

@@ -19,6 +19,7 @@ services:
   # to test
   # curl http://admin:admin@localhost:8181/api/v1/dummy/test -v;
   dummy:
+    # TODO fix broken image link
     image: git.4o1x5.dev/learningpulse/server/dummy:dev
     restart: always
     depends_on:
@@ -29,6 +30,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
 
   gateway:
+    # TODO fix broken image link
     image: git.4o1x5.dev/learningpulse/server/gateway:dev
     restart: always
     depends_on:

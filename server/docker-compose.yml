@@ -40,26 +40,27 @@ services:
       - learningpulse
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-#
-# TODO once implemented into gateway
-# keycloak:
-#   container_name: keycloak
-#   hostname: keycloak
-#   image: quay.io/keycloak/keycloak:latest
-#   command: ["start-dev", "--import-realm"]
-#   ports:
-#     - "3212:8080"
-#   volumes:
-#     - ./realms:/opt/keycloak/data/import
-#   environment:
-#     KC_DB: ${DB_NAME}
-#     KC_DB_URL: ${DB_URL}
-#     KC_DB_USERNAME: ${DB_USERNAME}
-#     KC_DB_PASSWORD: ${DB_PASSWORD}
-#     KC_DB_SCHEMA: ${DB_SCHEMA}
-#     KEYCLOAK_ADMIN: admin
-#     KEYCLOAK_ADMIN_PASSWORD: admin
-#     KC_HTTP_ENABLED: true
+
+  keycloak:
+   container_name: keycloak
+   hostname: keycloak
+   image: quay.io/keycloak/keycloak:latest
+   command: ["start-dev", "--import-realm"]
+   ports:
+     - "3212:8080"
+   volumes:
+     - realms:/opt/keycloak/data/import
+   environment:
+     KC_DB: ${DB_NAME}
+     KC_DB_URL: ${DB_URL}
+     KC_DB_USERNAME: ${DB_USER}
+     KC_DB_PASSWORD: ${DB_PASSWORD}
+     KC_DB_SCHEMA: ${DB_SCHEMA}
+     KEYCLOAK_ADMIN: admin
+     KEYCLOAK_ADMIN_PASSWORD: admin
+     KC_HTTP_ENABLED: true
+   networks:
+      - learningpulse
 
 # TODO once implemented into service(s)
   database:
@@ -75,6 +76,9 @@ services:
       - "5432:5432"
     volumes:
       - learning_pulse_pgdata:/var/lib/postgresql/data
+      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+    networks:
+      - learningpulse
 
   pgadmin:
     container_name: pgadmin4_container
@@ -88,7 +92,10 @@ services:
       PGADMIN_DEFAULT_PASSWORD: root
     volumes:
         - learning_pulse_pgadmin:/var/lib/pgadmin
+    networks:
+      - learningpulse
 
 volumes:
   learning_pulse_pgdata:
   learning_pulse_pgadmin:
+  realms:

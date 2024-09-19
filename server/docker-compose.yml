@@ -1,7 +1,3 @@
-
-
-version: "3"
-# https://scribe.rip/@kadampritesh46/microservices-part-4-dockerization-and-beyond-55693a2419e7
 networks:
   learningpulse: {}
 services:
@@ -44,37 +40,36 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
 
   keycloak:
-   container_name: keycloak
-   hostname: keycloak
-   image: quay.io/keycloak/keycloak:latest
-   command: ["start-dev", "--import-realm"]
-   ports:
-     - ${KC_PORT}:8080
-   volumes:
-     - realms:/opt/keycloak/data/import
-   environment:
-     KC_DB: ${KC_DB_NAME}
-     # Its gonna be fun to catch errors caused by this
-     KC_DB_URL: jdbc:postgresql://${DB_URL}:${DB_PORT}/${KC_DB_SCHEMA}
-     KC_DB_USERNAME: ${DB_USER}
-     KC_DB_PASSWORD: ${DB_PASSWORD}
-     KC_DB_SCHEMA: ${KC_DB_SCHEMA}
-     KEYCLOAK_ADMIN: admin
-     KEYCLOAK_ADMIN_PASSWORD: admin
-     KC_HTTP_ENABLED: true
-   networks:
+    container_name: keycloak
+    hostname: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    command: ["start-dev", "--import-realm"]
+    ports:
+      - ${KC_PORT}:8080
+    volumes:
+      - realms:/opt/keycloak/data/import
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://database:5432/keycloak
+      KC_DB_USERNAME: ${DB_USER}
+      KC_DB_PASSWORD: ${DB_PASSWORD}
+      KC_DB_SCHEMA: keycloak
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HTTP_ENABLED: true
+    networks:
       - learningpulse
 
-# TODO once implemented into service(s)
+  # TODO once implemented into service(s)
   database:
     container_name: lp_database
     image: postgres
     restart: always
     hostname: database
     environment:
-     POSTGRES_USER: ${DB_USER}
-     POSTGRES_PASSWORD: ${DB_PASSWORD}
-     POSTGRES_DB: postgres
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: postgres
     ports:
       - ${DB_PORT}:5432
     volumes:
@@ -94,7 +89,7 @@ services:
       PGADMIN_DEFAULT_USERNAME: admin
       PGADMIN_DEFAULT_PASSWORD: root
     volumes:
-        - learning_pulse_pgadmin:/var/lib/pgadmin
+      - learning_pulse_pgadmin:/var/lib/pgadmin
     networks:
       - learningpulse
 

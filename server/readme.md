@@ -7,3 +7,9 @@ To check up on builds head to [actions](/actions)
 ```bash
 nix develop
 ```
+
+### Start testing compose project
+
+```bash
+docker compose -f docker-compose.testing.yml up -d
+```

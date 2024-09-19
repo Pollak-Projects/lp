@@ -44,65 +44,43 @@ public class SecurityConfig {
     @Bean
     SecurityWebFilterChain clientSecurityFilterChain(
             ServerHttpSecurity http,
-            ClientRegistrationRepository clientRegistrationRepository
+            JwtConverter jwtAuthenticationConverter
     ) throws Exception {
-        http.oauth2Login(Customizer.withDefaults());
-        http.logout((logout) -> {
-            var logoutSuccessHandler = new ServerLogoutSuccessHandler() {
-                @Override
-                public Mono<Void> onLogoutSuccess(WebFilterExchange exchange, Authentication authentication) {
-                    return null;
-                }
-            };
-            logout.logoutSuccessHandler(logoutSuccessHandler);
-        });
-
-        http.authorizeExchange(requests -> requests
+        http
+                .oauth2ResourceServer(oauth2ResourceServerSpec -> oauth2ResourceServerSpec
+                        .jwt(jwtSpec -> jwtSpec
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter)
+                        )
+                )
+                .authorizeExchange(requests -> requests
                 .pathMatchers(
                         "/",
                         "/favicon.ico"
                 ).permitAll()
-                .pathMatchers("/nice").hasAnyAuthority("SCOPE_nice")
-                .anyExchange().denyAll()
+                        .pathMatchers("/nice").hasAnyAuthority("SCOPE_nice")
+                        .anyExchange().denyAll()
         );
 
         return http.build();
     }
 
-    // TODO fix xd
-//    @Bean
-//    GrantedAuthoritiesMapper authenticationConverter(
-//            Converter<Jwt, Collection<GrantedAuthority>> authoritiesConverter) {
-//        return (authorities) -> authorities.stream()
-//                .filter(authority -> authority instanceof OidcUserAuthority)
-//                .map(OidcUserAuthority.class::cast)
-//                .map(OidcUserAuthority::getIdToken)
-//                .map(OidcIdToken::getClaims)
-//                .map(authoritiesConverter.convert(Jwt))
-//                .flatMap(roles -> roles.stream())
-//                .collect(Collectors.toSet());
-//    }
-//
-//    @Bean
-//    JwtAuthenticationConverter jwtAuthenticationConverter(
-//            Converter<Jwt, Collection<GrantedAuthority>> authoritiesConverter) {
-//        var authenticationConverter = new JwtAuthenticationConverter();
-//        authenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
-//            return authoritiesConverter.convert(jwt.getClaims());
-//        });
-//        return authenticationConverter;
-//    }
-//
-//    @Bean
-//    AuthoritiesConverter realmRolesAuthoritiesConverter() {
-//        return claims -> {
-//            var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
-//            var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get("roles")));
-//            return roles.map(List::stream)
-//                    .orElse(Stream.empty())
-//                    .map(SimpleGrantedAuthority::new)
-//                    .map(GrantedAuthority.class::cast)
-//                    .toList();
-//        };
-//    }
+    @Bean
+    JwtConverter jwtAuthenticationConverter(AuthoritiesConverter authoritiesConverter) {
+        var authenticationConverter = new JwtAuthenticationConverter();
+        authenticationConverter.setJwtGrantedAuthoritiesConverter(jwt -> authoritiesConverter.convert(jwt.getClaims()));
+        return jwt -> Mono.justOrEmpty(authenticationConverter.convert(jwt));
+    }
+
+    @Bean
+    AuthoritiesConverter realmRolesAuthoritiesConverter() {
+        return claims -> {
+            var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
+            var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get("roles")));
+            return roles.map(List::stream)
+                    .orElse(Stream.empty())
+                    .map(SimpleGrantedAuthority::new)
+                    .map(GrantedAuthority.class::cast)
+                    .collect(Collectors.toList());
+        };
+    }
 }

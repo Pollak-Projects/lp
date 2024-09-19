@@ -53,11 +53,12 @@ services:
    volumes:
      - realms:/opt/keycloak/data/import
    environment:
-     KC_DB: ${DB_NAME}
-     KC_DB_URL: ${DB_URL}
+     KC_DB: ${KC_DB_NAME}
+     # Its gonna be fun to catch errors caused by this
+     KC_DB_URL: jdbc:postgresql://${DB_URL}:${DB_PORT}/${KC_DB_SCHEMA}
      KC_DB_USERNAME: ${DB_USER}
      KC_DB_PASSWORD: ${DB_PASSWORD}
-     KC_DB_SCHEMA: ${DB_SCHEMA}
+     KC_DB_SCHEMA: ${KC_DB_SCHEMA}
      KEYCLOAK_ADMIN: admin
      KEYCLOAK_ADMIN_PASSWORD: admin
      KC_HTTP_ENABLED: true
@@ -75,7 +76,7 @@ services:
      POSTGRES_PASSWORD: ${DB_PASSWORD}
      POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - ${DB_PORT}:5432
     volumes:
       - learning_pulse_pgdata:/var/lib/postgresql/data
       - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql

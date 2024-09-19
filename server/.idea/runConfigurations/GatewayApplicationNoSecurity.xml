@@ -2,6 +2,9 @@
   <configuration default="false" name="GatewayApplicationNoSecurity" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="development" />
     <module name="gateway" />
+    <selectedOptions>
+      <option name="environmentVariables" />
+    </selectedOptions>
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.learningpulse.gateway.GatewayApplication" />
     <method v="2">
       <option name="Make" enabled="true" />

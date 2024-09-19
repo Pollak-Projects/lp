@@ -12,5 +12,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-interface AuthoritiesConverter extends Converter<Jwt, Collection<GrantedAuthority>> {
+// This is why this is needed: https://stackoverflow.com/questions/25711858/spring-cant-determine-generic-types-when-lambda-expression-is-used-instead-of-a
+interface AuthoritiesConverter extends Converter<Map<String, Object>, Collection<GrantedAuthority>> {
 }

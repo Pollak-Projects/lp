@@ -17,9 +17,11 @@ public class DevelopmentSecurityConfig {
 
     @Bean
     public SecurityWebFilterChain developmentSecurityFilterChain(ServerHttpSecurity http) {
-        http.authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
-                .anyExchange().permitAll()
-        ).csrf(ServerHttpSecurity.CsrfSpec::disable);
+        http
+                .authorizeExchange(authorizeExchangeSpec -> authorizeExchangeSpec
+                        .anyExchange().permitAll()
+                )
+                .csrf(ServerHttpSecurity.CsrfSpec::disable);
 
         return http.build();
     }

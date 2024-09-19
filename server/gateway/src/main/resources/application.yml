@@ -57,24 +57,12 @@ spring:
             - Path=/api/v1/file/**
           filters:
             - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
-# TODO enable when needed
+
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://${KC_URL}:${KC_PORT}/realms/LearningPulse
-#      client:
-#        provider:
-#          keycloak:
-#            issuer-uri: http://${KC_URL}:${KC_PORT}/realms/LearningPulse
-#        registration:
-#          keycloak:
-#            provider: LearningPulse
-#            authorization-grant-type: authorization_code
-#            client-id: LearningPulse-confidential
-#            # TODO: add actual secret
-#            client-secret: m4hCrXv83HGyu6FRJvOwQsdCc0WTz4CU
-#            scope: openid
 
 management:
   endpoints:

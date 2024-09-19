@@ -73,7 +73,7 @@ services:
     environment:
      POSTGRES_USER: ${DB_USER}
      POSTGRES_PASSWORD: ${DB_PASSWORD}
-     POSTGRES_DB: learning_pulse
+     POSTGRES_DB: postgres
     ports:
       - "5432:5432"
     volumes:

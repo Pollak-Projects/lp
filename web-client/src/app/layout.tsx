@@ -1,9 +1,9 @@
-import "@/styles/globals.css";
+import "@/src/styles/globals.css";
 import { Viewport } from "next";
 
 import { Providers } from "./providers";
 
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/src/components/navbar";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -22,8 +22,7 @@ export default function RootLayout({
       <head />
       <body className="bg-gradient-to-r from-cyan-500 to-blue-900  h-96 pt-2">
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-
-            <Navbar />
+          <Navbar />
 
           <main className=" flex flex-col items-center justify-center w-400 flex-grow">
             {children}

@@ -18,9 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang="en" >
       <head />
-      <body className="bg-gradient-to-r from-cyan-500 to-blue-900  h-96 pt-2">
+      <body className="h-96 pt-2 ">
+
+
+
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <Navbar />
 
@@ -28,6 +31,7 @@ export default function RootLayout({
             {children}
           </main>
         </Providers>
+
       </body>
     </html>
   );

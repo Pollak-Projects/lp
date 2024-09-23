@@ -4,23 +4,34 @@ import {
   NavbarItem,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
+import React from "react";
+import { AvatarIcon } from "@nextui-org/shared-icons";
+import { Avatar } from "@nextui-org/avatar";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar
-      className="rounded-md w-79/80 mx-3 bg-[#191919]"
-      maxWidth="full"
-    >
-      <NavbarContent className="" justify="start">
-        <ul className="flex gap-4 justify-start">
-          <NavbarItem>
-            <NextLink href={"/"}>Home</NextLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NextLink href={"/quiz"}>Quiz</NextLink>
-          </NavbarItem>
-        </ul>
-      </NavbarContent>
-    </NextUINavbar>
+    <>
+        <NextUINavbar
+          className="rounded-md w-20 bg-secondary"
+          maxWidth="full"
+          style={{ marginLeft: "0.3em", marginRight: "0.3em", borderRadius: "0.8em"}}
+          height={"3em"}
+
+        >
+          <NavbarContent className="flex">
+            <ul className="flex gap-4  w-full">
+              <NavbarItem>
+                <NextLink className={"align-middle"} href={"/"}>Home</NextLink>
+              </NavbarItem>
+              <NavbarItem>
+                <NextLink  className={"align-middle"} href={"/quiz"}>Quiz</NextLink>
+              </NavbarItem>
+            </ul>
+            <span>UserName</span>
+            <Avatar name={"User"} size={"sm"} className={"ml-auto"}/>
+          </NavbarContent>
+        </NextUINavbar>
+
+    </>
   );
 };

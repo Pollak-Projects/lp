@@ -11,14 +11,14 @@ import { Session } from "next-auth";
 export interface ProvidersProps {
   children: React.ReactNode,
   themeProps?: ThemeProviderProps,
-  SessionTest?: Session
+  Session?: Session
 }
 
-export function Providers({ children, themeProps, SessionTest }: ProvidersProps) {
+export function Providers({ children, themeProps, Session }: ProvidersProps) {
   const router = useRouter();
 
   return (
-    <SessionProvider session={SessionTest}>
+    <SessionProvider session={Session}>
       <NextUIProvider navigate={router.push}>
         <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
       </NextUIProvider>

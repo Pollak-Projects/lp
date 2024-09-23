@@ -4,14 +4,12 @@ import { JWT } from "next-auth/jwt";
 import { fetch } from "next/dist/compiled/@edge-runtime/primitives";
 import { URLSearchParams } from "node:url";
 import { Simulate } from "react-dom/test-utils";
-import Keycloak from "@auth/core/providers/keycloak";
 import type { Awaitable, User } from "@auth/core/src/types";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   debug: true,
   providers: [
-    Keycloak,
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -22,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log(req);
         console.log("Authorizing with credentials\n");
         try {
-          const res = await fetch(`${process.env.KEYCLOAK_TOKEN_URL}`, {
+          const res = await fetch(process.env.AUTH_KEYCLOAK_TOKEN_URL, {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded"

@@ -7,18 +7,18 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
 export default function LoginForm() {
-  const {pending} = useFormStatus();
+  const { pending } = useFormStatus();
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
 
-    await signIn('credentials', {
-      username: formData.get('username'),
-      password: formData.get('password'),
+    await signIn("credentials", {
+      username: formData.get("username"),
+      password: formData.get("password"),
       // redirect: true,
-    })
+    });
   };
 
   return (
@@ -29,24 +29,23 @@ export default function LoginForm() {
         method="post"
       >
         <Input
-          type={"text"}
-          name={"username"}
-          labelPlacement={"inside"}
-          label={"Username"}
+          type="text"
+          name="username"
+          labelPlacement="inside"
+          label="Username"
           required={true}
           autoFocus={true}
         />
         <Input
-          type={"password"}
-          name={"password"}
-          labelPlacement={"inside"}
-          label={"Password"}
+          type="password"
+          name="password"
+          labelPlacement="inside"
+          label="Password"
           required={true}
         />
-        <Button
-          aria-disabled={pending}
-          type={"submit"}
-        >Submit button</Button>
+        <Button aria-disabled={pending} type="submit">
+          Submit button
+        </Button>
       </form>
     </>
   );

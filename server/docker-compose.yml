@@ -53,7 +53,7 @@ services:
       # Do not remove the environment variables below, cus
       # how else are you going to develop the gateway service,
       # if not running it locally
-      KC_DB_URL: jdbc:postgresql://${DB_URL}:${DB_PORT}/${KC_DB_NAME_SCHEMA}
+      KC_DB_URL: jdbc:postgresql://database:5432/${KC_DB_NAME_SCHEMA}
       KC_DB_USERNAME: ${DB_USER}
       KC_DB_PASSWORD: ${DB_PASSWORD}
       KC_DB_SCHEMA: ${KC_DB_NAME_SCHEMA}

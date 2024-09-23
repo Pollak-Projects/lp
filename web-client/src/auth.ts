@@ -1,13 +1,57 @@
 import NextAuth, { Account, Session } from "next-auth";
-import Keycloak from "next-auth/providers/keycloak"
+import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
-import { jwtDecode } from "jwt-decode";
-import { Awaitable } from "@auth/core/types";
+import { fetch } from "next/dist/compiled/@edge-runtime/primitives";
+import { URLSearchParams } from "node:url";
+import { Simulate } from "react-dom/test-utils";
+import Keycloak from "@auth/core/providers/keycloak";
+import type { Awaitable, User } from "@auth/core/src/types";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   debug: true,
-  providers: [Keycloak],
+  providers: [
+    Keycloak,
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        username: { type: "text" },
+        password: { type: "password" }
+      },
+      authorize: async (credentials, req) => {
+        console.log(req);
+        console.log("Authorizing with credentials\n");
+        try {
+          const res = await fetch(`${process.env.KEYCLOAK_TOKEN_URL}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+              grant_type: "password",
+              client_id: process.env.AUTH_KEYCLOAK_ID!,
+              client_secret: process.env.AUTH_KEYCLOAK_SECRET!,
+              username: credentials?.username as string || "",
+              password: credentials?.password as string || "",
+              scope: "openid"
+            })
+          });
+          const tokenOrError = await res.json();
+          if (!res.ok) throw tokenOrError;
+
+          console.log("Logging in with credentials\n", tokenOrError);
+
+          return tokenOrError as JWT;
+        } catch (error) {
+          console.error("Error logging in:", error);
+          return null;
+        }
+      }
+    })
+  ],
+  pages: {
+    signIn: "/login",
+  },
   events: {
     async signOut() {
       // This is a SERIOUSLY hacky way to do this, but it works.
@@ -23,6 +67,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }
   },
   callbacks: {
+    async signIn({
+       user,
+       account
+      } : {
+      user: any,
+      account: Account | null
+    }) {
+      console.log("User signed in\n", user, account)
+      // These aren't read only, so it's just ts being stupid
+      // @ts-ignore
+      account!.id_token = user.id_token
+      // @ts-ignore
+      account!.access_token = user.access_token
+      // @ts-ignore
+      account!.refresh_token = user.refresh_token
+      account!.expires_at = user.expires_at
+      return true
+    },
     async jwt({token, account}): Promise<JWT> {
       if (account) {
         return {

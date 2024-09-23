@@ -9,15 +9,15 @@ import { Button } from "@nextui-org/button";
 export default function LoginForm() {
   const {pending} = useFormStatus();
 
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
 
-    signIn('credentials', {
+    await signIn('credentials', {
       username: formData.get('username'),
       password: formData.get('password'),
-      redirect: true,
+      // redirect: true,
     })
   };
 

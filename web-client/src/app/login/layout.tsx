@@ -7,7 +7,9 @@ export default function LoginLayout(
   return (
     <main>
       <section>
-        <div>{children}</div>
+        <div className={"bg-secondary mt-2 rounded-md"}
+        style={{borderRadius: "0.6em"}}>
+          {children}</div>
       </section>
     </main>
   )

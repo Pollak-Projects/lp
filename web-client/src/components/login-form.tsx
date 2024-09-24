@@ -28,24 +28,35 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         method="post"
       >
-        <Input
-          type="text"
-          name="username"
-          labelPlacement="inside"
-          label="Username"
-          required={true}
-          autoFocus={true}
-        />
-        <Input
-          type="password"
-          name="password"
-          labelPlacement="inside"
-          label="Password"
-          required={true}
-        />
-        <Button aria-disabled={pending} type="submit">
-          Submit button
-        </Button>
+        <div className={"flex gap-4 flex-col"}>
+          <Input
+            type="text"
+            name="username"
+            labelPlacement="inside"
+            label="Username"
+            isRequired={true}
+            autoFocus={true}
+            variant={"underlined"}
+            autoComplete={"off"}
+
+          />
+          <Input
+            type="password"
+            name="password"
+            labelPlacement="inside"
+            label="Password"
+            isRequired={true}
+            variant={"underlined"}
+          />
+        </div>
+          <Button aria-disabled={pending} type="submit"
+                  className={"bg-primary"}>
+            Submit button
+            <div>
+
+            </div>
+          </Button>
+
       </form>
     </>
   );

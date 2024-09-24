@@ -32,24 +32,11 @@ export function Providers({ children, themeProps, Session }: ProvidersProps) {
   })
 
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    // TODO fix this its temporary
+    baseURL: `http://localhost:8181`,
     headers: {
       "Content-Type": "application/json",
     },
-  });
-
-  instance.interceptors.request.use(async (config) => {
-    return config;
-  }, (error) => {
-    console.log("Request error", error);
-    return Promise.reject(error);
-  });
-
-  instance.interceptors.response.use((config) => {
-    return config;
-  }, (error) => {
-    console.log("Response error", error);
-    return Promise.reject(error);
   });
 
   return (

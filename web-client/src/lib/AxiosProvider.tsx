@@ -11,17 +11,13 @@ export const AxiosContext = React.createContext<AxiosInstance | undefined>(
 )
 
 export type AxiosExchangeProps = {
-  url: string
+  // url: string
 
 }
 
-export const useAxios = ({
-    url
-  }: AxiosExchangeProps ): AxiosInstance | JSON => {
+export const useAxios = (): AxiosInstance => {
   const instance = React.useContext(AxiosContext)
 
-  console.log(url);
-  console.log(instance);
   if (instance) {
     return instance
   }
@@ -42,21 +38,19 @@ export const AxiosProvider = ({
   instance,
   children,
 }: AxiosProviderProps): React.JSX.Element => {
+  const session = useSession();
   React.useEffect(() => {
-    const requestInterceptor = instance.interceptors.request.use(async (config) => {
-      // This is fine, i love next-auth
-      const session = useSession() as unknown as Session;
-      config.headers.common['Authorization'] = `Bearer ${session?.token?.accessToken}`;
+    const requestInterceptor = instance.interceptors.request.use((config) => {
+      // TODO fix this isnt giving the correct header
+      config.headers.Authorization = (`Bearer ${session?.data?.token?.access_token}`);
       return config;
     }, (error) => {
       console.log("Request error", error);
       return Promise.reject(error);
     });
 
-    const responseInterceptor =  instance.interceptors.response.use(async (config) => {
-      // This too
-      const session = useSession() as unknown as Session;
-      config.headers.common['Authorization'] = `Bearer ${session?.token?.accessToken}`;
+    const responseInterceptor =  instance.interceptors.response.use((config) => {
+      // config.headers.setAuthorization(`Bearer ${session?.data?.token?.access_token}`);
       return config;
     }, (error) => {
       console.log("Response error", error);

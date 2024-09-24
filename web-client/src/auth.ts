@@ -20,7 +20,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log(req);
         console.log("Authorizing with credentials\n");
         try {
-          const res = await fetch(process.env.AUTH_KEYCLOAK_TOKEN_URL, {
+          const res = await fetch(process.env.AUTH_KEYCLOAK_TOKEN_URL!, {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded"
@@ -100,7 +100,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!token.refresh_token) throw new TypeError("Missing refresh token");
         console.log("Refreshing token")
         try {
-          const res = await fetch(`${process.env.KEYCLOAK_TOKEN_URL}`, {
+          const res = await fetch(`${process.env.AUTH_KEYCLOAK_TOKEN_URL}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded"

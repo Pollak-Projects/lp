@@ -1,7 +1,6 @@
 import { Button } from "@nextui-org/button";
 import React from "react";
 import { auth, signOut } from "@/src/auth";
-import { Signout } from "@/src/components/signout";
 import Link from "next/link";
 
 export default async function Home() {

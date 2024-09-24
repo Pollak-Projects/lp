@@ -62,7 +62,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://${KC_URL}:${KC_PORT}/realms/LearningPulse
+          issuer-uri: ${KC_ISSUER_URI}
 
 management:
   endpoints:

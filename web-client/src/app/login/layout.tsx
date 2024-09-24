@@ -5,12 +5,11 @@ export default function LoginLayout(
     children: React.ReactNode
   }) {
   return (
-    <main>
-      <section>
-        <div className={"bg-secondary mt-2 rounded-md"}
+    <main style={{width: "21.5em"}}>
+        <div className={"bg-secondary mt-2 rounded-md w-full"}
         style={{borderRadius: "0.6em"}}>
           {children}</div>
-      </section>
+
     </main>
   )
 }

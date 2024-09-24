@@ -5,6 +5,7 @@ import { FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
+import NextLink from "next/link";
 
 export default function LoginForm() {
   const { pending } = useFormStatus();
@@ -28,7 +29,11 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         method="post"
       >
-        <div className={"flex gap-4 flex-col"}>
+        <div className={"flex gap-4 flex-col items-center flex-wrap w-full"}
+             style={{maxWidth: "none"}}
+
+        >
+          <h4>Login to LearningPulse</h4>
           <Input
             type="text"
             name="username"
@@ -38,6 +43,8 @@ export default function LoginForm() {
             autoFocus={true}
             variant={"underlined"}
             autoComplete={"off"}
+            style={{background: "none"}}
+
 
           />
           <Input
@@ -47,16 +54,22 @@ export default function LoginForm() {
             label="Password"
             isRequired={true}
             variant={"underlined"}
+            style={{background: "none"}}
+
           />
+          <div>
+            <span>Don't have an account? </span>
+            <NextLink href={{/*Todo: /register*/}} color={"primary"}>Register</NextLink>
+          </div>
+          <div>
+            <Button
+              aria-disabled={pending}
+              type="submit"
+              className={"bg-primary"}
+            > Submit button
+            </Button>
+          </div>
         </div>
-          <Button aria-disabled={pending} type="submit"
-                  className={"bg-primary"}>
-            Submit button
-            <div>
-
-            </div>
-          </Button>
-
       </form>
     </>
   );

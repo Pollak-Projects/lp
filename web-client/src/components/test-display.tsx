@@ -9,17 +9,9 @@ import { Button } from "@nextui-org/button";
 
 export function TestDisplay() {
   const axios = useAxios();
-  const session = useSession();
   const { isPending, error, data, isFetching } = useQuery({
     queryKey: ["test"],
-    // queryFn: async () => {
-      // const res = await fetch(`http://localhost:8181/api/v1/quiz/webclient`, {
-      //   method: "GET",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     Authorization: `Bearer ${session?.data?.token?.access_token}`,
-      //   },
-      // });
+
     queryFn: async () => {
       const res = await axios.get("/api/v1/quiz/webclient");
       return res.data;

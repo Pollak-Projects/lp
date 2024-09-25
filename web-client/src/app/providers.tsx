@@ -43,7 +43,7 @@ export function Providers({ children, themeProps, Session }: ProvidersProps) {
       <AxiosProvider instance={instance}>
         <QueryClientProvider client={queryClient}>
           <NextUIProvider navigate={router.push}>
-            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+            <NextThemesProvider>{children}</NextThemesProvider>
           </NextUIProvider>
         </QueryClientProvider>
       </AxiosProvider>

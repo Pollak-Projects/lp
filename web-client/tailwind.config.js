@@ -32,7 +32,6 @@ module.exports = {
         colors: {
           background: "#468BCB",
           content1: "#191919",
-          secondary: "#191919"
 
         }
       }

@@ -16,7 +16,7 @@ export const Navbar = () => {
   return (
     <>
         <NextUINavbar
-          className="rounded-md w-10/11 bg-secondary "
+          className="rounded-md w-10/11 bg-content1 "
           maxWidth="full"
           style={{ marginLeft: "0.3em", marginRight: "0.3em", borderRadius: "0.6em"}}
           height={"3em"}

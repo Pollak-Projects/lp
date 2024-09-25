@@ -29,10 +29,7 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         method="post"
       >
-        <div className={"flex gap-4 flex-col items-center flex-wrap w-full"}
-             style={{maxWidth: "none"}}
-
-        >
+        <div>
           <h4>Login to LearningPulse</h4>
           <Input
             type="text"
@@ -58,7 +55,7 @@ export default function LoginForm() {
 
           />
           <div>
-            <span>Don't have an account? </span>
+            <span className={"font-sans"}>Don't have an account? </span>
 
             <NextLink
               href={"/"} /*Todo: /register*/

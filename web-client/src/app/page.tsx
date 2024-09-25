@@ -6,12 +6,15 @@ import Link from "next/link";
 import { auth, signOut } from "@/src/auth";
 import { useSession } from "next-auth/react";
 import { TestDisplay } from "@/src/components/test-display";
+import { Navbar } from "@/src/components/navbar";
+
 
 export default async function Home() {
   const session = await auth();
   return (
     <>
-      <section className="flex flex-col items-center bg-amber-300 justify-center gap-4 py-8 md:py-10">
+      <Navbar/>
+      <section>
         <Button>Click me</Button>
         {session ? (
 
@@ -23,14 +26,12 @@ export default async function Home() {
           >
             <Button type={"submit"}>Sign out</Button>
           </form>
-        ) : (
-          <Link href="/login">
+        ) : (          <Link href="/login">
             <Button color="primary">Sign In</Button>
           </Link>
         )}
         <Button color={"primary"}>Click me</Button>
       </section>
-      <TestDisplay />
     </>
   );
 }

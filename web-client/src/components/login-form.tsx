@@ -59,14 +59,19 @@ export default function LoginForm() {
           />
           <div>
             <span>Don't have an account? </span>
-            <NextLink href={{/*Todo: /register*/}} color={"primary"}>Register</NextLink>
+
+            <NextLink
+              href={"/"} /*Todo: /register*/
+              style={{color: "#006FEE"}}
+              //color={"primary"} remind me to send a pipe bomb to whomever set the colour to inherit by default
+            > Register</NextLink>
           </div>
           <div>
             <Button
               aria-disabled={pending}
               type="submit"
               className={"bg-primary"}
-            > Submit button
+            > Log in
             </Button>
           </div>
         </div>

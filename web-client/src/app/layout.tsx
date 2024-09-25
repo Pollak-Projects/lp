@@ -5,6 +5,7 @@ import {fontSans} from "@/src/config/fonts"
 import { Providers } from "./providers";
 
 import { Navbar } from "@/src/components/navbar";
+import GlobalStyles from "@/src/components/globalStyles";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -22,19 +23,9 @@ export default function RootLayout({
 
 
     <html suppressHydrationWarning lang="en" className={fontSans.className}>
+    <GlobalStyles/>
     <head>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-                        (function() {
-                            const storedColorMode = localStorage.getItem('colorMode');
-                            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                            const colorMode = storedColorMode || (prefersDarkMode ? 'dark' : 'light');
-                            document.documentElement.style.colorScheme = colorMode;
-                        })();
-                    `,
-        }}
-      />
+    <link rel={"stylesheet"} href={"@/src/styles/globals.css"} />
 
     </head>
     <body>

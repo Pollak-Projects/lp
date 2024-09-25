@@ -13,24 +13,27 @@ export default async function Home() {
   const session = await auth();
   return (
     <>
-      <Navbar/>
       <section>
-        <Button>Click me</Button>
-        {session ? (
+        <Navbar/>
+        <div className={"flex flex-col place-items-center align-middle"}>
+          <Button>Click me</Button>
+          {session ? (
 
-          <form
-            action={async () => {
-              "use server"
-              await signOut()
-            }}
-          >
-            <Button type={"submit"}>Sign out</Button>
-          </form>
-        ) : (          <Link href="/login">
-            <Button color="primary">Sign In</Button>
-          </Link>
-        )}
-        <Button color={"primary"}>Click me</Button>
+            <form
+              action={async () => {
+                "use server"
+                await signOut()
+              }}
+            >
+              <Button type={"submit"}>Sign out</Button>
+            </form>
+          ) : (          <Link href="/login">
+              <Button color="primary">Sign In</Button>
+            </Link>
+          )}
+          <Button color={"primary"}>Click me</Button>
+        </div>
+
       </section>
     </>
   );

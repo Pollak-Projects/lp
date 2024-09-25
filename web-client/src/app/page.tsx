@@ -8,7 +8,6 @@ import { useSession } from "next-auth/react";
 import { TestDisplay } from "@/src/components/test-display";
 
 export default async function Home() {
-
   const session = await auth();
   return (
     <>

@@ -52,6 +52,7 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // The rest
+                        // TODO figure out how to make the webclient inherit its roles form the user
                         .pathMatchers("/api/v1/quiz/webclient").authenticated()//.hasAnyRole("test_role", "client_test_role")
                         .pathMatchers("/api/v1/user/webclient").authenticated()//.hasAnyRole("test_role", "client_test_role")
 
@@ -92,6 +93,17 @@ public class SecurityConfig {
     AuthoritiesConverter realmRolesAuthoritiesConverter() {
         return claims -> {
             var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
+            // TODO finish this so we can get roles from here:
+            // "resource_access": {
+            //    "client-credentials-test": {
+            //      "roles": [
+            //        "asd_role"
+            //      ]
+            //    },
+//            var resourceAccess = Optional.ofNullable((Map<String, Object>) (((Map<String, Object>) claims.get("resource_access"))
+//                    .get("user"))
+//                    .get("roles")
+//            );
             var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get("roles")));
             return roles.stream()
                     .flatMap(Collection::stream)

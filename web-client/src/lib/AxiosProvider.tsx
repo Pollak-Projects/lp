@@ -2,9 +2,7 @@
 
 import { AxiosInstance } from "axios";
 import React from "react";
-import { auth } from "@/src/auth";
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 
 export const AxiosContext = React.createContext<AxiosInstance | undefined>(
   undefined,
@@ -38,6 +36,8 @@ export const AxiosProvider = ({
   instance,
   children,
 }: AxiosProviderProps): React.JSX.Element => {
+  // TODO this is a bad way to get the current user's session,
+  //  the useAxios should require a session to be passed in form the server-side
   const session = useSession();
   // This needs to be a local variable because the useSession hook cannot be accessed from inside the useEffect hook
   const localSession = session;

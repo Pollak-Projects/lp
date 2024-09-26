@@ -16,8 +16,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         username: { type: "text" },
         password: { type: "password" }
       },
-      authorize: async (credentials, req) => {
-        console.log(req);
+      async authorize(credentials, req) {
         console.log("Authorizing with credentials\n");
         try {
           const res = await fetch(process.env.AUTH_KEYCLOAK_TOKEN_URL!, {
@@ -55,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // This is a SERIOUSLY hacky way to do this, but it works.
       const session: Session | null = await auth();
 
-      const url = `${process.env.KEYCLOAK_SESSION_END_URL}?id_token_hint=${encodeURIComponent(session?.token?.id_token!)}&post_logout_redirect_uri=${encodeURIComponent(process.env.HOST_URL!)}`; //?id_token_hint=${idToken}&post_logout_redirect_uri=${process.env.HOST_URL}
+      const url = `${process.env.KEYCLOAK_SESSION_END_URL}?id_token_hint=${encodeURIComponent(session?.token?.id_token!)}&post_logout_redirect_uri=${encodeURIComponent(process.env.HOST_URL!)}`;
 
       try {
         const resp = await fetch(url, {method: "GET"});

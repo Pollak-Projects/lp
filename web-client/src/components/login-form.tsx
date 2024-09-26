@@ -18,7 +18,7 @@ export default function LoginForm() {
     await signIn("credentials", {
       username: formData.get("username"),
       password: formData.get("password"),
-      // redirect: true,
+      redirect: true,
     });
   };
 
@@ -65,6 +65,7 @@ export default function LoginForm() {
           </div>
           <div>
             <Button
+              // TODO make tshe button redirect to some url
               aria-disabled={pending}
               type="submit"
               className={"bg-primary"}

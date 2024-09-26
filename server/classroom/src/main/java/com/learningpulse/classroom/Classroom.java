@@ -6,8 +6,11 @@ import lombok.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.UUID;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -18,7 +21,8 @@ import org.springframework.data.annotation.CreatedDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "classroom", schema = "classroom")
+@Table(name = "classroom", schema = "learning_pulse")
+// FIXME https://en.wikibooks.org/wiki/Java_Persistence/ElementCollection
 
 public class Classroom implements Serializable {
 
@@ -32,23 +36,37 @@ public class Classroom implements Serializable {
     private Timestamp createdAt;
 
     /// The code that users can join via
-    /// This should be a unique code ranging from 4-12 in length
+    /// 10^10 = 10 000 000 000 possible classrooms
+    @Column(unique = true, nullable = false, length = 10)
     private String joinCode;
 
+    // TODO make connection to other table somehow as this is a violation of 2nf
     @CreatedBy
     private UUID createdBy;
 
-    // TODO replace with classes accordingly
-    // TODO connect members table https:// www.baeldung.com/hibernate-many-to-many
     @Builder.Default
-    private List<UUID> members = Collections.emptyList();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "classroom_members", schema = "learning_pulse", joinColumns = @JoinColumn(name = "userid"))
+    private List<UUID> members = new ArrayList<UUID>();
 
     @Builder.Default
-    // TODO connect posts table https:// www.baeldung.com/hibernate-many-to-many
-    private List<UUID> posts = Collections.emptyList();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "post", schema = "learning_pulse", joinColumns = @JoinColumn(name = "id"))
+    private List<UUID> posts = new ArrayList<UUID>();
 
     @Builder.Default
-    // TODO connect files table https:// www.baeldung.com/hibernate-many-to-many
-    private List<UUID> files = Collections.emptyList();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "classroom_attachments", schema = "learning_pulse", joinColumns = @JoinColumn(name = "id"))
+    private List<UUID> file = new ArrayList<UUID>();
 
+    @Builder.Default
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "classroom_assignments", schema = "learning_pulse", joinColumns = @JoinColumn(name = "id"))
+    private List<UUID> assignments = new ArrayList<UUID>();
+
+    private UUID chat;
+
+    public void add_member(UUID user) {
+        this.members.add(user);
+    }
 }

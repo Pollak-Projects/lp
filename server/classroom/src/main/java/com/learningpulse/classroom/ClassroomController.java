@@ -1,5 +1,6 @@
 package com.learningpulse.classroom;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,13 @@ public class ClassroomController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createNewClassroom(@RequestBody ClassroomCreateRequest classroom) {
-        ClassroomService.createClassroom(classroom.getName());
+    public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model) {
+        Classroom classroom = ClassroomService.createClassroom(classroom_model.getName());
+        return ResponseEntity.ok(classroom);
+    }
+
+    @PostMapping("/join")
+    public ResponseEntity<Void> join(@RequestParam("user_id") UUID uuid, @RequestParam("classroom") UUID classroom) {
         return ResponseEntity.ok().build();
     }
 

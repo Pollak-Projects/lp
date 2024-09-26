@@ -45,18 +45,15 @@ services:
     image: quay.io/keycloak/keycloak:latest
     command: ["start-dev", "--import-realm"]
     ports:
-      - ${KC_PORT}:8080
+      - ${KC_PORT:-8081}:8080
     volumes:
       - ./autoconfig/realms:/opt/keycloak/data/import
     environment:
       KC_DB: postgres
-      # Do not remove the environment variables below, cus
-      # how else are you going to develop the gateway service,
-      # if not running it locally
-      KC_DB_URL: jdbc:postgresql://${KC_DATABASE}:${KC_DATABASE_PORT}/${KC_DB_NAME_SCHEMA}
-      KC_DB_USERNAME: ${DB_USER}
-      KC_DB_PASSWORD: ${DB_PASSWORD}
-      KC_DB_SCHEMA: ${KC_DB_NAME_SCHEMA}
+      KC_DB_URL: jdbc:postgresql://database:5432/${KC_DB_NAME_SCHEMA:- keycloak}
+      KC_DB_USERNAME: ${DB_USER:- lp}
+      KC_DB_PASSWORD: ${DB_PASSWORD:- lp}
+      KC_DB_SCHEMA: ${KC_DB_NAME_SCHEMA:-lp}
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HTTP_ENABLED: true
@@ -69,12 +66,12 @@ services:
     container_name: lp_database
     image: postgres
     restart: always
-    hostname: ${DB_URL}
+    hostname: database
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - ${DB_PORT}:5432
+      - ${DB_PORT:- 5432}:5432
     volumes:
       - learning_pulse_pgdata:/var/lib/postgresql/data
       - ./autoconfig/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
@@ -86,7 +83,7 @@ services:
     image: dpage/pgadmin4
     restart: always
     ports:
-      - "8888:80"
+      - "${PG_ADMIN_PORT:-8888}:80"
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_USERNAME: admin

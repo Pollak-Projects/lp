@@ -49,18 +49,13 @@ public class SecurityConfig {
                                                                 "/favicon.ico")
                                                 .permitAll()
 
-<<<<<<< HEAD
                                                 // The rest
+                                                // TODO figure out how to make the webclient inherit its roles form the
+                                                // user
                                                 .pathMatchers("/api/v1/quiz/webclient").authenticated()// .hasAnyRole("test_role",
                                                                                                        // "client_test_role")
                                                 .pathMatchers("/api/v1/user/webclient").authenticated()// .hasAnyRole("test_role",
                                                                                                        // "client_test_role")
-=======
-                        // The rest
-                        // TODO figure out how to make the webclient inherit its roles form the user
-                        .pathMatchers("/api/v1/quiz/webclient").authenticated()//.hasAnyRole("test_role", "client_test_role")
-                        .pathMatchers("/api/v1/user/webclient").authenticated()//.hasAnyRole("test_role", "client_test_role")
->>>>>>> b3dc936e97c9614308d1e50051f3df8cf26b8a61
 
                                                 // Anything else
                                                 .anyExchange().authenticated());

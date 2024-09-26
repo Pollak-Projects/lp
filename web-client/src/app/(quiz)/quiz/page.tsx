@@ -1,10 +1,26 @@
-import { Button } from "@nextui-org/button";
+"use client";
 import NextLink from "next/link";
 import InputText from "@/src/components/quizComponents/inputText";
+import InputRadio from "@/src/components/quizComponents/inputRadio";
+import { RadioQuestion } from "@/src/types/questionRadio";
+import { useState } from "react";
 
 
 export default function Home() {
+  const dummyData: RadioQuestion = {
+        "title": "This is such a long ass dummy question, that it needs to be displayed in two completely different set of lines",
+        "value": [
+          "why",
+          "just",
+          "cause",
+          "bad",
+          "game",
+          "I jest"
+        ]
+  }
 
+
+  const [Radio, SetRadio] = useState(null);
   return (
     <>
         <div className="w-full flex flex-col items-center justify-center">
@@ -23,6 +39,8 @@ export default function Home() {
         <section
           className={"w-3/5 bg-content1 h-full p-1"}>
           <InputText/>
+          <h1>{Radio}</h1>
+          <InputRadio question={dummyData}  SetRadio={SetRadio} />
         </section>
         <section
           className={"w-1/5 bg-content1 h-full p-1"}>

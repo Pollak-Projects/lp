@@ -57,6 +57,13 @@ spring:
             - Path=/api/v1/file/**
           filters:
             - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
+        # classroom service
+        - id: classroom
+          uri: lb://classroom
+          predicates:
+            - Path=/api/v1/classroom/**
+          filters:
+            - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
 
   security:
     oauth2:

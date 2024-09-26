@@ -6,32 +6,35 @@ import Link from "next/link";
 import { auth, signOut } from "@/src/auth";
 import { useSession } from "next-auth/react";
 import { TestDisplay } from "@/src/components/test-display";
+import { Navbar } from "@/src/components/navbar";
+
 
 export default async function Home() {
-
   const session = await auth();
   return (
     <>
-      <section className="flex flex-col items-center bg-amber-300 justify-center gap-4 py-8 md:py-10">
-        <Button>Click me</Button>
-        {session ? (
+      <section>
+        <Navbar/>
+        <div className={"flex flex-col place-items-center align-middle"}>
+          <Button>Click me</Button>
+          {session ? (
 
-          <form
-            action={async () => {
-              "use server"
-              await signOut()
-            }}
-          >
-            <Button type={"submit"}>Sign out</Button>
-          </form>
-        ) : (
-          <Link href="/login">
-            <Button color="primary">Sign In</Button>
-          </Link>
-        )}
-        <Button color={"primary"}>Click me</Button>
+            <form
+              action={async () => {
+                "use server"
+                await signOut()
+              }}
+            >
+              <Button type={"submit"}>Sign out</Button>
+            </form>
+          ) : (          <Link href="/login">
+              <Button color="primary">Sign In</Button>
+            </Link>
+          )}
+          <Button color={"primary"}>Click me</Button>
+        </div>
+
       </section>
-      <TestDisplay />
     </>
   );
 }

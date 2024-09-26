@@ -16,7 +16,7 @@ export const Navbar = () => {
   return (
     <>
         <NextUINavbar
-          className="rounded-md w-20 bg-secondary jst"
+          className="rounded-md w-10/11 bg-content1 "
           maxWidth="full"
           style={{ marginLeft: "0.3em", marginRight: "0.3em", borderRadius: "0.6em"}}
           height={"3em"}
@@ -34,7 +34,9 @@ export const Navbar = () => {
 
             <ul className="flex gap-4 justify-end items-center">
               <NavbarItem>
-                <NextLink href={"/login"} className={"align-middle"}>Login or Register</NextLink>
+                <NextLink href={"/login"} className={"align-middle"}>Log in</NextLink>
+                <span className={"align-middle"}> or </span>
+                <NextLink href={"/login"} className={"align-middle"}>Register</NextLink>
               </NavbarItem>
               <NavbarItem>
                 <span className={"align-middle"}>UserName</span>

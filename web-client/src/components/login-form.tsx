@@ -18,7 +18,7 @@ export default function LoginForm() {
     await signIn("credentials", {
       username: formData.get("username"),
       password: formData.get("password"),
-      // redirect: true,
+      redirect: true,
     });
   };
 
@@ -29,10 +29,7 @@ export default function LoginForm() {
         onSubmit={onSubmit}
         method="post"
       >
-        <div className={"flex gap-4 flex-col items-center flex-wrap w-full"}
-             style={{maxWidth: "none"}}
-
-        >
+        <div>
           <h4>Login to LearningPulse</h4>
           <Input
             type="text"
@@ -58,15 +55,21 @@ export default function LoginForm() {
 
           />
           <div>
-            <span>Don't have an account? </span>
-            <NextLink href={{/*Todo: /register*/}} color={"primary"}>Register</NextLink>
+            <span className={"font-sans"}>Don't have an account? </span>
+
+            <NextLink
+              href={"/"} /*Todo: /register*/
+              style={{color: "#006FEE"}}
+              //color={"primary"} remind me to send a pipe bomb to whomever set the colour to inherit by default
+            > Register</NextLink>
           </div>
           <div>
             <Button
+              // TODO make tshe button redirect to some url
               aria-disabled={pending}
               type="submit"
               className={"bg-primary"}
-            > Submit button
+            > Log in
             </Button>
           </div>
         </div>

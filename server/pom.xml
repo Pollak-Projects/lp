@@ -28,6 +28,14 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
+
+        <sonar.projectKey>learningpulse-server</sonar.projectKey>
+        <sonar.projectName>learningpulse-server</sonar.projectName>
+        <sonar.host.url>http://sonarqube.green.local</sonar.host.url>
+        <sonar.token>sqp_a07e92714664c39337d9bcd11a41afb753adf5b5</sonar.token>
+        <!-- https://github.com/SonarSource/sonar-scanning-examples -->
+        <sonar.coverage.jacoco.xmlReportPaths>${maven.multiModuleProjectDirectory}/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.maven.scanAll>true</sonar.maven.scanAll>
     </properties>
     <dependencies>
         <dependency>
@@ -51,6 +59,17 @@
             <artifactId>annotations</artifactId>
             <version>24.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.1.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -66,47 +85,98 @@
     </dependencyManagement>
 
      <build>
+         <pluginManagement>
+             <plugins>
+                 <plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-compiler-plugin</artifactId>
+                     <version>3.13.0</version>
+                 </plugin>
+                 <plugin>
+                     <groupId>org.sonarsource.scanner.maven</groupId>
+                     <artifactId>sonar-maven-plugin</artifactId>
+                     <version>4.0.0.4121</version>
+                 </plugin>
+                 <plugin>
+                     <groupId>org.jacoco</groupId>
+                     <artifactId>jacoco-maven-plugin</artifactId>
+                     <version>0.8.12</version>
+                 </plugin>
+             </plugins>
+         </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.2</version>
-                <configuration>
-                    <from>
-                        <image>eclipse-temurin:21-jre</image>
-                        <platforms>
-                            <platform>
-                                <architecture>amd64</architecture>
-                                <os>linux</os>
-                            </platform>
-                            <platform>
-                                <architecture>arm64</architecture>
-                                <os>linux</os>
-                            </platform>
-                        </platforms>
-                    </from>
-                    <to>
-                        <image>ghcr.io/pollak-projects/lp/${project.artifactId}:dev</image>
-                        <auth>
-                            <username>pollak-projects</username>
-                            <password>${token}</password>
-                        </auth>
-                    </to>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.google.cloud.tools</groupId>-->
+<!--                <artifactId>jib-maven-plugin</artifactId>-->
+<!--                <version>3.4.2</version>-->
+<!--                <configuration>-->
+<!--                    <from>-->
+<!--                        <image>eclipse-temurin:21-jre</image>-->
+<!--                        <platforms>-->
+<!--                            <platform>-->
+<!--                                <architecture>amd64</architecture>-->
+<!--                                <os>linux</os>-->
+<!--                            </platform>-->
+<!--                            <platform>-->
+<!--                                <architecture>arm64</architecture>-->
+<!--                                <os>linux</os>-->
+<!--                            </platform>-->
+<!--                        </platforms>-->
+<!--                    </from>-->
+<!--                    <to>-->
+<!--                        <image>ghcr.io/pollak-projects/lp/${project.artifactId}:dev</image>-->
+<!--                        <auth>-->
+<!--                            <username>pollak-projects</username>-->
+<!--                            <password>${token}</password>-->
+<!--                        </auth>-->
+<!--                    </to>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>dockerBuild</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <goals>
+                                    <goal>report-aggregate</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

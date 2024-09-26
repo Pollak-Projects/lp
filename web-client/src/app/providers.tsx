@@ -32,8 +32,7 @@ export function Providers({ children, themeProps, Session }: ProvidersProps) {
   })
 
   const instance = axios.create({
-    // TODO fix this its temporary
-    baseURL: `http://localhost:8181`,
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     headers: {
       "Content-Type": "application/json",
     },
@@ -44,7 +43,7 @@ export function Providers({ children, themeProps, Session }: ProvidersProps) {
       <AxiosProvider instance={instance}>
         <QueryClientProvider client={queryClient}>
           <NextUIProvider navigate={router.push}>
-            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+            <NextThemesProvider>{children}</NextThemesProvider>
           </NextUIProvider>
         </QueryClientProvider>
       </AxiosProvider>

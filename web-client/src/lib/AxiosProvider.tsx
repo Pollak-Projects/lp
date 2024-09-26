@@ -2,16 +2,14 @@
 
 import { AxiosInstance } from "axios";
 import React from "react";
-import { auth } from "@/src/auth";
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
 
 export const AxiosContext = React.createContext<AxiosInstance | undefined>(
   undefined,
 )
 
 export type AxiosExchangeProps = {
-  // url: string
+  session: string
 
 }
 
@@ -38,11 +36,17 @@ export const AxiosProvider = ({
   instance,
   children,
 }: AxiosProviderProps): React.JSX.Element => {
+  // TODO this is a bad way to get the current user's session,
+  //  the useAxios should require a session to be passed in form the server-side
   const session = useSession();
+  // This needs to be a local variable because the useSession hook cannot be accessed from inside the useEffect hook
+  const localSession = session;
   React.useEffect(() => {
+
+    if (localSession.status === "loading" || localSession.status === "unauthenticated") return;
+
     const requestInterceptor = instance.interceptors.request.use((config) => {
-      // TODO fix this isnt giving the correct header
-      config.headers.Authorization = (`Bearer ${session?.data?.token?.access_token}`);
+      config.headers.Authorization = (`Bearer ${localSession.data?.token?.access_token}`);
       return config;
     }, (error) => {
       console.log("Request error", error);
@@ -50,12 +54,12 @@ export const AxiosProvider = ({
     });
 
     const responseInterceptor =  instance.interceptors.response.use((config) => {
-      // config.headers.setAuthorization(`Bearer ${session?.data?.token?.access_token}`);
       return config;
     }, (error) => {
       console.log("Response error", error);
       return Promise.reject(error);
     });
+
     return () => {
       instance.interceptors.request.eject(requestInterceptor)
       instance.interceptors.response.eject(responseInterceptor)

@@ -49,11 +49,18 @@ public class SecurityConfig {
                                                                 "/favicon.ico")
                                                 .permitAll()
 
+<<<<<<< HEAD
                                                 // The rest
                                                 .pathMatchers("/api/v1/quiz/webclient").authenticated()// .hasAnyRole("test_role",
                                                                                                        // "client_test_role")
                                                 .pathMatchers("/api/v1/user/webclient").authenticated()// .hasAnyRole("test_role",
                                                                                                        // "client_test_role")
+=======
+                        // The rest
+                        // TODO figure out how to make the webclient inherit its roles form the user
+                        .pathMatchers("/api/v1/quiz/webclient").authenticated()//.hasAnyRole("test_role", "client_test_role")
+                        .pathMatchers("/api/v1/user/webclient").authenticated()//.hasAnyRole("test_role", "client_test_role")
+>>>>>>> b3dc936e97c9614308d1e50051f3df8cf26b8a61
 
                                                 // Anything else
                                                 .anyExchange().authenticated());
@@ -90,6 +97,7 @@ public class SecurityConfig {
                 return jwt -> Mono.justOrEmpty(authenticationConverter.convert(jwt));
         }
 
+<<<<<<< HEAD
         @Bean
         AuthoritiesConverter realmRolesAuthoritiesConverter() {
                 return claims -> {
@@ -103,4 +111,30 @@ public class SecurityConfig {
                                         .collect(Collectors.toList());
                 };
         }
+=======
+    @Bean
+    AuthoritiesConverter realmRolesAuthoritiesConverter() {
+        return claims -> {
+            var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
+            // TODO finish this so we can get roles from here:
+            // "resource_access": {
+            //    "client-credentials-test": {
+            //      "roles": [
+            //        "asd_role"
+            //      ]
+            //    },
+//            var resourceAccess = Optional.ofNullable((Map<String, Object>) (((Map<String, Object>) claims.get("resource_access"))
+//                    .get("user"))
+//                    .get("roles")
+//            );
+            var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get("roles")));
+            return roles.stream()
+                    .flatMap(Collection::stream)
+                    .map(roleName -> "ROLE_" + roleName)
+                    .map(SimpleGrantedAuthority::new)
+                    .map(GrantedAuthority.class::cast)
+                    .collect(Collectors.toList());
+        };
+    }
+>>>>>>> b3dc936e97c9614308d1e50051f3df8cf26b8a61
 }

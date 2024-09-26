@@ -4,8 +4,12 @@ import {nextui} from '@nextui-org/theme'
 module.exports = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/quizComponents/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+    './app/(quiz)/quiz/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/(restOfTheApp)/login/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -31,7 +35,6 @@ module.exports = {
         colors: {
           background: "#468BCB",
           content1: "#191919",
-          secondary: "#191919"
 
         }
       }

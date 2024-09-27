@@ -203,3 +203,4 @@ README.html
 .exercism
 
 .env
+*.gz

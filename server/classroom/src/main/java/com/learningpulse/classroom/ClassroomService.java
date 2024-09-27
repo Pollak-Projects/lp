@@ -24,8 +24,10 @@ public class ClassroomService {
         return repo.findAll();
     }
 
+    // TODO add param: UUID creator
     public Classroom createClassroom(String name) {
         // TODO create chat for classroom
+
         String joinCode = generateJoinCode(4);
         Classroom classroom = new Classroom().builder().joinCode(joinCode).name(name).build();
         ExampleMatcher matcher = ExampleMatcher.matching()

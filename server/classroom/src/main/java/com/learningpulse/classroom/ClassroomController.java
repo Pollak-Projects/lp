@@ -6,8 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+
 import lombok.RequiredArgsConstructor;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,8 +36,11 @@ public class ClassroomController {
 
     @PostMapping
     public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
-            String token) {
-        logger.debug(String.format("Create:/token: %s", token));
+            @RequestHeader("Authorization") String token) {
+        // TODO add a middleware implementation to this instead of doing it here
+        // FIXME errors out due to not being base64? Idk
+        DecodedJWT decodedJWT = JWT.decode(token);
+        logger.debug(String.format("Create:/token: %s", decodedJWT.getId()));
         Classroom classroom = ClassroomService.createClassroom(classroom_model.getName());
         return ResponseEntity.ok(classroom);
     }

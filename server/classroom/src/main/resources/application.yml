@@ -2,6 +2,11 @@ server:
   port: 0
 
 spring:
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
   application:
     name: classroom
   jpa:
@@ -12,8 +17,9 @@ spring:
           auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
-    # FIXME replace this shit
-    url: jdbc:postgresql://${DB_HOST:-localhost}:${DB_PORT:-5432}/${DB_NAME:-learning_pulse}
+    # To run with variables
+    # mvn spring-boot:run -Dspring-boot.run.arguments="--DB_PORT=5432"
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:learning_pulse}
     username: lp
     password: lp
 
@@ -36,5 +42,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 
 logging:
+  level:
+    root: ${LOGGING_LEVEL:info}
   file:
     name: ././logs/quiz.log

@@ -1,5 +1,7 @@
 package com.learningpulse.classroom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/classroom")
 public class ClassroomController {
     private final ClassroomService ClassroomService;
+    private static final Logger logger = LoggerFactory.getLogger(ClassroomController.class);
 
     @GetMapping
     public ResponseEntity<List<Classroom>> findAll() {
@@ -28,7 +31,9 @@ public class ClassroomController {
     }
 
     @PostMapping
-    public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model) {
+    public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
+            String token) {
+        logger.debug(String.format("Create:/token: %s", token));
         Classroom classroom = ClassroomService.createClassroom(classroom_model.getName());
         return ResponseEntity.ok(classroom);
     }

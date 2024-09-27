@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +33,6 @@ public class Classroom implements Serializable {
 
     private String name;
 
-    @CreatedDate
     private Timestamp createdAt;
 
     /// The code that users can join via
@@ -68,5 +68,10 @@ public class Classroom implements Serializable {
 
     public void add_member(UUID user) {
         this.members.add(user);
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
     }
 }

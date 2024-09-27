@@ -93,28 +93,31 @@ public class SecurityConfig {
         }
 
         @Bean
-        AuthoritiesConverter realmRolesAuthoritiesConverter() {
+        AuthoritiesConverter authoritiesConverter() {
                 return claims -> {
-                        var realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
-                        // TODO finish this so we can get roles from here:
-                        // "resource_access": {
-                        // "client-credentials-test": {
-                        // "roles": [
-                        // "asd_role"
-                        // ]
-                        // },
-                        // var resourceAccess = Optional.ofNullable((Map<String, Object>) (((Map<String,
-                        // Object>) claims.get("resource_access"))
-                        // .get("user"))
-                        // .get("roles")
-                        // );
-                        var roles = realmAccess.flatMap(map -> Optional.ofNullable((List<String>) map.get("roles")));
-                        return roles.stream()
-                                        .flatMap(Collection::stream)
-                                        .map(roleName -> "ROLE_" + roleName)
-                                        .map(SimpleGrantedAuthority::new)
-                                        .map(GrantedAuthority.class::cast)
-                                        .collect(Collectors.toList());
+                        Optional<Map<String, Object>> realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
+                        Stream<String> realmRoles = realmAccess
+                                .map(map -> (List<String>) map.get("roles"))
+                                .stream().flatMap(Collection::stream);
+
+                        Stream<String> resourceAccessRoles = Optional.ofNullable((Map<String, Object>) claims.get("resource_access"))
+                                .map(Map::values)
+                                .stream()
+                                .flatMap(Collection::stream)
+                                .map(Map.class::cast)
+                                .flatMap(client -> Optional.ofNullable((List<String>) client.get("roles")).stream())
+                                .flatMap(Collection::stream);
+
+                        List<String> roles = Stream.concat(realmRoles, resourceAccessRoles).toList();
+
+
+                        return roles
+                                .stream()
+                                .map(roleName -> "ROLE_" + roleName)
+                                .map(SimpleGrantedAuthority::new)
+                                .map(GrantedAuthority.class::cast)
+                                .collect(Collectors.toList());
+
                 };
         }
 }

@@ -1,8 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run dev backend" type="CompoundRunConfigurationType">
-    <toRun name="LocalDev" type="docker-deploy" />
     <toRun name="EurekaApplication" type="SpringBootApplicationConfigurationType" />
     <toRun name="GatewayApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="QuizApplication" type="SpringBootApplicationConfigurationType" />
+    <toRun name="UserApplication" type="SpringBootApplicationConfigurationType" />
     <method v="2" />
   </configuration>
 </component>

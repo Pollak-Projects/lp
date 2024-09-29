@@ -50,15 +50,14 @@ public class SecurityConfig {
                         .permitAll()
 
                         // The rest
-                        // TODO figure out how to make the webclient inherit its roles form the
-                        // user
-                        .pathMatchers("/api/v1/quiz/webclient").authenticated()// .hasAnyRole("test_role",
-                        // "client_test_role")
-                        .pathMatchers("/api/v1/user/webclient").authenticated()// .hasAnyRole("test_role",
-                        // "client_test_role")
+                        .pathMatchers("/api/v1/quiz/webclient").hasAnyRole(
+                                "test_role",
+                                "client-credentials-test")
+
+                        .pathMatchers("/api/v1/user/webclient").hasAnyRole(
+                                "client-credentials-test")
 
                         // Anything else
-
                         .anyExchange().authenticated());
 
         return http.build();
@@ -111,6 +110,12 @@ public class SecurityConfig {
 
             List<String> roles = Stream.concat(realmRoles, resourceAccessRoles).toList();
 
+            System.out.println(roles
+                    .stream()
+                    .map(roleName -> "ROLE_" + roleName)
+                    .map(SimpleGrantedAuthority::new)
+                    .map(GrantedAuthority.class::cast)
+                    .collect(Collectors.toList()));
 
             return roles
                     .stream()

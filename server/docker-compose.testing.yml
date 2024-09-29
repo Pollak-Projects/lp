@@ -1,46 +1,43 @@
+networks:
+  learningpulse: {}
 services:
   keycloak:
     container_name: keycloak
     hostname: keycloak
     image: quay.io/keycloak/keycloak:latest
-    command: [ "start-dev", "--import-realm" ]
-    depends_on:
-      - database
+    command: ["start-dev", "--import-realm"]
     ports:
-      - ${KC_PORT}:8080
+      - ${KC_PORT:-8081}:8080
     volumes:
-      - realms:/opt/keycloak/data/import
+      - ./autoconfig/realms:/opt/keycloak/data/import
     environment:
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://databasE:5432/keycloak
-      KC_DB_USERNAME: ${DB_USER}
-      KC_DB_PASSWORD: ${DB_PASSWORD}
-      KC_DB_SCHEMA: keycloak
+      KC_DB_URL: jdbc:postgresql://database:${DB_PORT:-5432}/${KC_DB_NAME_SCHEMA:-keycloak}
+      KC_DB_USERNAME: ${DB_USER:-lp}
+      KC_DB_PASSWORD: ${DB_PASSWORD:-lp}
+      KC_DB_SCHEMA: ${KC_DB_NAME_SCHEMA:-lp}
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
       KC_HTTP_ENABLED: true
     networks:
       - learningpulse
+    depends_on:
+      - database
 
   database:
-    container_name: lp_database
     image: postgres
-    restart: always
     hostname: database
+    restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - ${DB_PORT}:5432
+      - ${DB_PORT:-5432}:5432
     volumes:
-      - learning_pulse_pgdata:/var/lib/postgresql/data
-      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - lpdatabase:/var/lib/postgresql/data
+      - ./autoconfig/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
     networks:
       - learningpulse
 
-networks:
-  learningpulse: { }
 volumes:
-  learning_pulse_pgdata:
-  learning_pulse_pgadmin:
-  realms:
+  lpdatabase:

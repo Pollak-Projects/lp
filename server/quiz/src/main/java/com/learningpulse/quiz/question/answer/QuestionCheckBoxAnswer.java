@@ -1,6 +1,5 @@
 package com.learningpulse.quiz.question.answer;
 
-import com.learningpulse.quiz.external.UserDTO;
 import com.learningpulse.quiz.question.type.QuestionCheckbox;
 import com.learningpulse.quiz.question.type.QuestionCheckboxOptions;
 import jakarta.persistence.*;

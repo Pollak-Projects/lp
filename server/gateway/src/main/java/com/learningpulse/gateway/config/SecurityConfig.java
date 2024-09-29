@@ -23,101 +23,102 @@ import java.util.stream.Stream;
 @Profile("!development")
 public class SecurityConfig {
 
-        @Bean
-        SecurityWebFilterChain clientSecurityFilterChain(
-                        ServerHttpSecurity http,
-                        JwtConverter jwtAuthenticationConverter) throws Exception {
-                http
-                                .oauth2ResourceServer(oauth2ResourceServerSpec -> oauth2ResourceServerSpec
-                                                .jwt(jwtSpec -> jwtSpec
-                                                                .jwtAuthenticationConverter(
-                                                                                jwtAuthenticationConverter)))
-                                .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
-                                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                                .authorizeExchange(requests -> requests
+    @Bean
+    SecurityWebFilterChain clientSecurityFilterChain(
+            ServerHttpSecurity http,
+            JwtConverter jwtAuthenticationConverter) throws Exception {
+        http
+                .oauth2ResourceServer(oauth2ResourceServerSpec -> oauth2ResourceServerSpec
+                        .jwt(jwtSpec -> jwtSpec
+                                .jwtAuthenticationConverter(
+                                        jwtAuthenticationConverter)))
+                .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
+                .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .authorizeExchange(requests -> requests
 
-                                                // For eureka and actuator endpoints
-                                                .pathMatchers("/eureka/**").permitAll()
-                                                .pathMatchers("/actuator/**").permitAll()
+                        // For eureka and actuator endpoints
+                        .pathMatchers("/eureka/**").permitAll()
+                        .pathMatchers("/actuator/**").permitAll()
 
-                                                // API documentation endpoints
-                                                .pathMatchers("GET", "/swagger-ui.html").permitAll()
-                                                .pathMatchers("GET", "/swagger-resources/**").permitAll()
-                                                .pathMatchers("GET", "/v3/api-docs/**").permitAll()
-                                                .pathMatchers("GET", "/webjars/**").permitAll()
-                                                .pathMatchers(
-                                                                "/favicon.ico")
-                                                .permitAll()
+                        // API documentation endpoints
+                        .pathMatchers("GET", "/swagger-ui.html").permitAll()
+                        .pathMatchers("GET", "/swagger-resources/**").permitAll()
+                        .pathMatchers("GET", "/v3/api-docs/**").permitAll()
+                        .pathMatchers("GET", "/webjars/**").permitAll()
+                        .pathMatchers(
+                                "/favicon.ico")
+                        .permitAll()
 
-                                                // The rest
-                                                // TODO figure out how to make the webclient inherit its roles form the
-                                                // user
-                                                .pathMatchers("/api/v1/quiz/webclient").authenticated()// .hasAnyRole("test_role",
-                                                                                                       // "client_test_role")
-                                                .pathMatchers("/api/v1/user/webclient").authenticated()// .hasAnyRole("test_role",
-                                                                                                       // "client_test_role")
+                        // The rest
+                        // TODO figure out how to make the webclient inherit its roles form the
+                        // user
+                        .pathMatchers("/api/v1/quiz/webclient").authenticated()// .hasAnyRole("test_role",
+                        // "client_test_role")
+                        .pathMatchers("/api/v1/user/webclient").authenticated()// .hasAnyRole("test_role",
+                        // "client_test_role")
 
-                                                // Anything else
-                                                .anyExchange().authenticated());
+                        // Anything else
 
-                return http.build();
-        }
+                        .anyExchange().authenticated());
 
-        @Bean
-        CorsConfigurationSource corsConfigurationSource() {
-                CorsConfiguration configuration = new CorsConfiguration();
+        return http.build();
+    }
 
-                configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
-                configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-                configuration.setAllowedHeaders(
-                                Arrays.asList("Authorization", "Cache-Control", "Content-Type",
-                                                "Access-Control-Allow-Origin",
-                                                "Connection", "Accept", "Origin", "X-Requested-With",
-                                                "Access-Control-Request-Method",
-                                                "Access-Control-Request-Headers", "Access-Control-Allow-Credentials"));
-                configuration.setAllowCredentials(true);
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(
+                Arrays.asList("Authorization", "Cache-Control", "Content-Type",
+                        "Access-Control-Allow-Origin",
+                        "Connection", "Accept", "Origin", "X-Requested-With",
+                        "Access-Control-Request-Method",
+                        "Access-Control-Request-Headers", "Access-Control-Allow-Credentials"));
+        configuration.setAllowCredentials(true);
 
-                source.registerCorsConfiguration("/**", configuration);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-                return source;
-        }
+        source.registerCorsConfiguration("/**", configuration);
 
-        @Bean
-        JwtConverter jwtAuthenticationConverter(AuthoritiesConverter authoritiesConverter) {
-                var authenticationConverter = new JwtAuthenticationConverter();
-                authenticationConverter.setJwtGrantedAuthoritiesConverter(
-                                jwt -> authoritiesConverter.convert(jwt.getClaims()));
-                return jwt -> Mono.justOrEmpty(authenticationConverter.convert(jwt));
-        }
+        return source;
+    }
 
-        @Bean
-        AuthoritiesConverter authoritiesConverter() {
-                return claims -> {
-                        Optional<Map<String, Object>> realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
-                        Stream<String> realmRoles = realmAccess
-                                .map(map -> (List<String>) map.get("roles"))
-                                .stream().flatMap(Collection::stream);
+    @Bean
+    JwtConverter jwtAuthenticationConverter(AuthoritiesConverter authoritiesConverter) {
+        var authenticationConverter = new JwtAuthenticationConverter();
+        authenticationConverter.setJwtGrantedAuthoritiesConverter(
+                jwt -> authoritiesConverter.convert(jwt.getClaims()));
+        return jwt -> Mono.justOrEmpty(authenticationConverter.convert(jwt));
+    }
 
-                        Stream<String> resourceAccessRoles = Optional.ofNullable((Map<String, Object>) claims.get("resource_access"))
-                                .map(Map::values)
-                                .stream()
-                                .flatMap(Collection::stream)
-                                .map(Map.class::cast)
-                                .flatMap(client -> Optional.ofNullable((List<String>) client.get("roles")).stream())
-                                .flatMap(Collection::stream);
+    @Bean
+    AuthoritiesConverter authoritiesConverter() {
+        return claims -> {
+            Optional<Map<String, Object>> realmAccess = Optional.ofNullable((Map<String, Object>) claims.get("realm_access"));
+            Stream<String> realmRoles = realmAccess
+                    .map(map -> (List<String>) map.get("roles"))
+                    .stream().flatMap(Collection::stream);
 
-                        List<String> roles = Stream.concat(realmRoles, resourceAccessRoles).toList();
+            Stream<String> resourceAccessRoles = Optional.ofNullable((Map<String, Object>) claims.get("resource_access"))
+                    .map(Map::values)
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .map(Map.class::cast)
+                    .flatMap(client -> Optional.ofNullable((List<String>) client.get("roles")).stream())
+                    .flatMap(Collection::stream);
+
+            List<String> roles = Stream.concat(realmRoles, resourceAccessRoles).toList();
 
 
-                        return roles
-                                .stream()
-                                .map(roleName -> "ROLE_" + roleName)
-                                .map(SimpleGrantedAuthority::new)
-                                .map(GrantedAuthority.class::cast)
-                                .collect(Collectors.toList());
+            return roles
+                    .stream()
+                    .map(roleName -> "ROLE_" + roleName)
+                    .map(SimpleGrantedAuthority::new)
+                    .map(GrantedAuthority.class::cast)
+                    .collect(Collectors.toList());
 
-                };
-        }
+        };
+    }
 }

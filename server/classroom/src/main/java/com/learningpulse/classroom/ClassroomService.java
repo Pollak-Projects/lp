@@ -1,7 +1,6 @@
 package com.learningpulse.classroom;
 
 import lombok.RequiredArgsConstructor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Example;
@@ -15,10 +14,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class ClassroomService {
+    private static final Logger logger = LoggerFactory.getLogger(ClassroomService.class);
     private final ClassRoomRepository repo;
     private final Random random = new Random();
-
-    private static final Logger logger = LoggerFactory.getLogger(ClassroomService.class);
 
     public List<Classroom> findAll() {
         return repo.findAll();
@@ -29,14 +27,16 @@ public class ClassroomService {
         // TODO create chat for classroom
 
         String joinCode = generateJoinCode(4);
-        Classroom classroom = new Classroom().builder().joinCode(joinCode).name(name).build();
+        new Classroom();
+        Classroom classroom = Classroom.builder().joinCode(joinCode).name(name).build();
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("join_code", ExampleMatcher.GenericPropertyMatchers.exact());
         Example<Classroom> classroomExample = Example.of(classroom, matcher);
 
         while (repo.exists(classroomExample)) {
             joinCode = generateJoinCode(4);
-            classroom = new Classroom().builder().joinCode(joinCode).name(name).build();
+            new Classroom();
+            classroom = Classroom.builder().joinCode(joinCode).name(name).build();
         }
         return repo.save(classroom);
     }

@@ -3,7 +3,7 @@ services:
     container_name: keycloak
     hostname: keycloak
     image: quay.io/keycloak/keycloak:latest
-    command: ["start-dev", "--import-realm"]
+    command: [ "start-dev", "--import-realm" ]
     depends_on:
       - database
     ports:
@@ -39,7 +39,7 @@ services:
       - learningpulse
 
 networks:
-  learningpulse: {}
+  learningpulse: { }
 volumes:
   learning_pulse_pgdata:
   learning_pulse_pgadmin:

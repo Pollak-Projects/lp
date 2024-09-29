@@ -2,19 +2,14 @@ package com.learningpulse.classroom;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.UUID;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
+import java.util.UUID;
 
 @Getter
 @Setter

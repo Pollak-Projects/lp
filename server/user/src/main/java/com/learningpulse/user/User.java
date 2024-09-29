@@ -1,6 +1,5 @@
 package com.learningpulse.user;
 
-import com.learningpulse.user.external.FileDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

@@ -23,12 +23,12 @@ public class OpenAPIConfiguration {
                         )
                 )
                 .info(new Info()
-                .title("Learning Pulse API documentation")
-                .version("0.0.1")
-                .description("This is the API documentation for the Learning Pulse project.")
-                .contact(new Contact()
-                        .name("Learning Pulse")
-                        .url("https://github.com/pollak-projects/lp"))
-        );
+                        .title("Learning Pulse API documentation")
+                        .version("0.0.1")
+                        .description("This is the API documentation for the Learning Pulse project.")
+                        .contact(new Contact()
+                                .name("Learning Pulse")
+                                .url("https://github.com/pollak-projects/lp"))
+                );
     }
 }

@@ -1,5 +1,5 @@
 networks:
-  learningpulse: {}
+  learningpulse: { }
 services:
   eureka:
     image: git.4o1x5.dev/learningpulse/server/eureka:dev
@@ -43,7 +43,7 @@ services:
     container_name: keycloak
     hostname: keycloak
     image: quay.io/keycloak/keycloak:latest
-    command: ["start-dev", "--import-realm"]
+    command: [ "start-dev", "--import-realm" ]
     ports:
       - ${KC_PORT:-8081}:8080
     volumes:

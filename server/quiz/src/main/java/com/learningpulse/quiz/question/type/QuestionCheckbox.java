@@ -1,7 +1,7 @@
 package com.learningpulse.quiz.question.type;
 
-import com.learningpulse.quiz.question.answer.QuestionCheckBoxAnswer;
 import com.learningpulse.quiz.Quiz;
+import com.learningpulse.quiz.question.answer.QuestionCheckBoxAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

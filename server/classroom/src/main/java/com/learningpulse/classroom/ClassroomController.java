@@ -1,17 +1,13 @@
 package com.learningpulse.classroom;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
-
-import lombok.RequiredArgsConstructor;
-
-import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +15,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/classroom")
 public class ClassroomController {
-    private final ClassroomService ClassroomService;
     private static final Logger logger = LoggerFactory.getLogger(ClassroomController.class);
+    private final ClassroomService ClassroomService;
 
     @GetMapping
     public ResponseEntity<List<Classroom>> findAll() {
@@ -36,7 +32,7 @@ public class ClassroomController {
 
     @PostMapping
     public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
-            @RequestHeader("Authorization") String token) {
+                                                        @RequestHeader("Authorization") String token) {
         // TODO add a middleware implementation to this instead of doing it here
         // FIXME errors out due to not being base64? Idk
         DecodedJWT decodedJWT = JWT.decode(token);

@@ -2,8 +2,6 @@ package com.learningpulse.quiz;
 
 import com.learningpulse.quiz.external.UserDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServerOAuth2AuthorizedClientExchangeFilterFunction;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

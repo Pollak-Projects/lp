@@ -4,6 +4,7 @@ import java.util.UUID;
 
 
 public record UserDTO(
-    UUID id,
-    FileDTO profilePicture
-) {}
+        UUID id,
+        FileDTO profilePicture
+) {
+}

@@ -1,6 +1,5 @@
-package com.learningpulse.quiz.question.type;
+package com.learningpulse.quiz.question.question_radio;
 
-import com.learningpulse.quiz.question.answer.QuestionRadioAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

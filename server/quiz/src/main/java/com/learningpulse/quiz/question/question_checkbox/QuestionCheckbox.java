@@ -1,11 +1,12 @@
-package com.learningpulse.quiz.question.type;
+package com.learningpulse.quiz.question.question_checkbox;
 
-import com.learningpulse.quiz.question.answer.QuestionOrderAnswer;
+import com.learningpulse.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -15,19 +16,21 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_ORDER_OPTIONS", schema = "quiz")
-public class QuestionOrderOptions implements Serializable {
+@Table(name = "QUESTION_CHECKBOX", schema = "quiz")
+public class QuestionCheckbox implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;
 
     @ManyToOne
-    private QuestionOrder questionOrder;
+    private Quiz quiz;
 
     private String title;
 
-    private int place;
+    @OneToMany(mappedBy = "questionCheckbox")
+    private Set<QuestionCheckboxOptions> options;
+
 
     @ManyToOne
-    private QuestionOrderAnswer questionOrderAnswer;
+    private QuestionCheckBoxAnswer questionCheckBoxAnswer;
 }

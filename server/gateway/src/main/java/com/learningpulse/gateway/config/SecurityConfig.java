@@ -55,6 +55,7 @@ public class SecurityConfig {
                                 "client-credentials-test")
 
                         .pathMatchers("/api/v1/user/webclient").hasAnyRole(
+                                "test_role",
                                 "client-credentials-test")
 
                         // Anything else

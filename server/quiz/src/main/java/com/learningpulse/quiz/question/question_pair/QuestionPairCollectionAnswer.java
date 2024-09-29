@@ -1,7 +1,5 @@
-package com.learningpulse.quiz.question.answer;
+package com.learningpulse.quiz.question.question_pair;
 
-import com.learningpulse.quiz.question.type.QuestionPairCollection;
-import com.learningpulse.quiz.question.type.QuestionPairOptions;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;

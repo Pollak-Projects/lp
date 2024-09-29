@@ -1,7 +1,6 @@
-package com.learningpulse.quiz.question.type;
+package com.learningpulse.quiz.question.question_radio;
 
 import com.learningpulse.quiz.Quiz;
-import com.learningpulse.quiz.question.answer.QuestionPairCollectionAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,8 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_PAIR_COLLECTION", schema = "quiz")
-public class QuestionPairCollection implements Serializable {
+@Table(name = "QUESTION_RADIO", schema = "quiz")
+public class QuestionRadio implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -28,9 +27,10 @@ public class QuestionPairCollection implements Serializable {
 
     private String title;
 
-    @OneToMany(mappedBy = "questionPairCollection")
-    private Set<QuestionPairCollectionPair> options;
+    @OneToMany(mappedBy = "questionRadio")
+    private Set<QuestionRadioOptions> options;
 
+    // review this @nezsha is this what you meant? 2024-09-17
     @ManyToOne
-    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
+    private QuestionRadioAnswer questionRadioAnswer;
 }

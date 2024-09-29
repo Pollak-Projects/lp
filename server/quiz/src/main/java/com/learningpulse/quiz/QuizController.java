@@ -15,8 +15,11 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    // This is just here to show how to use the webclient and interservice communication
     @GetMapping("/webclient")
     public @ResponseBody Mono<UserDTO> webclient() {
         return quizService.webclient();
     }
+
+
 }

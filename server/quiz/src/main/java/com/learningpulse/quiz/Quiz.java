@@ -6,12 +6,12 @@ package com.learningpulse.quiz;
 // TODO add (cascade = CascadeType.ALL, fetch = FetchType.EAGER) to all OneToMany and ManyToOne relationships
 
 
-import com.learningpulse.quiz.question.question_checkbox.QuestionCheckbox;
-import com.learningpulse.quiz.question.question_file.QuestionFile;
-import com.learningpulse.quiz.question.question_order.QuestionOrder;
-import com.learningpulse.quiz.question.question_pair.QuestionPairCollection;
-import com.learningpulse.quiz.question.question_radio.QuestionRadio;
-import com.learningpulse.quiz.question.question_text.QuestionText;
+import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckbox;
+import com.learningpulse.quiz.question.question_file.model.QuestionFile;
+import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
+import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
+import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
+import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

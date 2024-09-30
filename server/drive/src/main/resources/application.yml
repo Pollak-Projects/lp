@@ -16,12 +16,6 @@ spring:
     username: ${DB_USER}
     password: ${DB_PASSWORD}
 
-  # TODO remove after testing
-#  security:
-#    user:
-#      name: admin
-#      password: admin
-
 springdoc:
   api-docs:
     enabled: true

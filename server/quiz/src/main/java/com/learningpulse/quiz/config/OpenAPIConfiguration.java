@@ -18,13 +18,13 @@ public class OpenAPIConfiguration {
         return new OpenAPI()
                 .servers(
                         List.of(
-                                new Server().url("https://lpdev.4o1x5.dev").description("Development server")
+                                new Server().url("localhost:8081").description("Development server")
                         )
                 )
                 .info(new Info()
                         .title("Learning Pulse API documentation")
                         .version("0.0.1")
-                        .description("This is the API documentation for the dummy microservice.")
+                        .description("This is the API documentation for the quiz microservice.")
                         .contact(new Contact()
                                 .name("Learning Pulse")
                                 .url("https://https://github.com/Pollak-Projects/lp"))

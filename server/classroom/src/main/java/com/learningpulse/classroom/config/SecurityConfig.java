@@ -1,4 +1,4 @@
-package com.learningpulse.quiz.config;
+package com.learningpulse.classroom.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

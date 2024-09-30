@@ -1,6 +1,5 @@
 package com.learningpulse.drive;
 
-import com.learningpulse.drive.external.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -40,11 +38,9 @@ public class File implements Serializable {
 //    private ClassroomDTO classroom;
 
     @CreatedBy
-    @ManyToOne
-    private UserDTO owner;
+    private UUID owner;
 
-    @ManyToMany
-    private Set<UserDTO> sharedWith;
+    private UUID sharedWith;
 
     private String key;
 

@@ -1,4 +1,5 @@
-package com.learningpulse.quiz.config;
+package com.learningpulse.drive.config;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

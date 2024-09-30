@@ -104,8 +104,10 @@ springdoc:
         url: /api/v1/user/v3/api-docs
       - name: Quiz Service API
         url: /api/v1/quiz/v3/api-docs
-      - name: File Service API
-        url: /api/v1/file/v3/api-docs
+      - name: Drive Service API
+        url: /api/v1/drive/v3/api-docs
+      - name: Classroom Service API
+        url: /api/v1/classroom/v3/api-docs
 
 eureka:
   client:

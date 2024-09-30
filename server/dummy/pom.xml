@@ -39,8 +39,10 @@
 
         <dependency>
             <groupId>org.springdoc</groupId>
+            <!--            DO NOT COPY DIRECTLY WE USE WEBFLUX-->
+            <!--            use springdoc-openapi-starter-webflux-ui instead-->
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.5.0</version>
+            <version>2.6.0</version>
         </dependency>
 
         <dependency>

@@ -45,9 +45,17 @@ public class SecurityConfig {
                         .pathMatchers("GET", "/swagger-resources/**").permitAll()
                         .pathMatchers("GET", "/v3/api-docs/**").permitAll()
                         .pathMatchers("GET", "/webjars/**").permitAll()
-                        .pathMatchers(
-                                "/favicon.ico")
-                        .permitAll()
+
+                        // For microservice API documentation endpoints
+                        .pathMatchers("GET", "/api/v1/dummy/v3/api-docs/**").permitAll()
+                        .pathMatchers("GET", "/api/v1/drive/v3/api-docs/**").permitAll()
+                        .pathMatchers("GET", "/api/v1/quiz/v3/api-docs/**").permitAll()
+                        .pathMatchers("GET", "/api/v1/user/v3/api-docs/**").permitAll()
+                        .pathMatchers("GET", "/api/v1/classroom/v3/api-docs/**").permitAll()
+
+
+                        // For favicon
+                        .pathMatchers("/favicon.ico").permitAll()
 
                         // The rest
                         .pathMatchers("/api/v1/quiz/webclient").hasAnyRole(

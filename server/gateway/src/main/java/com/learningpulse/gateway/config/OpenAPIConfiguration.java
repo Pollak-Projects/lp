@@ -19,7 +19,7 @@ public class OpenAPIConfiguration {
         return new OpenAPI()
                 .servers(
                         List.of(
-                                new Server().url("https://lpdev.4o1x5.dev").description("Development server")
+                                new Server().url("localhost:8081").description("Development server")
                         )
                 )
                 .info(new Info()

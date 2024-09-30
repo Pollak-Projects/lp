@@ -9,11 +9,11 @@
     "lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix",
     "test": "concurrently \"next dev\" \"playwright test\"",
     "sonar": "npx sonar-scanner -Dsonar.projectKey=learningpulse-webclient -Dsonar.projectName=learningpulse-webclient  -Dsonar.sources=. -Dsonar.host.url=http://sonarqube.green.local -Dsonar.token=sqp_55a586de15e4986693e21021cc51dd83865390ec"
-    
   },
   "dependencies": {
     "@nextui-org/avatar": "^2.0.33",
     "@nextui-org/button": "2.0.33",
+    "@nextui-org/checkbox": "^2.1.5",
     "@nextui-org/code": "2.0.28",
     "@nextui-org/input": "2.2.1",
     "@nextui-org/kbd": "2.0.29",

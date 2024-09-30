@@ -34,7 +34,7 @@ module.exports = {
       dark: {
         colors: {
           background: "#468BCB",
-          content1: "#191919",
+          content1: "#191919"
 
         }
       }

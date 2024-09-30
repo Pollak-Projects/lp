@@ -1,4 +1,5 @@
-export interface RadioQuestion {
+export interface QuestionRadio {
   title: string,
-  value: Array<string>
+  value: Array<string>,
+  comment: string
 }

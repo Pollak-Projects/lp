@@ -1,17 +1,10 @@
-import { RadioQuestion } from "@/src/types/questionRadio";
+import { QuestionRadio } from "@/src/types/questionRadio";
 import React, { SetStateAction } from "react";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import State from "sucrase/dist/types/parser/tokenizer/state";
 
 
-export type InputRadioFields = {
-  id: string;
-  title: string;
-  value: string;
-  comment: string;
-}
-
-export default function InputRadio({ question, SetRadio } : {question: RadioQuestion, SetRadio: any}) {
+export default function InputRadio({ question, setRadio } : {question: QuestionRadio, setRadio: any}) {
 
   const list_elements=  question.value.map((val)=> {
         return (
@@ -19,12 +12,15 @@ export default function InputRadio({ question, SetRadio } : {question: RadioQues
         )});
 
   return (
-    <section className={"rounded-md border-1 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}>
-      <RadioGroup
-        onValueChange={SetRadio}
-        label={question.title}>
-        { list_elements }
-      </RadioGroup>
+    <section className={"rounded-md border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}>
+      <span className={"text-2xl"}>{question.title}</span>
+      <span>{question.comment}</span>
+      <div className={"border-t-1 w-full flex flex-col place-items-center my-1 py-1"}>
+        <RadioGroup
+          onValueChange={setRadio}>
+          { list_elements }
+        </RadioGroup>
+      </div>
     </section>
   )
 }

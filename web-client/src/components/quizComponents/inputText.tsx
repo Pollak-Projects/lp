@@ -20,7 +20,7 @@ dummyData.data.map(elem =>  elem as InputTextFields);
   return (
 
     <section
-      className={"rounded-md border-1 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
+      className={"rounded-md border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
       >
 
 
@@ -30,7 +30,7 @@ dummyData.data.map(elem =>  elem as InputTextFields);
         isRequired={true}
         style={{background: "none"}}
         variant="bordered"
-        placeholder="Enter your description"
+        placeholder="Enter the answer"
         className={"max-w-ms mt-2 max-h-60 overflow-scroll text-justify"}
       />
     </section>

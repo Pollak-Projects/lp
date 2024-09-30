@@ -6,7 +6,7 @@ import State from "sucrase/dist/types/parser/tokenizer/state";
 
 export default function InputRadio({ question, setRadio } : {question: QuestionRadio, setRadio: any}) {
 
-  const list_elements=  question.value.map((val)=> {
+  const list_elements =  question.value.map((val) => {
         return (
                 <Radio value={val}>{val}</Radio>
         )});

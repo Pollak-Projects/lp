@@ -11,6 +11,8 @@
     "sonar": "npx sonar-scanner -Dsonar.projectKey=learningpulse-webclient -Dsonar.projectName=learningpulse-webclient  -Dsonar.sources=. -Dsonar.host.url=http://sonarqube.green.local -Dsonar.token=sqp_55a586de15e4986693e21021cc51dd83865390ec"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
+    "@hello-pangea/dnd": "^17.0.0",
     "@nextui-org/avatar": "^2.0.33",
     "@nextui-org/button": "2.0.33",
     "@nextui-org/checkbox": "^2.1.5",
@@ -64,6 +66,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.44.1",
+    "@types/react-beautiful-dnd": "^13.1.8",
+    "react-beautiful-dnd": "^13.1.1",
     "sonarqube-scanner": "^4.2.3"
   }
 }

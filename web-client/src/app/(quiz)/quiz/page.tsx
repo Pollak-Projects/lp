@@ -7,10 +7,12 @@ import { useState } from "react";
 import InputCheck from "@/src/components/quizComponents/inputCheck";
 import { QuestionCheck } from "@/src/types/questionCheck";
 import InputOrder from "@/src/components/quizComponents/inputOrder";
-import { QuestionOrder } from "@/src/types/questionOrder";
+import React from "react";
 
 
 export default function Home() {
+
+
   const RadioDummyData: QuestionRadio = {
     "title": "This is again such a long ass dummy question, that it needs to be displayed in two completely different set of lines",
     "value": [
@@ -22,7 +24,7 @@ export default function Home() {
       "I jest"
     ],
     "comment": "I would like to say something"
-  }
+  };
   const CheckDummyData: QuestionCheck = {
     "title": "This is again and again such a long ass dummy question, that it needs to be displayed in two completely different set of lines ",
     "value": [
@@ -34,23 +36,13 @@ export default function Home() {
       "and this is the second one, enjoy"
     ],
     "comment": "4 answers may be correct"
-  }
-  const OrderDummyData: QuestionOrder = {
-    "title": "Just how many more long ass dummy questions do you need to believe that this element is responsive? For real mate, this is the fourth one!!!",
-    "value": [
-      "This should be the first one",
-      "Or this should be the first one",
-      "Or maybe this should be the first one?",
-      "Who knows, maybe this is the one?",
-      "Nah, trust me bro, this is far the longest option, surely this is the first one of them all, no?",
-      "Just a short one"
-    ],
-    "comment": "Order them from top to bottom descending"
-  }
+  };
 
-  const [Order, setOrder] = useState(null);
-  const [Check, setCheck] = useState(null);
-  const [Radio, setRadio] = useState(null);
+  const [isOrder, setOrder] = useState(null);
+  const [isCheck, setCheck] = useState(null);
+  const [isRadio, setRadio] = useState(null);
+
+  // @ts-ignore
   return (
     <>
 
@@ -75,7 +67,9 @@ export default function Home() {
 
           <InputCheck question={CheckDummyData} setCheck={setCheck} />
 
-          <InputOrder question={Order} setOrder={setOrder} />
+          <InputOrder question={""} setOrder={setOrder} />
+          <div id="root"></div>
+
         </section>
         <section
           className={"w-1/5 bg-content1 p-1 h-[98.4vh] rounded-md"}>
@@ -83,5 +77,7 @@ export default function Home() {
         </section>
       </section>
     </>
-  );
+  )
+
+
 }

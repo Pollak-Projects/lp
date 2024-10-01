@@ -1,13 +1,13 @@
 import { QuestionCheck } from "@/src/types/questionCheck";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
-import { useState } from "react";
+import React, { useState } from "react";
 
 
 export default function InputCheck({question, setCheck} : {question: QuestionCheck, setCheck: any}) {
 
   const list_elements = question.value.map((val) => {
     return (
-      <Checkbox value={val}>{val}</Checkbox>
+      <Checkbox key={val} value={val}>{val}</Checkbox>
     )
   })
 

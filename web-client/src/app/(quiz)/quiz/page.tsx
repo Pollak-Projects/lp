@@ -8,6 +8,8 @@ import InputCheck from "@/src/components/quizComponents/inputCheck";
 import { QuestionCheck } from "@/src/types/questionCheck";
 import InputOrder from "@/src/components/quizComponents/inputOrder";
 import React from "react";
+import { QuestionOrder } from "@/src/types/questionOrder";
+import {v4 as uuidv4 } from "uuid";
 
 
 export default function Home() {
@@ -37,12 +39,23 @@ export default function Home() {
     ],
     "comment": "4 answers may be correct"
   };
+  const OrderDummyData: QuestionOrder = {
+    "title": "some title",
+    "value": [
+      {id: uuidv4(), content: "This should be the first"},
+      {id: uuidv4(), content: "Or should this be the first one"},
+      {id: uuidv4(), content: "Maybe this is the one "},
+      {id: uuidv4(), content: "This is such a long ass statement that this will surely be the right one you're looking for, no doubt"},
+      {id: uuidv4(), content: "Short one but a strong one "},
+      {id: uuidv4(), content: "This is the one"}
+    ],
+    "comment": "Order them descending from top to bottom"
+  }
 
-  const [isOrder, setOrder] = useState(null);
+  const [isOrder, setOrder] = useState(OrderDummyData)
   const [isCheck, setCheck] = useState(null);
   const [isRadio, setRadio] = useState(null);
 
-  // @ts-ignore
   return (
     <>
 
@@ -60,16 +73,16 @@ export default function Home() {
               href="/"
               //style={{color: "#006FEE"}}
             >Go back</NextLink>
+            {/*<h1>{Radio}</h1>*/}
+            <InputText />
+
+            <InputRadio question={RadioDummyData} setRadio={setRadio} />
+
+            <InputCheck question={CheckDummyData} setCheck={setCheck} />
+
+            <InputOrder question={OrderDummyData} isOrder={isOrder} setOrder={setOrder} />
+
           </div>
-          <InputText />
-          {/*<h1>{Radio}</h1>*/}
-          <InputRadio question={RadioDummyData} setRadio={setRadio} />
-
-          <InputCheck question={CheckDummyData} setCheck={setCheck} />
-
-          <InputOrder question={""} setOrder={setOrder} />
-          <div id="root"></div>
-
         </section>
         <section
           className={"w-1/5 bg-content1 p-1 h-[98.4vh] rounded-md"}>

@@ -5,6 +5,7 @@ import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions
 import com.learningpulse.quiz.question.question_radio.service.QuestionRadioOptionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class QuestionRadioOptionsController {
 
     @GetMapping("/all")
     @ResponseBody
-    public Mono<Iterable<QuestionRadioOptions>> getAllQuestionRadioOptionsByUser(@RequestBody UserDTO user) {
+    public Flux<QuestionRadioOptions> getAllQuestionRadioOptionsByUser(@RequestBody UserDTO user) {
         return null;
     }
 

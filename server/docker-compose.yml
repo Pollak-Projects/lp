@@ -71,7 +71,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - 4444:5432
+      - ${DB_PORT:-5432}:5432
     volumes:
       - learning_pulse_pgdata:/var/lib/postgresql/data
       - ./autoconfig/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql

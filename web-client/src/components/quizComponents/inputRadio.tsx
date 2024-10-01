@@ -8,7 +8,7 @@ export default function InputRadio({ question, setRadio } : {question: QuestionR
 
   const list_elements =  question.value.map((val) => {
         return (
-                <Radio value={val}>{val}</Radio>
+                <Radio key={val} value={val}>{val}</Radio>
         )});
 
   return (

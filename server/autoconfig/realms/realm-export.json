@@ -58,7 +58,7 @@
           ],
           "client": {
             "client-credentials-test": [
-              "asd_role"
+              "client-credentials-test"
             ],
             "account": [
               "view-profile",

@@ -4,7 +4,7 @@ services:
   eureka:
     image: git.4o1x5.dev/learningpulse/server/eureka:dev
     restart: always
-    hostname: eureka-server
+    hostname: eureka
     ports:
       - 8761:8761
     networks:
@@ -50,7 +50,7 @@ services:
       - ./autoconfig/realms:/opt/keycloak/data/import
     environment:
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://database:5432/${KC_DB_NAME_SCHEMA:-keycloak}
+      KC_DB_URL: ${KC_DB_URL:-jdbc:postgresql://${KC_DATABASE}:5432/${KC_DB_NAME_SCHEMA:-keycloak}}
       KC_DB_USERNAME: ${DB_USER:-lp}
       KC_DB_PASSWORD: ${DB_PASSWORD:-lp}
       KC_DB_SCHEMA: ${KC_DB_NAME_SCHEMA:-lp}
@@ -71,7 +71,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - ${DB_PORT:-5432}:5432
+      - 4444:5432
     volumes:
       - learning_pulse_pgdata:/var/lib/postgresql/data
       - ./autoconfig/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql

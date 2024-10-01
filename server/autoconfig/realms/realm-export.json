@@ -57,6 +57,9 @@
             "uma_authorization"
           ],
           "client": {
+            "client-credentials-test": [
+              "asd_role"
+            ],
             "account": [
               "view-profile",
               "manage-account"
@@ -222,15 +225,15 @@
             "client": {
               "realm-management": [
                 "create-client",
-                "view-users",
                 "view-events",
+                "view-users",
                 "manage-identity-providers",
-                "view-identity-providers",
                 "query-clients",
+                "view-identity-providers",
                 "manage-realm",
                 "manage-users",
-                "query-users",
                 "query-realms",
+                "query-users",
                 "view-authorization",
                 "manage-authorization",
                 "manage-clients",
@@ -308,9 +311,29 @@
           "attributes": {}
         }
       ],
-      "web": [],
+      "web": [
+        {
+          "id": "29752dda-2aec-42c4-80bf-867720f0e153",
+          "name": "web_client_role",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "587a5999-91e5-44bc-a0f3-d1138f7d2c2e",
+          "attributes": {}
+        }
+      ],
       "security-admin-console": [],
-      "client-credentials-test": [],
+      "client-credentials-test": [
+        {
+          "id": "5b300058-eb4d-4f42-99ed-bd293b0ab615",
+          "name": "asd_role",
+          "description": "",
+          "composite": false,
+          "clientRole": true,
+          "containerId": "aa7e71a5-7cf2-4777-b06f-ed63b1b0cd1f",
+          "attributes": {}
+        }
+      ],
       "admin-cli": [],
       "account-console": [],
       "broker": [
@@ -719,6 +742,7 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1727211776",
         "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
@@ -734,8 +758,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientHost",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientHost",
             "jsonType.label": "String"
@@ -749,8 +774,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientAddress",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientAddress",
             "jsonType.label": "String"
@@ -764,8 +790,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "client_id",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "client_id",
             "jsonType.label": "String"
@@ -1574,14 +1601,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "oidc-address-mapper",
+            "saml-user-property-mapper",
             "saml-role-list-mapper",
             "oidc-usermodel-property-mapper",
-            "saml-user-attribute-mapper",
-            "saml-user-property-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-address-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
             "oidc-full-name-mapper",
-            "oidc-sha256-pairwise-sub-mapper"
+            "oidc-usermodel-attribute-mapper",
+            "saml-user-attribute-mapper"
           ]
         }
       },
@@ -1594,13 +1621,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "saml-user-property-mapper",
-            "saml-role-list-mapper",
             "oidc-full-name-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-usermodel-attribute-mapper",
             "oidc-address-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-usermodel-property-mapper",
+            "saml-role-list-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-property-mapper"
+            "oidc-usermodel-attribute-mapper"
           ]
         }
       },
@@ -2387,7 +2414,7 @@
     "clientSessionMaxLifespan": "0",
     "organizationsEnabled": "false"
   },
-  "keycloakVersion": "25.0.6",
+  "keycloakVersion": "25.0.5",
   "userManagedAccessAllowed": false,
   "organizationsEnabled": false,
   "clientProfiles": {

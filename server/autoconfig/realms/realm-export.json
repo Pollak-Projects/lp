@@ -57,6 +57,9 @@
             "uma_authorization"
           ],
           "client": {
+            "web": [
+              "test_role"
+            ],
             "client-credentials-test": [
               "client-credentials-test"
             ],
@@ -225,15 +228,15 @@
             "client": {
               "realm-management": [
                 "create-client",
-                "view-events",
                 "view-users",
+                "view-events",
                 "manage-identity-providers",
-                "query-clients",
                 "view-identity-providers",
+                "query-clients",
                 "manage-realm",
                 "manage-users",
-                "query-realms",
                 "query-users",
+                "query-realms",
                 "view-authorization",
                 "manage-authorization",
                 "manage-clients",
@@ -313,8 +316,8 @@
       ],
       "web": [
         {
-          "id": "29752dda-2aec-42c4-80bf-867720f0e153",
-          "name": "web_client_role",
+          "id": "89d4162e-a22b-4c4d-b8bb-c1c40b7145f9",
+          "name": "test_role",
           "description": "",
           "composite": false,
           "clientRole": true,
@@ -325,8 +328,8 @@
       "security-admin-console": [],
       "client-credentials-test": [
         {
-          "id": "5b300058-eb4d-4f42-99ed-bd293b0ab615",
-          "name": "asd_role",
+          "id": "5734da19-c338-4e2b-91ce-2fda5c13283d",
+          "name": "client-credentials-test",
           "description": "",
           "composite": false,
           "clientRole": true,
@@ -1601,14 +1604,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-address-mapper",
-            "saml-user-property-mapper",
-            "saml-role-list-mapper",
-            "oidc-usermodel-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
             "oidc-full-name-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "saml-user-attribute-mapper"
+            "oidc-usermodel-property-mapper",
+            "saml-role-list-mapper",
+            "saml-user-property-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-address-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-usermodel-attribute-mapper"
           ]
         }
       },
@@ -1620,14 +1623,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-user-property-mapper",
-            "oidc-full-name-mapper",
-            "oidc-address-mapper",
-            "saml-user-attribute-mapper",
             "oidc-usermodel-property-mapper",
-            "saml-role-list-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-address-mapper",
+            "oidc-usermodel-attribute-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-attribute-mapper"
+            "oidc-full-name-mapper",
+            "saml-user-property-mapper",
+            "saml-role-list-mapper"
           ]
         }
       },
@@ -2414,7 +2417,7 @@
     "clientSessionMaxLifespan": "0",
     "organizationsEnabled": "false"
   },
-  "keycloakVersion": "25.0.5",
+  "keycloakVersion": "25.0.6",
   "userManagedAccessAllowed": false,
   "organizationsEnabled": false,
   "clientProfiles": {

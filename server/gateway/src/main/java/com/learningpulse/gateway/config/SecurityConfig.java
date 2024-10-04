@@ -119,12 +119,6 @@ public class SecurityConfig {
 
             List<String> roles = Stream.concat(realmRoles, resourceAccessRoles).toList();
 
-            System.out.println(roles
-                    .stream()
-                    .map(roleName -> "ROLE_" + roleName)
-                    .map(SimpleGrantedAuthority::new)
-                    .map(GrantedAuthority.class::cast)
-                    .collect(Collectors.toList()));
 
             return roles
                     .stream()

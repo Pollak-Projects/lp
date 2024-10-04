@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserDataController {
-    private UserDataService userDataService;
+    private final UserDataService userDataService;
 
     @GetMapping("/webclient")
     public ResponseEntity<UserData> webclient() {
@@ -23,18 +24,18 @@ public class UserDataController {
     }
 
     @GetMapping("/profileImage")
-    public ResponseEntity<UUID> getProfileImageById(@AuthenticationPrincipal KeycloakJwt jwt) {
-        return ResponseEntity.ok(userDataService.getProfileImageById(jwt.getSub()));
+    public Mono<ResponseEntity<Mono<UUID>>> getProfileImageById(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return Mono.fromCallable(() -> ResponseEntity.ok(userDataService.getProfileImageById(jwt.getSub())));
     }
 
     @PostMapping("/profileImage")
-    public ResponseEntity<UUID> uploadProfileImage(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody UserDataRequest userDataRequest) {
-        return ResponseEntity.ok(userDataService.uploadProfileImage(jwt.getSub(), userDataRequest));
+    public Mono<ResponseEntity<Mono<UUID>>> uploadProfileImage(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody UserDataRequest userDataRequest) {
+        return Mono.fromCallable(() -> ResponseEntity.ok(userDataService.uploadProfileImage(jwt.getSub(), userDataRequest)));
     }
 
-    @PostMapping("/profileImage")
-    public ResponseEntity<UUID> updateProfileImage(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody UserDataRequest userDataRequest) {
-        return ResponseEntity.ok(userDataService.updateProfileImage(jwt.getSub(), userDataRequest));
+    @PutMapping("/profileImage")
+    public Mono<ResponseEntity<Mono<UUID>>> updateProfileImage(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody UserDataRequest userDataRequest) {
+        return Mono.fromCallable(() -> ResponseEntity.ok(userDataService.updateProfileImage(jwt.getSub(), userDataRequest)));
     }
 
 }

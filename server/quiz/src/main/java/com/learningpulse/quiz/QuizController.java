@@ -1,7 +1,9 @@
 package com.learningpulse.quiz;
 
+import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.external.UserDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -19,6 +21,13 @@ public class QuizController {
     @ResponseBody
     public Mono<UserDTO> webclient() {
         return quizService.webclient();
+    }
+
+    @GetMapping("/jwtTest")
+    @ResponseBody
+    public Mono<KeycloakJwt> jwtTest(@AuthenticationPrincipal KeycloakJwt jwt) {
+        System.out.println(jwt.getSub());
+        return null;
     }
 
     @GetMapping("/")

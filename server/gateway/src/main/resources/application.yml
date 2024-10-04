@@ -111,6 +111,7 @@ springdoc:
 
 eureka:
   client:
+    registry-fetch-interval-seconds: ${EUREKA_REFRESH_INTERVAL:-30}
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
       # Will only work when docker is used

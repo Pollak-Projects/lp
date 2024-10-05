@@ -23,12 +23,12 @@ public class ClassroomService {
     }
 
     // TODO add param: UUID creator
-    public Classroom createClassroom(String name) {
+    public Classroom createClassroom(String name, UUID createdBy) {
         // TODO create chat for classroom
 
         String joinCode = generateJoinCode(4);
         new Classroom();
-        Classroom classroom = Classroom.builder().joinCode(joinCode).name(name).build();
+        Classroom classroom = Classroom.builder().joinCode(joinCode).name(name).createdBy(createdBy).build();
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("join_code", ExampleMatcher.GenericPropertyMatchers.exact());
         Example<Classroom> classroomExample = Example.of(classroom, matcher);
@@ -36,7 +36,7 @@ public class ClassroomService {
         while (repo.exists(classroomExample)) {
             joinCode = generateJoinCode(4);
             new Classroom();
-            classroom = Classroom.builder().joinCode(joinCode).name(name).build();
+            classroom = Classroom.builder().joinCode(joinCode).name(name).createdBy(createdBy).build();
         }
         return repo.save(classroom);
     }

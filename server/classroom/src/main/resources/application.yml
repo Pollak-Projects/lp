@@ -20,6 +20,27 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/learning_pulse}
     username: ${DB_USER:lp}
     password: ${DB_PASSWORD:lp}
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: ${KC_CLIENT_ID}
+            client-secret: ${KC_CLIENT_SECRET}
+            client-authentication-method: client_secret_post
+            authorization-grant-type: client_credentials
+            redirect-uri: ${KC_REDIRECT_URI}
+        provider:
+          okta:
+            issuer-uri: ${KC_ISSUER_URI}
+            authorization-uri: ${KC_AUTH_URI}
+            token-uri: ${KC_TOKEN_URI}
+            jwk-set-uri: ${KC_JWK_URI}
+            user-info-uri: ${KC_USER_INFO_URI}
+
+      resourceserver:
+        jwt:
+          issuer-uri: ${KC_ISSUER_URI}
 
 springdoc:
   api-docs:

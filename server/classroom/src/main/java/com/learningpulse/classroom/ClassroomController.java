@@ -2,10 +2,13 @@ package com.learningpulse.classroom;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.learningpulse.classroom.config.KeycloakJwt;
+
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,13 +34,11 @@ public class ClassroomController {
     }
 
     @PostMapping
+
     public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
-            @RequestHeader("Authorization") String token) {
-        // TODO add a middleware implementation to this instead of doing it here
-        // FIXME errors out due to not being base64? Idk
-        DecodedJWT decodedJWT = JWT.decode(token);
-        logger.info(String.format("Create:/token: %s", decodedJWT.getId()));
-        Classroom classroom = ClassroomService.createClassroom(classroom_model.getName());
+
+            @AuthenticationPrincipal KeycloakJwt jwt) {
+        Classroom classroom = ClassroomService.createClassroom(classroom_model.getName(), jwt.getSub());
         return ResponseEntity.ok(classroom);
     }
 

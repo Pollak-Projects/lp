@@ -13,7 +13,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UserDataService {
-    // FIXME this is currently broken WILL NOT COMPILE
     private final UserDataRepository userDataRepository;
 
     public Mono<UUID> getProfileImageById(UUID id) throws HttpStatusCodeException {

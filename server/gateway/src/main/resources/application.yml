@@ -74,7 +74,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KC_ISSUER_URI:- http://localhost:8081/auth/realms/learning_pulse}
+          issuer-uri: ${KC_ISSUER_URI:http://localhost:8081/auth/realms/learning_pulse}
 
 management:
   endpoints:
@@ -111,7 +111,7 @@ springdoc:
 
 eureka:
   client:
-    registry-fetch-interval-seconds: ${EUREKA_REFRESH_INTERVAL:-30}
+    registry-fetch-interval-seconds: ${EUREKA_REFRESH_INTERVAL:30}
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
       # Will only work when docker is used

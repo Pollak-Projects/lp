@@ -13,5 +13,3 @@ CREATE DATABASE learning_pulse;
 \connect learning_pulse;
 
 CREATE SCHEMA learning_pulse;
-
-CREATE SCHEMA user_schema;

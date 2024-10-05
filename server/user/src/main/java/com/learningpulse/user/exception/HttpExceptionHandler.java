@@ -1,13 +1,12 @@
-package com.learningpulse.user.config;
+package com.learningpulse.user.exception;
 
-import com.learningpulse.user.exception.HttpStatusCodeException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class HttpExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({HttpStatusCodeException.class})
     protected ResponseEntity<String> handleHttpStatusCodeException(RuntimeException ex) {

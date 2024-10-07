@@ -4,7 +4,8 @@ server:
 spring:
   application:
     name: dummy
-
+  config:
+    import: "optional:file:./.env[.properties]"
   # TODO remove after testing
   security:
     user:

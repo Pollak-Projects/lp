@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: user
+  config:
+    import: "optional:file:./.env[.properties]"
   jpa:
     properties:
       hibernate:

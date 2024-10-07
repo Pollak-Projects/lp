@@ -28,7 +28,7 @@ export default function Home() {
     "comment": "I would like to say something"
   };
   const CheckDummyData: QuestionCheck = {
-    "title": "This is again and again such a long ass dummy question, that it needs to be displayed in two completely different set of lines ",
+    "title": "This is again and again such a long ass dummy question",
     "value": [
       "some text",
       "why not again some text",
@@ -67,8 +67,8 @@ export default function Home() {
 
         </section>
         <section
-          className={"w-3/5 bg-content1 h-fit p-1 rounded-md"}>
-          <div className="w-full flex h-fit flex-col items-center justify-center mb-2 ">
+          className={"w-3/5 bg-content1 h-[98.4vh] p-1 rounded-md overflow-scroll"}>
+          <div className="w-full flex h-fit flex-col items-center justify-center mb-2 px-4 gap-4 ">
             <NextLink
               href="/"
               //style={{color: "#006FEE"}}
@@ -80,7 +80,7 @@ export default function Home() {
 
             <InputCheck question={CheckDummyData} setCheck={setCheck} />
 
-            <InputOrder question={OrderDummyData} isOrder={isOrder} setOrder={setOrder} />
+            <InputOrder {...OrderDummyData} />
 
           </div>
         </section>

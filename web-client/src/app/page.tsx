@@ -1,13 +1,12 @@
 
 import { Button } from "@nextui-org/button";
-import React from "react";
+import React, { Suspense } from "react";
 
 import Link from "next/link";
 import { auth, signOut } from "@/src/auth";
-import { useSession } from "next-auth/react";
-import { TestDisplay } from "@/src/components/test-display";
+
 import { Navbar } from "@/src/components/navbar";
-import InputOrder from "@/src/components/quizComponents/inputOrder";
+
 
 
 export default async function Home() {
@@ -15,8 +14,11 @@ export default async function Home() {
   return (
     <>
       <section>
-        <Navbar/>
-        <div className={"flex flex-col place-items-center align-middle"}>
+
+        <Navbar loggedIn={!!session}/>
+
+
+        <div className={"flex flex-col place-items-center align-middle gap-4 mt-3"}>
           <Button>Click me</Button>
           {session ? (
 

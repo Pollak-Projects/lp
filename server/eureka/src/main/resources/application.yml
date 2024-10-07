@@ -12,6 +12,8 @@ eureka:
 spring:
   application:
     name: eureka
+  config:
+    import: "optional:file:./.env[.properties]"
   security:
     # TODO remove after testing
     user:

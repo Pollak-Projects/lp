@@ -29,7 +29,7 @@ export default function RootLayout({
 
     </head>
     <body>
-    <main>
+    <main className={"select-none"}>
       <Providers>
         {children}
       </Providers>

@@ -12,7 +12,7 @@ export default function InputRadio({ question, setRadio } : {question: QuestionR
         )});
 
   return (
-    <section className={"rounded-md border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}>
+    <section className={"rounded-md border-1 w-full mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}>
       <span className={"text-2xl"}>{question.title}</span>
       <span>{question.comment}</span>
       <div className={"border-t-1 w-full flex flex-col place-items-center my-1 py-1"}>

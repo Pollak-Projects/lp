@@ -11,12 +11,13 @@ import { auth } from "@/src/auth";
 import { signOut } from "next-auth/react";
 import { Session } from "next-auth";
 
-export const Navbar = () => {
+export const Navbar = ({loggedIn}:{loggedIn:boolean}) => {
+
 
   return (
     <>
         <NextUINavbar
-          className="rounded-md w-10/11 bg-content1 "
+          className="rounded-md w-10/11 bg-content1 mt-1"
           maxWidth="full"
           style={{ marginLeft: "0.3em", marginRight: "0.3em", borderRadius: "0.6em"}}
           height={"3em"}
@@ -34,9 +35,19 @@ export const Navbar = () => {
 
             <ul className="flex gap-4 justify-end items-center">
               <NavbarItem>
-                <NextLink href={"/login"} className={"align-middle"}>Log in</NextLink>
-                <span className={"align-middle"}> or </span>
-                <NextLink href={"/login"} className={"align-middle"}>Register</NextLink>
+                {!loggedIn ? (
+                  <>
+                    <NextLink href={"/login"} className={"align-middle"}>Log in</NextLink>
+                    <span className={"align-middle"}> or </span>
+                    <NextLink href={"/login"} className={"align-middle"}>Register</NextLink>
+                  </>
+
+                ):(
+                  <>
+                    <NextLink href={"/login"} className={"align-middle"}>Sign out</NextLink>
+                  </>
+
+              )}
               </NavbarItem>
               <NavbarItem>
                 <span className={"align-middle"}>UserName</span>

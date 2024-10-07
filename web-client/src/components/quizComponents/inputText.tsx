@@ -20,7 +20,7 @@ dummyData.data.map(elem =>  elem as InputTextFields);
   return (
 
     <section
-      className={"rounded-md border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
+      className={"rounded-md w-full border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
       >
 
 

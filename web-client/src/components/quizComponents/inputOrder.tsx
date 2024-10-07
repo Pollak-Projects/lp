@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { QuestionOrder } from "@/src/types/questionOrder";
 import { v4 as uuidv4 } from "uuid";
 
-export default function InputOrder(question: QuestionOrder) {
+export default function InputOrder(question:QuestionOrder) {
 
 
   const [isOrder, setOrder] = useState(question.value)
@@ -20,7 +20,7 @@ export default function InputOrder(question: QuestionOrder) {
 
   const order_elements = isOrder.map((value, index:number ) => {
     return (
-      <div className={"w-fit border rounded-md p-2 m-2"}
+      <div className={"w-fit border rounded-md p-2 m-2 cursor-pointer"}
            draggable
            key={value.id}
            onDragStart={() => (dragData.current = index)}
@@ -36,10 +36,10 @@ export default function InputOrder(question: QuestionOrder) {
   return (
     <>
       <section
-        className="rounded-md border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center">
+        className="rounded-md border-1 w-full mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center">
         <span className={"text-2xl"}>{question.title}</span>
         <span>{question.comment}</span>
-        <div className={"border-t-1 w-full flex flex-col place-items-center"}>
+        <div className={"border-t-1 w-full flex flex-col place-items-center my-1 py-1"}>
           {order_elements}
         </div>
 

@@ -17,7 +17,7 @@ public class UserDataService {
 
     public Mono<UUID> getProfileImageById(UUID id) throws HttpStatusCodeException {
         return userDataRepository
-                .findById(id)
+                .findByUserId(id)
                 .map(UserData::getProfilePicture)
                 .switchIfEmpty(Mono.error(new HttpStatusCodeException("User not found", HttpStatus.NOT_FOUND)));
     }
@@ -39,7 +39,7 @@ public class UserDataService {
 
     public Mono<UUID> updateProfileImage(UUID id, @NotNull UserDataRequest userDataRequest) {
         return userDataRepository
-                .findById(id)
+                .findByUserId(id)
                 .switchIfEmpty(Mono.error(new HttpStatusCodeException("User not found", HttpStatus.NOT_FOUND)))
                 .flatMap(user -> {
                     user.setProfilePicture(userDataRequest.Image());

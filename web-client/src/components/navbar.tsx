@@ -4,12 +4,10 @@ import {
   NavbarItem,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
-import React, { useEffect, useState } from "react";
-import { AvatarIcon } from "@nextui-org/shared-icons";
+import React from "react";
+
 import { Avatar } from "@nextui-org/avatar";
-import { auth } from "@/src/auth";
-import { signOut } from "next-auth/react";
-import { Session } from "next-auth";
+
 
 export const Navbar = ({loggedIn}:{loggedIn:boolean}) => {
 

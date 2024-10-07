@@ -4,11 +4,9 @@ import React, { Suspense } from "react";
 
 import Link from "next/link";
 import { auth, signOut } from "@/src/auth";
-import { useSession } from "next-auth/react";
-import { TestDisplay } from "@/src/components/test-display";
+
 import { Navbar } from "@/src/components/navbar";
-import InputOrder from "@/src/components/quizComponents/inputOrder";
-import { exists } from "node:fs";
+
 
 
 export default async function Home() {

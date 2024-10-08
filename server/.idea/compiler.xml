@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dummy" />
         <module name="quiz" />
+        <module name="report-aggregate" />
         <module name="eureka" />
         <module name="classroom" />
         <module name="drive" />
@@ -25,6 +26,7 @@
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="quiz" options="-parameters" />
+      <module name="report-aggregate" options="-parameters" />
       <module name="user" options="-parameters" />
     </option>
   </component>

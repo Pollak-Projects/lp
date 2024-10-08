@@ -69,10 +69,17 @@
                         --illegal-access=permit
                     </argLine>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <forkCount>2</forkCount>
+                    <forkCount>5</forkCount>
                     <reuseForks>true</reuseForks>
                     <argLine>${surefireArgLine}</argLine>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -96,7 +103,6 @@
                             <goal>prepare-agent</goal>
                         </goals>
                         <configuration>
-<!--                            <destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>-->
                             <propertyName>surefireArgLine</propertyName>
                         </configuration>
                     </execution>

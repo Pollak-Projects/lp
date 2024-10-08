@@ -83,6 +83,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true
     },
     async jwt({token, account}): Promise<JWT> {
+      console.log("JWT\n", token, account)
       if (account) {
         return {
           ...token,

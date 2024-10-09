@@ -14,9 +14,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { AxiosProvider } from "@/src/lib/AxiosProvider";
 
 export interface ProvidersProps {
-  children: React.ReactNode,
-  themeProps?: ThemeProviderProps,
-  Session?: Session
+  children: React.ReactNode;
+  themeProps?: ThemeProviderProps;
+  Session?: Session;
 }
 
 export function Providers({ children, themeProps, Session }: ProvidersProps) {
@@ -29,7 +29,7 @@ export function Providers({ children, themeProps, Session }: ProvidersProps) {
         refetchInterval: 1000 * 5,
       },
     },
-  })
+  });
 
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,

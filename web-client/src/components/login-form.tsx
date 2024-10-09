@@ -28,9 +28,13 @@ export default function LoginForm() {
         action="/api/auth/callback/credentials"
         onSubmit={onSubmit}
         method="post"
-        className={"flex justify-center items-center"}>
-
-        <div className={"w-[20dvw] bg-content1 rounded-md text-center mt-4 flex-row justify-center items-center"}>
+        className={"flex justify-center items-center"}
+      >
+        <div
+          className={
+            "w-[20dvw] bg-content1 rounded-md text-center mt-4 flex-row justify-center items-center"
+          }
+        >
           <h4 className={"mt-3"}>Login to LearningPulse</h4>
           <Input
             className={"w-[18dvw] mx-auto mt-3"}
@@ -42,9 +46,7 @@ export default function LoginForm() {
             autoFocus={true}
             variant={"underlined"}
             autoComplete={"off"}
-            style={{background: "none"}}
-
-
+            style={{ background: "none" }}
           />
           <Input
             className={"w-[18dvw] mx-auto my-3"}
@@ -54,8 +56,7 @@ export default function LoginForm() {
             label="Password"
             isRequired={true}
             variant={"underlined"}
-            style={{background: "none"}}
-
+            style={{ background: "none" }}
           />
           <div>
             <span>Don't have an account? </span>
@@ -63,9 +64,12 @@ export default function LoginForm() {
             <Link
               className={" mt-2"}
               href={"/"} /*Todo: /register*/
-              style={{color: "#006FEE"}}
+              style={{ color: "#006FEE" }}
               //color={"primary"} remind me to send a pipe bomb to whomever set the colour to inherit by default
-            > Register</Link>
+            >
+              {" "}
+              Register
+            </Link>
           </div>
           <div>
             <Button
@@ -73,7 +77,9 @@ export default function LoginForm() {
               aria-disabled={pending}
               type="submit"
               className={"bg-primary my-3"}
-            > Log in
+            >
+              {" "}
+              Log in
             </Button>
           </div>
         </div>

@@ -1,39 +1,30 @@
-import { Input, Textarea } from "@nextui-org/input";
+import { QuestionText } from "@/src/types/questionText";
+import { Textarea } from "@nextui-org/input";
+import { useState } from "react";
 
-export type InputTextFields = {
-  id: string;
-  title: string;
-  comment: string;
-}
-export default function InputText() {
-  const dummyData = {
-    "data":[
-      {"id": "asd1",
-        "title": "This is such a long ass dummy question, that it needs to be displayed in two completely different set of lines",
-        "comment": "Please don't set your sister on fire"
-      }
-    ]
-  }
-dummyData.data.map(elem =>  elem as InputTextFields);
+export default function InputText({ question }: { question: QuestionText }) {
+  const [isText, setText] = useState(question.value);
 
+  let getText = (e: string) => {
+    // returns the answer from the text input field
+  };
 
   return (
-
     <section
-      className={"rounded-md w-full border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
-      >
-
-
-      <span className={"text-2xl"}>{dummyData.data[0].title}</span>
-      <span>{dummyData.data[0].comment}</span>
+      className={
+        "rounded-md w-full border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"
+      }
+    >
+      <span className={"text-2xl"}>{isText.title}</span>
+      <span>{isText.comment}</span>
       <Textarea
         isRequired={true}
-        style={{background: "none"}}
+        style={{ background: "none" }}
         variant="bordered"
+        onValueChange={getText}
         placeholder="Enter the answer"
         className={"max-w-ms mt-2 max-h-60 overflow-scroll text-justify"}
       />
     </section>
-
-  )
+  );
 }

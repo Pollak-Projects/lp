@@ -6,13 +6,9 @@ import { Providers } from "@/src/app/providers";
 import { Navbar } from "@/src/components/navbar";
 
 export default function RootLayout({
-                                     children,
-                                   }: {
+  children,
+}: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

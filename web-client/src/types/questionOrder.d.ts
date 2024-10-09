@@ -1,8 +1,8 @@
 export interface QuestionOrder {
-  title: string,
+  title: string;
   value: Array<{
     id: string;
     content: string;
-  }>
+  }>;
   comment: string;
 }

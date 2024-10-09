@@ -1,5 +1,8 @@
 export interface QuestionRadio {
-  title: string,
-  value: Array<string>,
-  comment: string
+  title: string;
+  value: Array<{
+    title: string;
+    answer: boolean;
+  }>;
+  comment: string;
 }

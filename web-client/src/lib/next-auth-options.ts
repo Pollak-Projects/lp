@@ -86,4 +86,3 @@ export const nextAuthConfig: NextAuthConfig = {
   //   },
   // },
 };
-

@@ -1,6 +1,6 @@
 import "@/src/styles/globals.css";
 import { Viewport } from "next";
-import {fontSans} from "@/src/config/fonts"
+import { fontSans } from "@/src/config/fonts";
 
 import { Providers } from "./providers";
 
@@ -20,23 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-
-
     <html suppressHydrationWarning lang="en" className={fontSans.className}>
-    <GlobalStyles/>
-    <head>
-    <link rel={"stylesheet"} href={"@/src/styles/globals.css"} />
-
-    </head>
-    <body>
-    <main className={"select-none"}>
-      <Providers>
-        {children}
-      </Providers>
-    </main>
-    </body>
+      <GlobalStyles />
+      <head>
+        <link rel={"stylesheet"} href={"@/src/styles/globals.css"} />
+      </head>
+      <body>
+        <main className={"select-none"}>
+          <Providers>{children}</Providers>
+        </main>
+      </body>
     </html>
-
-
   );
 }

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useAxios } from "@/src/lib/AxiosProvider";
 import { useSession } from "next-auth/react";
@@ -17,13 +17,19 @@ export function TestDisplay() {
       return res.data;
     },
   });
-  if (error) return (<>'An error has occurred: ' + {error.message}</>);
+  if (error) return <>'An error has occurred: ' + {error.message}</>;
   return (
     <div>
       <h1>Test Display</h1>
-      { isPending ? <p>Loading...</p> :
-        error ? <p>Error: </p> :
-        data ? <p>{JSON.stringify(data)}</p> : <p>No data</p>}
+      {isPending ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Error: </p>
+      ) : data ? (
+        <p>{JSON.stringify(data)}</p>
+      ) : (
+        <p>No data</p>
+      )}
     </div>
   );
 }

@@ -6,32 +6,28 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Session } from "next-auth";
 
 const SignOutButton = () => {
-
-  const [session, setSession] = useState<Session | null>(null)
-
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const userSession = await auth()
-        setSession(userSession)
+        const userSession = await auth();
+        setSession(userSession);
       } catch (error) {
-
         setSession(null);
       }
     };
 
     fetchSession();
-  }, [])
+  }, []);
 
   return (
     <>
       {session ? (
-
         <form
           action={async () => {
-            "use server"
-            await signOut()
+            "use server";
+            await signOut();
           }}
         >
           <Button type={"submit"}>Sign out</Button>

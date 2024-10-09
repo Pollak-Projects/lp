@@ -1,17 +1,21 @@
 package com.learningpulse.dummy;
 
 import com.learningpulse.dummy.services.GreetingService;
-import org.apache.catalina.security.SecurityConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.containsString;
@@ -21,41 +25,51 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(TestController.class)
-@ContextConfiguration(classes = {TestController.class, SecurityConfig.class})
-@WithMockUser(username = "admin", password = "admin")
+import static org.springframework.security.test.web.reactive.server.SecurityMockServerConfigurers.springSecurity;
+
+
+@ExtendWith(SpringExtension.class)
+@WebFluxTest(TestController.class)
+@ContextConfiguration(classes = TestController.class)
+@AutoConfigureWebTestClient
+@WithMockUser
 class DummyApplicationTest {
-
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    private ApplicationContext webApplicationContext;
 
-    private MockMvc mockMvc;
+    private WebTestClient webClient;
 
     @MockBean
     private GreetingService greetingService;
 
+
     @BeforeEach
     void setup() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(SecurityMockMvcConfigurers.springSecurity())
+        webClient = WebTestClient
+                .bindToApplicationContext(webApplicationContext)
+                .apply(springSecurity())
+                .configureClient()
                 .build();
     }
 
     @Test
     void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/api/v1/dummy/test"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World!")));
+        this.webClient
+                .get()
+                .uri("/api/v1/dummy/test")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class).isEqualTo("Hello, World!");
     }
 
     @Test
     void greetingShouldReturnMessageFromService() throws Exception {
         when(greetingService.greet()).thenReturn("I work!");
-        this.mockMvc.perform(get("/api/v1/dummy/greeting"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("I work!")));
+        this.webClient
+                .get()
+                .uri("/api/v1/dummy/greeting")
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(String.class).isEqualTo("I work!");
     }
 }

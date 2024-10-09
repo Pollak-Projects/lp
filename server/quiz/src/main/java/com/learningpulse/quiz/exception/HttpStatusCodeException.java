@@ -1,4 +1,4 @@
-package com.learningpulse.user.exception;
+package com.learningpulse.quiz.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

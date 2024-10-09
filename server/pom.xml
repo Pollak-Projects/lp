@@ -15,6 +15,7 @@
     <name>server</name>
     <description>API server for LearningPulse</description>
     <modules>
+        <module>report-aggregate</module>
         <module>dummy</module>
         <module>gateway</module>
         <module>eureka</module>
@@ -35,7 +36,7 @@
         <sonar.token>sqp_a07e92714664c39337d9bcd11a41afb753adf5b5</sonar.token>
         <!-- https://github.com/SonarSource/sonar-scanning-examples -->
         <sonar.coverage.jacoco.xmlReportPaths>
-            ${maven.multiModuleProjectDirectory}/target/site/jacoco-aggregate/jacoco.xml
+            ${maven.multiModuleProjectDirectory}/report-aggregate/target/site/jacoco-aggregate/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
         <sonar.maven.scanAll>true</sonar.maven.scanAll>
     </properties>
@@ -49,12 +50,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
         <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -70,6 +69,16 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
         <!-- TODO remove dev dependency-->
@@ -113,45 +122,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>3.4.2</version>
-                <configuration>
-                    <from>
-                        <image>eclipse-temurin:21-jre</image>
-                        <platforms>
-                            <platform>
-                                <architecture>amd64</architecture>
-                                <os>linux</os>
-                            </platform>
-                            <platform>
-                                <architecture>arm64</architecture>
-                                <os>linux</os>
-                            </platform>
-                        </platforms>
-                    </from>
-                    <to>
-                        <image>ghcr.io/pollak-projects/lp/${project.artifactId}:dev</image>
-                        <auth>
-                            <username>pollak-projects</username>
-                            <password>${token}</password>
-                        </auth>
-                    </to>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>dockerBuild</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
 
@@ -164,23 +135,54 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>3.4.2</version>
+                        <configuration>
+                            <from>
+                                <image>eclipse-temurin:21-jre</image>
+                                <platforms>
+                                    <platform>
+                                        <architecture>amd64</architecture>
+                                        <os>linux</os>
+                                    </platform>
+                                    <platform>
+                                        <architecture>arm64</architecture>
+                                        <os>linux</os>
+                                    </platform>
+                                </platforms>
+                            </from>
+                            <to>
+                                <image>ghcr.io/pollak-projects/lp/${project.artifactId}:dev</image>
+                                <auth>
+                                    <username>pollak-projects</username>
+                                    <password>${token}</password>
+                                </auth>
+                            </to>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>prepare-agent</id>
+                                <phase>package</phase>
                                 <goals>
-                                    <goal>prepare-agent</goal>
+                                    <goal>dockerBuild</goal>
                                 </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <goals>
-                                    <goal>report-aggregate</goal>
-                                </goals>
-                                <phase>verify</phase>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>sonar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>

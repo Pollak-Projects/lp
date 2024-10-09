@@ -14,11 +14,10 @@ import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -42,8 +41,8 @@ public class Quiz {
     // TODO change this to User
     private UUID createdBy;
 
-    @CreationTimestamp
-    private Timestamp createdAt;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     private LocalDateTime deadline;
 

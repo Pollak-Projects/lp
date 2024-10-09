@@ -9,9 +9,9 @@ spring:
       enabled: true
   application:
     name: classroom
-    
+
   config:
-    import: "file:./.env[.properties]"
+    import: "optional:file:../.env[.properties]"
 
   jpa:
     properties:

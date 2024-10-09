@@ -1,55 +1,56 @@
 package com.learningpulse.quiz.question.question_text.controller;
 
-import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.question.question_text.model.QuestionTextAnswer;
 import com.learningpulse.quiz.question.question_text.service.QuestionTextAnswerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/quiz/answer/text")
 @RequiredArgsConstructor
 public class QuestionTextAnswerController {
-    // TODO: Implement this controller
     private final QuestionTextAnswerService questionTextAnswerService;
 
     @GetMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionTextAnswer> getQuestionTextAnswerById(@RequestParam UUID id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionTextAnswer getQuestionTextAnswerById(@RequestParam UUID id) {
+        return questionTextAnswerService.getQuestionTextAnswerById(id);
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public Mono<Iterable<QuestionTextAnswer>> getAllQuestionTextAnswersByUser(@RequestBody UserDTO user) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionTextAnswer> getAllQuestionTextAnswersByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return questionTextAnswerService.getAllQuestionTextAnswersByUser(jwt.getSub());
     }
 
     @GetMapping(value = "/all", params = "questionTextId")
-    @ResponseBody
-    public Mono<Iterable<QuestionTextAnswer>> getAllQuestionTextAnswersByQuestion(@RequestParam UUID questionTextId) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionTextAnswer> getAllQuestionTextAnswersByQuestion(@RequestParam UUID questionTextId) {
+        return questionTextAnswerService.getAllQuestionTextAnswersByQuestion(questionTextId);
     }
 
     @PostMapping("/")
-    @ResponseBody
-    public Mono<QuestionTextAnswer> createQuestionTextAnswer(@RequestBody QuestionTextAnswer questionTextAnswer) {
-        return null;
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestionTextAnswer createQuestionTextAnswer(@RequestBody QuestionTextAnswer questionTextAnswer) {
+        return questionTextAnswerService.createQuestionTextAnswer(questionTextAnswer);
     }
 
     @PutMapping("/")
-    @ResponseBody
-    public Mono<QuestionTextAnswer> updateQuestionTextAnswer(@RequestBody QuestionTextAnswer questionTextAnswer) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionTextAnswer updateQuestionTextAnswer(@RequestBody QuestionTextAnswer questionTextAnswer) {
+        return questionTextAnswerService.updateQuestionTextAnswer(questionTextAnswer);
     }
 
     @DeleteMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionTextAnswer> deleteQuestionTextAnswer(@RequestParam UUID id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionTextAnswer deleteQuestionTextAnswer(@RequestParam UUID id) {
+        return questionTextAnswerService.deleteQuestionTextAnswer(id);
     }
 
 }

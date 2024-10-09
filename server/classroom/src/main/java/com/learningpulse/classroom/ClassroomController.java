@@ -1,9 +1,6 @@
 package com.learningpulse.classroom;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.learningpulse.classroom.config.KeycloakJwt;
-
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -24,8 +24,9 @@ public class QuestionText implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @ManyToOne
-    private Quiz quiz;
+
+    @ManyToMany(mappedBy = "questionTexts", fetch = FetchType.EAGER)
+    private Set<Quiz> quizId;
 
     private String title;
 

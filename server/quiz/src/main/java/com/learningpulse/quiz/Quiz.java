@@ -18,7 +18,10 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -30,7 +33,7 @@ import java.util.UUID;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "QUIZ", schema = "quiz")
-public class Quiz {
+public class Quiz implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -49,22 +52,26 @@ public class Quiz {
     private boolean viewAfterSubmission;
 
     // This seems really inefficient @nezsha please advise 2024-09-17
-
-    @OneToMany(mappedBy = "quiz")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "quiz_question_text",
+            schema = "quiz",
+            joinColumns = @JoinColumn(name = "quiz_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_text_id"))
     private Set<QuestionText> questionTexts;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionRadio> questionRadios;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionCheckbox> questionCheckboxes;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionFile> questionFiles;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionOrder> questionOrders;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionPairCollection> questionPairCollections;
 }

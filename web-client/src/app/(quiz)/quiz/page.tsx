@@ -10,6 +10,22 @@ import { QuestionText } from "@/src/types/questionText";
 import { v4 as uuidv4 } from "uuid";
 import NextLink from "next/link";
 import React from "react";
+import { useAxios } from "@/src/lib/AxiosProvider";
+import { useQuery } from "@tanstack/react-query";
+import { QuestionPair } from "@/src/types/questionPair";
+import InputPair from "@/src/components/quizComponents/inputPair";
+
+const axios = useAxios();
+const { isPending, error, data, isFetching } = useQuery({
+  queryKey: ["test"],
+
+  queryFn: async () => {
+    const res = await axios.get("/api/v1/quiz/question/text");
+    return res.data;
+  },
+});
+
+
 
 export default function Home() {
   const TextDummyData: QuestionText = {
@@ -63,6 +79,26 @@ export default function Home() {
     comment: "Order them descending from top to bottom",
   };
 
+  const PairDummyData: QuestionPair = {
+    title: "Title of Pair component",
+    value: {
+      left: [
+        {id: uuidv4(), content: "first pair"},
+        {id: uuidv4(), content: "second pair but this is so long it requires multiple lines to display this fat text "},
+        {id: uuidv4(), content: "third pair"},
+        {id: uuidv4(), content: "fourth pair"},
+        {id: uuidv4(), content: "fifth pair but this is so long it requires multiple lines to display this fat text"}
+      ],
+      right: [
+        {id: uuidv4(), content: "first pair but this is so long it requires multiple lines to display this fat text"},
+        {id: uuidv4(), content: "second pair"},
+        {id: uuidv4(), content: "third pair but this is so long it requires multiple lines to display this fat text"},
+        {id: uuidv4(), content: "fourth pair"},
+        {id: uuidv4(), content: "fifth pair"}
+      ]
+    }
+  }
+
   return (
     <>
       <section
@@ -93,6 +129,8 @@ export default function Home() {
             <InputCheck question={CheckDummyData} />
 
             <InputOrder question={OrderDummyData} />
+
+            <InputPair question={PairDummyData} />
           </div>
         </section>
         <section

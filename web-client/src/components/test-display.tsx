@@ -23,8 +23,6 @@ export function TestDisplay() {
       <h1>Test Display</h1>
       {isPending ? (
         <p>Loading...</p>
-      ) : error ? (
-        <p>Error: </p>
       ) : data ? (
         <p>{JSON.stringify(data)}</p>
       ) : (

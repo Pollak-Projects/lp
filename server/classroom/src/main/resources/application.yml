@@ -18,7 +18,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         hbm2ddl:
-          auto: update
+          auto: create
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/learning_pulse}

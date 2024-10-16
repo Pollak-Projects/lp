@@ -18,8 +18,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "classroom", schema = "learning_pulse")
-// FIXME https://en.wikibooks.org/wiki/Java_Persistence/ElementCollection
-
 public class Classroom implements Serializable {
 
     @Id
@@ -31,7 +29,7 @@ public class Classroom implements Serializable {
     private Timestamp createdAt;
 
     /// The code that users can join via
-    /// 10^10 = 10 000 000 000 possible classrooms
+    /// 23^10 lots.....
     @Column(unique = true, nullable = false, length = 10)
     private String joinCode;
 
@@ -40,30 +38,11 @@ public class Classroom implements Serializable {
     private UUID createdBy;
 
     @Builder.Default
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "classroom_members", schema = "learning_pulse", joinColumns = @JoinColumn(name = "userid"))
-    private List<UUID> members = new ArrayList<UUID>();
-
-    @Builder.Default
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "post", schema = "learning_pulse", joinColumns = @JoinColumn(name = "id"))
-    private List<UUID> posts = new ArrayList<UUID>();
-
-    @Builder.Default
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "classroom_attachments", schema = "learning_pulse", joinColumns = @JoinColumn(name = "id"))
-    private List<UUID> file = new ArrayList<UUID>();
-
-    @Builder.Default
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "classroom_assignments", schema = "learning_pulse", joinColumns = @JoinColumn(name = "id"))
-    private List<UUID> assignments = new ArrayList<UUID>();
+    @OneToMany
+    @JoinTable(name = "classroom_members", schema = "learning_pulse")
+    private List<ClassroomMember> members = new ArrayList<ClassroomMember>();
 
     private UUID chat;
-
-    public void add_member(UUID user) {
-        this.members.add(user);
-    }
 
     @PrePersist
     protected void onCreate() {

@@ -1,14 +1,24 @@
 package com.learningpulse.classroom;
 
 import com.learningpulse.classroom.config.KeycloakJwt;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+import org.springframework.data.domain.Example;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @RestController
@@ -16,44 +26,55 @@ import java.util.UUID;
 @RequestMapping("/api/v1/classroom")
 public class ClassroomController {
     private static final Logger logger = LoggerFactory.getLogger(ClassroomController.class);
-    private final ClassroomService ClassroomService;
-
-    @GetMapping
-    public ResponseEntity<List<Classroom>> findAll() {
-        // TODO add error handling if Classrooms are nonexistent
-        return ResponseEntity.ok(ClassroomService.findAll());
-    }
-
-    @GetMapping("/q")
-    public ResponseEntity<Classroom> findById(@RequestParam("id") UUID uuid) {
-        // TODO add error handling if Classroom is nonexistent
-        return ResponseEntity.ok(ClassroomService.findByID(uuid));
-    }
+    private final ClassroomRepository ClassroomService;
+    private final Random random = new Random();
 
     @PostMapping
-
     public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
-
             @AuthenticationPrincipal KeycloakJwt jwt) {
-        Classroom classroom = ClassroomService.createClassroom(classroom_model.getName(), jwt.getSub());
+        // TODO emmit AMQP ClassroomCreated Event
+        logger.info("CreatedBy:" + jwt.getSub());
+        String joinCode = generateJoinCode(4);
+        new Classroom();
+        Classroom classroom = Classroom.builder().joinCode(joinCode).name(classroom_model.getName())
+                .createdBy(jwt.getSub()).build();
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher("join_code", ExampleMatcher.GenericPropertyMatchers.exact());
+        Example<Classroom> classroomExample = Example.of(classroom, matcher);
+
+        while (ClassroomService.exists(classroomExample)) {
+            joinCode = generateJoinCode(4);
+            classroom.setJoinCode(joinCode);
+        }
+
+        // Open a transaction
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("classroom");
+        EntityManager em = emf.createEntityManager();
+        // create member
+        ClassroomMember initmember = new ClassroomMember();
+        initmember.setClassroom_id(classroom);
+        initmember.setUser_id(jwt.getSub());
+
+        classroom.getMembers().add(initmember);
+        em.persist(classroom);
+        em.persist(initmember);
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+
+        // TODO transactional join/create for atomic
         return ResponseEntity.ok(classroom);
     }
 
-    @PostMapping("/join")
-    public ResponseEntity<Void> join(@RequestParam("user_id") UUID uuid, @RequestParam("classroom") UUID classroom) {
-        return ResponseEntity.ok().build();
-    }
+    private String generateJoinCode(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            result.append(characters.charAt(index));
+        }
+        return result.toString().toLowerCase();
 
-    @PutMapping
-    public ResponseEntity<Void> updateClassroom(@RequestBody Classroom Classroom) {
-        ClassroomService.updateClassroom(Classroom);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping
-    public ResponseEntity<Void> deleteClassroom(@RequestParam("id") UUID id) {
-        ClassroomService.delete(id);
-        return ResponseEntity.ok().build();
     }
 
 }

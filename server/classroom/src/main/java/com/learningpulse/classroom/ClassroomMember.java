@@ -13,14 +13,19 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "classroom_members", schema = "learning_pulse", uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "classroom_id", "user_id" })
-})
+@Table(schema = "learning_pulse"
+
+// , uniqueConstraints = { @UniqueConstraint(columnNames = { "classroom_id",
+// "user_id" })}
+)
 
 public class ClassroomMember implements Serializable {
 
     @Id
-    private UUID classroom_id;
+    // Id of the classroom
+    @ManyToOne
+    @JoinColumn(name = "classroom_id", nullable = false)
+    private Classroom classroom_id;
 
     private UUID user_id;
 

@@ -33,19 +33,16 @@ public class Classroom implements Serializable {
     @Column(unique = true, nullable = false, length = 10)
     private String joinCode;
 
-    // TODO make connection to other table somehow as this is a violation of 2nf
     @CreatedBy
     private UUID createdBy;
 
     @Builder.Default
-    @OneToMany
-    @JoinTable(name = "classroom_members", schema = "learning_pulse")
+    @OneToMany(mappedBy = "classroom_id")
     private List<ClassroomMember> members = new ArrayList<ClassroomMember>();
-
-    private UUID chat;
 
     @PrePersist
     protected void onCreate() {
         this.createdAt = Timestamp.valueOf(LocalDateTime.now());
     }
+
 }

@@ -25,8 +25,8 @@ export default function RootLayout({
       <head>
         <link rel={"stylesheet"} href={"@/src/styles/globals.css"} />
       </head>
-      <body>
-        <main className={"select-none"}>
+      <body className={"bg-gradient-to-tl from-violet-600 from-0% via-black via-50% to-blue-500 to-100% bg-cover bg-center min-h-[100dvh]"}>
+        <main className={"select-none m-0"}>
           <Providers>{children}</Providers>
         </main>
       </body>

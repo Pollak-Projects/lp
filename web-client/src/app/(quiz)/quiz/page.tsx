@@ -94,15 +94,15 @@ export default function Home() {
     <>
       <section
         className={
-          "flex flex-row h-fit gap-4 items-center justify-center mx-2 opacity-30 mt-2"
+          "flex flex-row h-fit gap-4 items-center justify-center "
         }
       >
         <section
-          className={"w-1/5 bg-content1 h-[98.4vh] p-1 rounded-md"}
+          className={"w-1/5 bg-content1-opacity15 h-[98.4vh] p-1 rounded-md"}
         ></section>
         <section
           className={
-            "w-3/5 bg-content1 h-[98.4vh] p-1 rounded-md overflow-scroll"
+            "w-3/5 bg-content1-opacity15 h-[98.4vh] p-1 rounded-md overflow-scroll"
           }
         >
           <div className="w-full flex h-fit flex-col items-center justify-center mb-2 px-4 gap-4 ">
@@ -125,7 +125,7 @@ export default function Home() {
           </div>
         </section>
         <section
-          className={"w-1/5 bg-content1 p-1 h-[98.4vh] rounded-md"}
+          className={"w-1/5 bg-content1-opacity15 p-1 h-[98.4vh] rounded-md"}
         ></section>
       </section>
     </>

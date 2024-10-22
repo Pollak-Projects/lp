@@ -9,10 +9,12 @@ export default async function LoginPage() {
 
   return (
     <main>
-      <div>
-        <Navbar loggedIn={!loggedIn} />
-        <LoginForm />
-      </div>
+      <section className={"pt-2"}>
+        <div>
+          <Navbar loggedIn={!loggedIn} />
+          <LoginForm />
+        </div>
+      </section>
     </main>
   );
 }

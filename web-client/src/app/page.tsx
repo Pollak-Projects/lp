@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/button";
-import React, { Suspense } from "react";
+import React from "react";
 
 import Link from "next/link";
 import { auth, signOut } from "@/src/auth";
@@ -10,7 +10,7 @@ export default async function Home() {
   const session = await auth();
   return (
     <>
-      <section>
+      <section className={"pt-2"}>
         <Navbar loggedIn={!!session} />
 
         <div

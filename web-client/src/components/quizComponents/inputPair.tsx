@@ -1,13 +1,40 @@
 import { QuestionPair } from "@/src/types/questionPair";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 
 export default function InputPair({question}:{question: QuestionPair}) {
 
-  const [isPairLeft, setPairLeft] = useState(question.value.left)
+
+ //TODO: random generate the columns on server side
+
+  const shuffle = (array: Array<{
+    id:string,
+    content:string
+  }>) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  const [loading, setLoading] = useState(true);
+
+
+  const [isPairLeft, setPairLeft] = useState(question.value.left);
+  const [isPairRight, setPairRight] = useState(question.value.right);
+
+  useEffect( () => {
+    setPairLeft(shuffle([...question.value.left]));
+    setPairRight(shuffle([...question.value.right]));
+    setLoading(false)
+  }, [question.value.left, question.value.right]);
 
   const dragDataLeft = useRef<number>(0);
   const draggedOverDataLeft = useRef<number>(0);
+
+  const [isDraggingLeft, setIsDraggingLeft] = useState(false);
+  const [droppedLeft, setDroppedLeft] = useState(false);
 
   // function to handle the state when drag and dropping
   function handleSortLeft() {
@@ -26,14 +53,22 @@ export default function InputPair({question}:{question: QuestionPair}) {
       <>
         <div
           className={
-          "w-full h-24 flex justify-center items-center  border rounded-md p-2 m-2 overflow-scroll cursor-move"
+          "w-full h-24 flex justify-center items-center border rounded-md p-2 m-2 overflow-scroll cursor-move"
         }
           draggable
           key={value.id}
-          onDragStart={() => (dragDataLeft.current = index)}
+          onDragStart={(e) => {
+            setIsDraggingLeft(true);
+            dragDataLeft.current = index
+            e.dataTransfer.effectAllowed = "move"
+          }}
           onDragEnter={() => (draggedOverDataLeft.current = index)}
           onDragEnd={handleSortLeft}
           onDragOver={(e) => e.preventDefault()}
+          onDrop={(e) => {
+            e.preventDefault()
+            setDroppedLeft(true)
+          }}
         >
           <span>{value.content}</span>
         </div>
@@ -41,7 +76,6 @@ export default function InputPair({question}:{question: QuestionPair}) {
     )
   })
 
-  const [isPairRight, setPairRight] = useState(question.value.right)
 
   const dragDataRight = useRef<number>(0);
   const draggedOverDataRight = useRef<number>(0);
@@ -92,6 +126,9 @@ export default function InputPair({question}:{question: QuestionPair}) {
     )
   })
 
+  if (loading) {
+    return <div>Loading...</div>; // Optionally, display a loading state while shuffling
+  }
 
   return (
     <>

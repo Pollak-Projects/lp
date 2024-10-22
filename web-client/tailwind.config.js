@@ -1,4 +1,5 @@
 import {nextui} from '@nextui-org/theme'
+import colors from 'tailwindcss/colors'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -35,8 +36,16 @@ module.exports = {
     themes: {
       dark: {
         colors: {
-          background: "#468BCB",
-          content1: "#191919"
+          //background: "#000000",
+          'content1': '#006fee',
+          'content1-opacity15': "rgba(0, 111, 238,0.15)",
+          'content2': "#191919",
+          "violet-600": colors.violet["500"],
+          "blue-500": colors.blue["500"],
+          "black": "#000000",
+          "white": "#ffffff",
+          "white-opacity70": "rgba(255, 255, 255, 0.7)",
+
 
         }
       }

@@ -12,7 +12,7 @@ export const Navbar = ({ loggedIn }: { loggedIn: boolean }) => {
   return (
     <>
       <NextUINavbar
-        className="rounded-md w-10/11 bg-content1 mt-1"
+        className="rounded-md w-10/11 bg-content1"
         maxWidth="full"
         style={{
           marginLeft: "0.3em",

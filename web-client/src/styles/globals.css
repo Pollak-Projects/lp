@@ -6,6 +6,6 @@
     --primary: #007bff
 }}
 
-/*html, body {
-    @apply bg-[url('/accessories/Background.png')] bg-cover bg-center min-h-screen;
-}*/
+html, body {
+    margin: 0;
+}

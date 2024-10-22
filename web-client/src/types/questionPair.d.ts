@@ -8,4 +8,5 @@ export interface QuestionPair {
       id: string, content: string
     }>
   }
+  comment: string;
 }

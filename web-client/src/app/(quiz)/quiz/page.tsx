@@ -10,20 +10,10 @@ import { QuestionText } from "@/src/types/questionText";
 import { v4 as uuidv4 } from "uuid";
 import NextLink from "next/link";
 import React from "react";
-import { useAxios } from "@/src/lib/AxiosProvider";
-import { useQuery } from "@tanstack/react-query";
 import { QuestionPair } from "@/src/types/questionPair";
 import InputPair from "@/src/components/quizComponents/inputPair";
 
-const axios = useAxios();
-const { isPending, error, data, isFetching } = useQuery({
-  queryKey: ["test"],
 
-  queryFn: async () => {
-    const res = await axios.get("/api/v1/quiz/question/text");
-    return res.data;
-  },
-});
 
 
 
@@ -96,7 +86,8 @@ export default function Home() {
         {id: uuidv4(), content: "fourth pair"},
         {id: uuidv4(), content: "fifth pair"}
       ]
-    }
+    },
+    comment: "Pair them. Even a monkey could do it"
   }
 
   return (

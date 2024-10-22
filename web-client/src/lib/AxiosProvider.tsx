@@ -1,10 +1,10 @@
 "use client";
 
 import { AxiosInstance } from "axios";
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { useSession } from "next-auth/react";
 
-export const AxiosContext = React.createContext<AxiosInstance | undefined>(
+export const AxiosContext = createContext<AxiosInstance | undefined>(
   undefined
 );
 
@@ -13,7 +13,8 @@ export type AxiosExchangeProps = {
 };
 
 export const useAxios = (): AxiosInstance => {
-  const instance = React.useContext(AxiosContext);
+
+  const instance = useContext(AxiosContext);
 
   if (instance) {
     return instance;

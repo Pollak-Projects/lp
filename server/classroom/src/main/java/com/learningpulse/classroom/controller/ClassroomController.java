@@ -1,10 +1,13 @@
-package com.learningpulse.classroom;
+package com.learningpulse.classroom.controller;
 
-import com.learningpulse.classroom.config.KeycloakJwt;
+import com.learningpulse.classroom.ClassroomCreateRequest;
+import com.learningpulse.classroom.entity.Classroom;
+import com.learningpulse.classroom.entity.Member;
+import com.learningpulse.classroom.repository.ClassroomRepository;
+import com.learningpulse.classroom.util.KeycloakJwt;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import org.springframework.data.domain.Example;
 import lombok.RequiredArgsConstructor;
@@ -15,19 +18,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Array;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/classroom")
 public class ClassroomController {
+
     private static final Logger logger = LoggerFactory.getLogger(ClassroomController.class);
-    private final ClassroomRepository ClassroomService;
     private final Random random = new Random();
+    private final EntityManagerFactory entityManagerFactory;
+    private final ClassroomRepository ClassroomRepository;
 
     @PostMapping
     public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
@@ -35,23 +36,21 @@ public class ClassroomController {
         // TODO emmit AMQP ClassroomCreated Event
         logger.info("CreatedBy:" + jwt.getSub());
         String joinCode = generateJoinCode(4);
-        new Classroom();
         Classroom classroom = Classroom.builder().joinCode(joinCode).name(classroom_model.getName())
                 .createdBy(jwt.getSub()).build();
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withMatcher("join_code", ExampleMatcher.GenericPropertyMatchers.exact());
         Example<Classroom> classroomExample = Example.of(classroom, matcher);
 
-        while (ClassroomService.exists(classroomExample)) {
+        while (ClassroomRepository.exists(classroomExample)) {
             joinCode = generateJoinCode(4);
             classroom.setJoinCode(joinCode);
         }
 
         // Open a transaction
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("classroom");
-        EntityManager em = emf.createEntityManager();
-        // create member
-        ClassroomMember initmember = new ClassroomMember();
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        Member initmember = new Member();
         initmember.setClassroom_id(classroom);
         initmember.setUser_id(jwt.getSub());
 
@@ -60,7 +59,6 @@ public class ClassroomController {
         em.persist(initmember);
         em.getTransaction().commit();
         em.close();
-        emf.close();
 
         // TODO transactional join/create for atomic
         return ResponseEntity.ok(classroom);

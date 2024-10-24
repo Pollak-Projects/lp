@@ -8,6 +8,9 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+
+import com.learningpulse.classroom.util.KeycloakJwt;
+
 import reactor.core.publisher.Mono;
 
 import java.util.Collection;

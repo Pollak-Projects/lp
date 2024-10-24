@@ -1,4 +1,4 @@
-package com.learningpulse.classroom.config;
+package com.learningpulse.classroom.util;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

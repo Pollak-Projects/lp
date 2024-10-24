@@ -1,21 +1,22 @@
-package com.learningpulse.classroom;
+package com.learningpulse.classroom.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import org.springframework.data.annotation.CreatedBy;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "classroom", schema = "learning_pulse")
 public class Classroom implements Serializable {
@@ -38,7 +39,7 @@ public class Classroom implements Serializable {
 
     @Builder.Default
     @OneToMany(mappedBy = "classroom_id")
-    private List<ClassroomMember> members = new ArrayList<ClassroomMember>();
+    private Set<Member> members = new HashSet<Member>();
 
     @PrePersist
     protected void onCreate() {

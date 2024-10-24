@@ -1,0 +1,18 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+    version="2.0">
+    <persistence-unit name="classroomPersistence">
+        <class>com.learningpulse.classroom.entity.Classroom</class>
+        <class>com.learningpulse.classroom.entity.Member</class>
+        <properties>
+            <property name="javax.persistence.jdbc.url"
+                value="jdbc:postgresql://localhost:4335/learning_pulse" />
+            <property name="javax.persistence.jdbc.user" value="lp" />
+            <property name="javax.persistence.jdbc.password"
+                value="lp" />
+            <property name="javax.persistence.jdbc.driver"
+                value="${spring.datasource.driver-class-name}" />
+        </properties>
+    </persistence-unit>
+</persistence>

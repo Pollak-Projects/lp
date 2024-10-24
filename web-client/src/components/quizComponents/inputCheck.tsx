@@ -38,7 +38,7 @@ export default function InputCheck({ question }: { question: QuestionCheck }) {
     <>
       <section
         className={
-          "bg-content2 rounded-md w-full pt-5 mb-2 mt-1 flex text-center flex-col align-middle place-items-center"
+          "bg-content2 rounded-xl w-full pt-5 mb-2 mt-1 flex text-center flex-col align-middle place-items-center"
         }
       >
         <span className={"text-2xl"}>{ question.title }</span>

@@ -11,9 +11,7 @@ export default function InputText({ question }: { question: QuestionText }) {
 
   return (
     <section
-      className={
-        "rounded-md w-full border-1 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"
-      }
+      className={"bg-content2 rounded-xl w-full pt-5 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
     >
       <span className={"text-2xl"}>{isText.title}</span>
       <span>{isText.comment}</span>

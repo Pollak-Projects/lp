@@ -52,9 +52,7 @@ export default function InputPair({question}:{question: QuestionPair}) {
     return (
       <>
         <div
-          className={
-          "w-full h-24 flex justify-center items-center border rounded-md p-2 m-2 overflow-scroll cursor-move"
-        }
+          className={"w-full h-24 flex justify-center items-center border rounded-md p-2 m-2 overflow-scroll cursor-move"}
           draggable
           key={value.id}
           onDragStart={(e) => {
@@ -101,10 +99,7 @@ export default function InputPair({question}:{question: QuestionPair}) {
     return (
       <>
         <div
-          className={
-          "w-full h-24 flex justify-center items-center border rounded-md p-2 m-2 overflow-scroll cursor-move" +
-            ""
-        }
+          className={"w-full h-24 flex justify-center items-center border border-white-opacity70 rounded-md p-2 m-2 overflow-scroll cursor-move"}
           draggable
           key={value.id}
           onDragStart={(e) => {
@@ -133,22 +128,18 @@ export default function InputPair({question}:{question: QuestionPair}) {
   return (
     <>
       <section
-        className={
-          "rounded-md border w-full h-fit mb-2 mt-1 mx-12 flex text-center flex-col place-items-center"
-        }>
+        className={"bg-content2 rounded-xl w-full pt-5 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}>
       <span className={"text-2xl"}>{question.title}</span>
         <span>{question.comment}</span>
         <div
-          className={
-            "border-t w-full h-fit flex flex-row place-items-center my-1 py-1"
-          }
+          className={"border-t border-white-opacity70 w-full h-fit flex flex-row place-items-center my-1 py-1"}
         >
-          <div className={"flex-1 border-r-[1px] px-2 h-fit flex flex-col justify-start items-center"}
+          <div className={"flex-1 border-r-[1px] border-white-opacity70 px-5 py-3 h-fit flex flex-col justify-start items-center"}
 
           >
             {pair_elements_left}
           </div>
-          <div className={"flex-1 px-2 h-fit flex flex-col justify-start items-center "}>
+          <div className={"flex-1 px-5 py-3 h-fit flex flex-col justify-start items-center "}>
             {pair_elements_right}
           </div>
         </div>

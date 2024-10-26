@@ -30,10 +30,10 @@
         <maven.compiler.target>21</maven.compiler.target>
         <spring-cloud.version>2023.0.1</spring-cloud.version>
 
-        <sonar.projectKey>learningpulse-server</sonar.projectKey>
-        <sonar.projectName>learningpulse-server</sonar.projectName>
-        <sonar.host.url>http://sonarqube.green.local</sonar.host.url>
-        <sonar.token>sqp_a07e92714664c39337d9bcd11a41afb753adf5b5</sonar.token>
+<!--        <sonar.projectKey>learningpulse-server</sonar.projectKey>-->
+<!--        <sonar.projectName>learningpulse-server</sonar.projectName>-->
+<!--        <sonar.host.url>http://sonarqube.green.local</sonar.host.url>-->
+<!--        <sonar.token>sqp_a07e92714664c39337d9bcd11a41afb753adf5b5</sonar.token>-->
         <!-- https://github.com/SonarSource/sonar-scanning-examples -->
         <sonar.coverage.jacoco.xmlReportPaths>
             ${maven.multiModuleProjectDirectory}/report-aggregate/target/site/jacoco-aggregate/jacoco.xml

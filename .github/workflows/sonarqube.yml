@@ -5,7 +5,14 @@ on:
     branches: [ "master" ]
     paths:
       - 'web-client/**' # monorepo projects paths from the monorepo root directory
+    paths-ignore:
       - 'server/**'
+      - '.idea/**'
+      - 'documentaion/**'
+      - 'LICENSE'
+      - '**.md'
+      - 'flake.nix'
+      - 'flake.lock'
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:

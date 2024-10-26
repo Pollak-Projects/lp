@@ -75,16 +75,19 @@ jobs:
         with:
           maven-version: 3.9.6
 
-      - name: Run sonarqube scan
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # analysis token associated to your project
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-        run: |
-          cd server/ && \
-          mvn -P sonar \
-              -Dsonar.projectKey=learningpulse-server \
-              -Dsonar.projectName=learningpulse-server \
-              clean verify sonar:sonar
+      # - name: Run sonarqube scan
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # analysis token associated to your project
+      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      #   run: |
+      #     cd server/ && \
+      #     mvn -P sonar \
+      #         -Dsonar.projectKey=learningpulse-server \
+      #         -Dsonar.projectName=learningpulse-server \
+      #         clean verify sonar:sonar
+
+      - name: Build with Maven
+        run: mvn clean install -f server/pom.xml
 
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v3.0.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/official-sonarqube-scan

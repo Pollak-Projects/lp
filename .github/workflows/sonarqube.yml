@@ -90,6 +90,11 @@ jobs:
            token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Run sonarqube scan
         uses: sonarsource/sonarqube-scan-action@v3.0.0
+        with:
+          projectBaseDir: web-client/
+          args: >
+            -Dsonar.projectKey=learningpulse-webclient
+            -Dsonar.projectName=learningpulse-webclient
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_WEBCLIENT }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

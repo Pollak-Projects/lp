@@ -84,7 +84,7 @@ jobs:
           mvn -P sonar \
               -Dsonar.projectKey=learningpulse-server \
               -Dsonar.projectName=learningpulse-server \
-              clean compile sonar:sonar
+              clean verify sonar:sonar
 
       # - name: Build with Maven
       #   run: mvn -P sonar clean install -f server/pom.xml

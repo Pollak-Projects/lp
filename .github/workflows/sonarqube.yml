@@ -36,13 +36,6 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      - name: Cache SonarQube packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-
       - name: Setup maven
         if: steps.maven-cache.outputs.cache-hit != 'true'
         uses: stCarolas/setup-maven@v5
@@ -59,6 +52,13 @@ jobs:
               -Dsonar.projectKey=learningpulse-server \
               -Dsonar.projectName=learningpulse-server \
               clean verify sonar:sonar
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4.1.2
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache local Maven repository
         uses: actions/cache/save@v4

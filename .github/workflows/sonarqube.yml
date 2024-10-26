@@ -4,9 +4,9 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - 'web-client/**' # monorepo projects paths from the monorepo root directory
-    paths-ignore:
       - 'server/**'
+    paths-ignore:
+      - 'web-client/**'
       - '.idea/**'
       - 'documentaion/**'
       - 'LICENSE'

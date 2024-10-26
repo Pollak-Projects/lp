@@ -89,7 +89,7 @@ jobs:
            ref: 'master'
            token: '${{ secrets.GITHUB_TOKEN }}'
       - name: Run sonarqube scan
-        uses: sonarsource/sonarqube-scan-action@3.0.0
+        uses: sonarsource/sonarqube-scan-action@v3.0.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_WEBCLIENT }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}

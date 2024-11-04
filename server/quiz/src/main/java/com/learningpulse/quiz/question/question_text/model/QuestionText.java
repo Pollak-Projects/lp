@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_text.model;
 
-import com.learningpulse.quiz.Quiz;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,9 +25,9 @@ public class QuestionText implements Serializable {
     @GeneratedValue
     private UUID id;
 
-
-    @ManyToMany(mappedBy = "questionTexts", fetch = FetchType.EAGER)
-    private Set<Quiz> quizId;
+    @JsonBackReference
+    @ManyToOne
+    private Quiz quiz;
 
     private String title;
 

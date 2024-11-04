@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_radio.model;
 
-import com.learningpulse.quiz.Quiz;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,6 +23,7 @@ public class QuestionRadio implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @JsonBackReference
     @ManyToOne
     private Quiz quiz;
 

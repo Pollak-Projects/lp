@@ -1,4 +1,4 @@
-package com.learningpulse.quiz;
+package com.learningpulse.quiz.quiz;
 
 // Useful link to understand the difference between @OntToOne and @ManyToOne: https://stackoverflow.com/questions/16119531/hibernate-jpa-manytoone-vs-onetomany
 // https://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html#entity-mapping-association
@@ -6,6 +6,7 @@ package com.learningpulse.quiz;
 // TODO add (cascade = CascadeType.ALL, fetch = FetchType.EAGER) to all OneToMany and ManyToOne relationships
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckbox;
 import com.learningpulse.quiz.question.question_file.model.QuestionFile;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
@@ -20,8 +21,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -52,14 +51,16 @@ public class Quiz implements Serializable {
     private boolean viewAfterSubmission;
 
     // This seems really inefficient @nezsha please advise 2024-09-17
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "quiz_question_text",
-            schema = "quiz",
-            joinColumns = @JoinColumn(name = "quiz_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_text_id"))
+    @JsonManagedReference
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "quiz_question_text",
+//            schema = "quiz",
+//            joinColumns = @JoinColumn(name = "quiz_id"),
+//            inverseJoinColumns = @JoinColumn(name = "question_text_id"))
     private Set<QuestionText> questionTexts;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionRadio> questionRadios;
 

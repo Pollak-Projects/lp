@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_text.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,6 +34,7 @@ public class QuestionText implements Serializable {
 
     private String answer;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionTextAnswer> questionTextAnswers;
 

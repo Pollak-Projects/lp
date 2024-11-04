@@ -1,8 +1,8 @@
 package com.learningpulse.quiz.question.question_pair.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Set;
@@ -19,20 +19,19 @@ import java.util.UUID;
 public class QuestionPairCollectionAnswer {
     @Id
     @GeneratedValue
-    // Isn't defined in the database diagram
     private UUID id;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionPairCollectionAnswer")
     private Set<QuestionPairCollection> questionPairCollection;
 
-    // TODO replace this with the actual user type
-    // FIXME CreatedBy will not work right now because the Auditor haven't yet been tested
-    @CreatedBy
     private UUID createdBy;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionPairCollectionAnswer")
     private Set<QuestionPairOptions> left;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionPairCollectionAnswer")
     private Set<QuestionPairOptions> right;
 }

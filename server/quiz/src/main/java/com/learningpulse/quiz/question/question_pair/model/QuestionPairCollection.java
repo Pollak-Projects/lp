@@ -1,5 +1,7 @@
 package com.learningpulse.quiz.question.question_pair.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,14 +24,17 @@ public class QuestionPairCollection implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @JsonBackReference
     @ManyToOne
     private Quiz quiz;
 
     private String title;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionPairCollection")
     private Set<QuestionPairCollectionPair> options;
 
+    @JsonBackReference
     @ManyToOne
     private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 }

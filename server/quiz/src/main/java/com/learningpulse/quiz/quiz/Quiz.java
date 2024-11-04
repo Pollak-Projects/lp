@@ -40,7 +40,6 @@ public class Quiz implements Serializable {
     private String name;
 
     @CreatedBy
-    // TODO change this to User
     private UUID createdBy;
 
     @CreatedDate
@@ -50,29 +49,27 @@ public class Quiz implements Serializable {
 
     private boolean viewAfterSubmission;
 
-    // This seems really inefficient @nezsha please advise 2024-09-17
     @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "quiz_question_text",
-//            schema = "quiz",
-//            joinColumns = @JoinColumn(name = "quiz_id"),
-//            inverseJoinColumns = @JoinColumn(name = "question_text_id"))
     private Set<QuestionText> questionTexts;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionRadio> questionRadios;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionCheckbox> questionCheckboxes;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionFile> questionFiles;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionOrder> questionOrders;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionPairCollection> questionPairCollections;
 }

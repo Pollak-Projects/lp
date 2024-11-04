@@ -1,5 +1,6 @@
 package com.learningpulse.quiz.question.question_file.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -21,6 +22,7 @@ public class QuestionFile implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @JsonBackReference
     @ManyToOne
     private Quiz quiz;
 
@@ -29,6 +31,8 @@ public class QuestionFile implements Serializable {
     // TODO actually add file entity to somewhere
     // UUID is only a placeholder
     private UUID file;
+
+    @JsonBackReference
     @ManyToOne(optional = false)
     private QuestionFileAnswer questionFileAnswers;
 }

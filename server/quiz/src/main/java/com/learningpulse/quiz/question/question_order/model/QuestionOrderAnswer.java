@@ -1,8 +1,8 @@
 package com.learningpulse.quiz.question.question_order.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Set;
@@ -22,14 +22,12 @@ public class QuestionOrderAnswer {
     // Isn't defined in the database diagram
     private UUID id;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionOrderAnswer")
     private Set<QuestionOrderOptions> questionOrderOptions;
 
     private int place;
 
-    // TODO replace this with the actual user type
-    // FIXME CreatedBy will not work right now because the Auditor haven't yet been tested
-    @CreatedBy
     private UUID createdBy;
 
 }

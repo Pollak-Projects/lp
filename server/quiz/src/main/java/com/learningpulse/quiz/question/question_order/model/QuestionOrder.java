@@ -1,5 +1,7 @@
 package com.learningpulse.quiz.question.question_order.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,11 +24,13 @@ public class QuestionOrder implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @JsonBackReference
     @ManyToOne
     private Quiz quiz;
 
     private String title;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionOrder")
     private Set<QuestionOrderOptions> options;
 }

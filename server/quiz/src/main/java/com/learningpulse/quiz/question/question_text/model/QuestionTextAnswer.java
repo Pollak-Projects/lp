@@ -1,5 +1,6 @@
 package com.learningpulse.quiz.question.question_text.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -22,6 +23,7 @@ public class QuestionTextAnswer implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @JsonBackReference
     @ManyToOne
     private QuestionText belongsTo;
 

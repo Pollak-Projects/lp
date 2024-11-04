@@ -1,5 +1,6 @@
 package com.learningpulse.quiz.question.question_pair.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -25,6 +26,7 @@ public class QuestionPairOptions implements Serializable {
 
     private String contents;
 
+    @JsonBackReference
     @ManyToOne
     private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 }

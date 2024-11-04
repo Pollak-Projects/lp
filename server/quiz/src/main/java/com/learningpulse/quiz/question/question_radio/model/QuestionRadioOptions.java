@@ -1,5 +1,6 @@
 package com.learningpulse.quiz.question.question_radio.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -20,6 +21,7 @@ public class QuestionRadioOptions implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @JsonBackReference
     @ManyToOne
     private QuestionRadio questionRadio;
 
@@ -28,6 +30,7 @@ public class QuestionRadioOptions implements Serializable {
     private boolean answer;
 
     // this is the other side of the relationship defined in QuestionRadioAnswer.java
+    @JsonBackReference
     @ManyToOne
     private QuestionRadioAnswer questionRadioAnswer;
 }

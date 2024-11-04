@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_radio.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,10 +30,11 @@ public class QuestionRadio implements Serializable {
 
     private String title;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionRadio")
     private Set<QuestionRadioOptions> options;
 
-    // review this @nezsha is this what you meant? 2024-09-17
+    @JsonBackReference
     @ManyToOne
     private QuestionRadioAnswer questionRadioAnswer;
 }

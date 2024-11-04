@@ -1,8 +1,8 @@
 package com.learningpulse.quiz.question.question_file.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
@@ -23,15 +23,12 @@ public class QuestionFileAnswer implements Serializable {
     // Isn't defined in the database diagram
     private UUID id;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "questionFileAnswers")
     private Set<QuestionFile> answerTo;
 
-    // TODO replace this with the actual user type
-    // FIXME CreatedBy will not work right now because the Auditor haven't yet been tested
-    @CreatedBy
     private UUID createdBy;
 
     // TODO replace this with the actual File type
-
     private UUID file;
 }

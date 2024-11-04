@@ -65,7 +65,7 @@ public class QuizController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public Quiz updateQuiz(@RequestBody Quiz quiz) {
-        return null;
+        return quizService.updateQuiz(quiz);
     }
 
     @DeleteMapping(params = "id")

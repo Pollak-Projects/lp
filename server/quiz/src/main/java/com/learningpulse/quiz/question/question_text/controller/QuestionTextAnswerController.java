@@ -23,10 +23,16 @@ public class QuestionTextAnswerController {
         return questionTextAnswerService.getQuestionTextAnswerById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/current-user")
     @ResponseStatus(HttpStatus.OK)
     public List<QuestionTextAnswer> getAllQuestionTextAnswersByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
         return questionTextAnswerService.getAllQuestionTextAnswersByUser(jwt.getSub());
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionTextAnswer> getAllQuestionTextAnswers() {
+        return questionTextAnswerService.getAllQuestionTextAnswers();
     }
 
     @GetMapping(value = "/all", params = "questionTextId")

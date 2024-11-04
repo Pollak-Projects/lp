@@ -22,6 +22,13 @@ public class QuestionTextService {
     }
 
     public List<QuestionText> getAllQuestionTextsByUser(UUID sub) {
+        List<QuestionText> questionTexts = questionTextRepository.findAllByCreatedBy(sub);
+        if (questionTexts.isEmpty())
+            throw new HttpStatusCodeException("QuestionText not found", HttpStatus.NOT_FOUND);
+        return questionTexts;
+    }
+
+    public List<QuestionText> getAllQuestionTexts() {
         List<QuestionText> questionTexts = questionTextRepository.findAll();
         if (questionTexts.isEmpty())
             throw new HttpStatusCodeException("QuestionText not found", HttpStatus.NOT_FOUND);

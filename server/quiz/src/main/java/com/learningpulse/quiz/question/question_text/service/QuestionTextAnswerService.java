@@ -27,6 +27,13 @@ public class QuestionTextAnswerService {
         return questionTextAnswers;
     }
 
+    public List<QuestionTextAnswer> getAllQuestionTextAnswers() {
+        List<QuestionTextAnswer> questionTextAnswers = questionTextAnswerRepository.findAll();
+        if (questionTextAnswers.isEmpty())
+            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND);
+        return questionTextAnswers;
+    }
+
     public List<QuestionTextAnswer> getAllQuestionTextAnswersByQuestion(UUID questionTextId) {
         return questionTextAnswerRepository.findAllByBelongsTo(QuestionText.builder().id(questionTextId).build());
     }

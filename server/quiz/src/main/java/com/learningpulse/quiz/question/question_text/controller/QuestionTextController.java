@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class QuestionTextController {
     private static final Logger logger = LoggerFactory.getLogger(QuestionTextController.class);
-    // TODO: Implement this controller
     // IMPORTANT: For these to work QuestionText.id must be null
     private final QuestionTextService questionTextService;
 
@@ -28,10 +27,16 @@ public class QuestionTextController {
         return questionTextService.getQuestionTextById(id);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/current-user")
     @ResponseStatus(HttpStatus.OK)
     public List<QuestionText> getAllQuestionTextsByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
         return questionTextService.getAllQuestionTextsByUser(jwt.getSub());
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionText> getAllQuestionTexts() {
+        return questionTextService.getAllQuestionTexts();
     }
 
     @PostMapping

@@ -34,6 +34,8 @@ public class QuestionRadio implements Serializable {
     @OneToMany(mappedBy = "questionRadio")
     private Set<QuestionRadioOptions> options;
 
+    private UUID createdBy;
+
     @JsonBackReference
     @ManyToOne
     private QuestionRadioAnswer questionRadioAnswer;

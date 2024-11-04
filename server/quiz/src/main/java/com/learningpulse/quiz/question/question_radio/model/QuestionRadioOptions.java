@@ -29,6 +29,8 @@ public class QuestionRadioOptions implements Serializable {
 
     private boolean answer;
 
+    private UUID createdBy;
+
     // this is the other side of the relationship defined in QuestionRadioAnswer.java
     @JsonBackReference
     @ManyToOne

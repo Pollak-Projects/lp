@@ -1,54 +1,55 @@
 package com.learningpulse.quiz.question.question_radio.controller;
 
-import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioAnswer;
 import com.learningpulse.quiz.question.question_radio.service.QuestionRadioAnswerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/quiz/answer/radio")
 @RequiredArgsConstructor
 public class QuestionRadioAnswerController {
-    // TODO: Implement this controller
     private final QuestionRadioAnswerService questionRadioAnswerService;
 
-    @GetMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionRadioAnswer> getQuestionRadioAnswerById(@RequestParam UUID id) {
-        return null;
+    @GetMapping(params = "id")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionRadioAnswer getQuestionRadioAnswerById(@RequestParam UUID id) {
+        return questionRadioAnswerService.getQuestionRadioAnswerById(id);
+    }
+
+    @GetMapping("/current-user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionRadioAnswer> getAllQuestionRadioAnswerByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return questionRadioAnswerService.getAllQuestionRadioAnswerByUser(jwt.getSub());
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public Mono<Iterable<QuestionRadioAnswer>> getAllQuestionRadioAnswersByUser(@RequestBody UserDTO user) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionRadioAnswer> getAllQuestionRadioAnswer() {
+        return questionRadioAnswerService.getAllQuestionRadioAnswer();
     }
 
-    @GetMapping(value = "/", params = "questionRadioId")
-    @ResponseBody
-    public Mono<Iterable<QuestionRadioAnswer>> getAllQuestionRadioAnswersByQuestion(@RequestParam UUID questionRadioId) {
-        return null;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestionRadioAnswer createQuestionRadioAnswer(@RequestBody QuestionRadioAnswer questionRadioAnswer) {
+        return questionRadioAnswerService.createQuestionRadioAnswer(questionRadioAnswer);
     }
 
-    @PostMapping("/")
-    @ResponseBody
-    public Mono<QuestionRadioAnswer> createQuestionRadioAnswer(@RequestBody QuestionRadioAnswer questionRadioAnswer) {
-        return null;
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionRadioAnswer updateQuestionRadioAnswer(@RequestBody QuestionRadioAnswer questionRadioAnswer) {
+        return questionRadioAnswerService.updateQuestionRadioAnswer(questionRadioAnswer);
     }
 
-    @PutMapping("/")
-    @ResponseBody
-    public Mono<QuestionRadioAnswer> updateQuestionRadioAnswer(@RequestBody QuestionRadioAnswer questionRadioAnswer) {
-        return null;
-    }
-
-    @DeleteMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionRadioAnswer> deleteQuestionRadioAnswer(@RequestParam UUID id) {
-        return null;
+    @DeleteMapping(params = "id")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionRadioAnswer deleteQuestionRadioAnswer(@RequestParam UUID id) {
+        return questionRadioAnswerService.deleteQuestionRadioAnswer(id);
     }
 }

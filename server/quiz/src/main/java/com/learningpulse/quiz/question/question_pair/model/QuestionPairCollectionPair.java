@@ -25,6 +25,8 @@ public class QuestionPairCollectionPair implements Serializable {
     @ManyToOne
     private QuestionPairCollection questionPairCollection;
 
+    private UUID createdBy;
+
     @OneToOne
     private QuestionPairOptions left;
 

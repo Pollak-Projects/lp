@@ -28,6 +28,8 @@ public class QuestionPairCollection implements Serializable {
     @ManyToOne
     private Quiz quiz;
 
+    private UUID createdBy;
+
     private String title;
 
     @JsonManagedReference

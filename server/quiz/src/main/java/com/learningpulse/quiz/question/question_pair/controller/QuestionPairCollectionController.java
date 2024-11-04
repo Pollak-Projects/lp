@@ -1,49 +1,56 @@
 package com.learningpulse.quiz.question.question_pair.controller;
 
-import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
 import com.learningpulse.quiz.question.question_pair.service.QuestionPairCollectionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/quiz/question/pair/collection")
 @RequiredArgsConstructor
 public class QuestionPairCollectionController {
-    // TODO: Implement this controller
     private final QuestionPairCollectionService questionPairCollectionService;
 
     @GetMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionPairCollection> getQuestionPairCollectionById(@RequestParam UUID id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionPairCollection getQuestionPairCollectionById(@RequestParam UUID id) {
+        return questionPairCollectionService.getQuestionPairCollectionById(id);
+    }
+
+    @GetMapping("/current-user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionPairCollection> getAllQuestionPairCollectionsByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return questionPairCollectionService.getAllQuestionPairCollectionsByUser(jwt.getSub());
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public Mono<Iterable<QuestionPairCollection>> getAllQuestionPairCollectionsByUser(@RequestBody UserDTO user) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionPairCollection> getAllQuestionPairCollections() {
+        return questionPairCollectionService.getAllQuestionPairCollections();
     }
 
-    @PostMapping("/")
-    @ResponseBody
-    public Mono<QuestionPairCollection> createQuestionPairCollection(@RequestBody QuestionPairCollection questionPairCollection) {
-        return null;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestionPairCollection createQuestionPairCollection(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionPairCollection questionPairCollection) {
+        return questionPairCollectionService.createQuestionPairCollection(jwt.getSub(), questionPairCollection);
     }
 
-    @PutMapping("/")
-    @ResponseBody
-    public Mono<QuestionPairCollection> updateQuestionPairCollection(@RequestBody QuestionPairCollection questionPairCollection) {
-        return null;
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionPairCollection updateQuestionPairCollection(@RequestBody QuestionPairCollection questionPairCollection) {
+        return questionPairCollectionService.updateQuestionPairCollection(questionPairCollection);
     }
 
     @DeleteMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionPairCollection> deleteQuestionPairCollection(@RequestParam UUID id) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionPairCollection deleteQuestionPairCollection(@RequestParam UUID id) {
+        return questionPairCollectionService.deleteQuestionPairCollection(id);
     }
 
 }

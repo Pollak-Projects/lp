@@ -31,7 +31,7 @@ public class QuestionRadioOptionsController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<QuestionRadioOptions> getAllQuestionRadioOptions(@AuthenticationPrincipal KeycloakJwt jwt) {
+    public List<QuestionRadioOptions> getAllQuestionRadioOptions() {
         return questionRadioOptionsService.getAllQuestionRadioOptions();
     }
 

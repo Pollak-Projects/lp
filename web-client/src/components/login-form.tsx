@@ -15,7 +15,7 @@ export default function LoginForm() {
 
     const formData = new FormData(event.currentTarget);
 
-    await signIn("credentials", {
+    await signIn("login", {
       username: formData.get("username"),
       password: formData.get("password"),
       redirect: true,
@@ -25,7 +25,7 @@ export default function LoginForm() {
   return (
     <>
       <form
-        action="/api/auth/callback/credentials"
+        action="/api/auth/callback/login"
         onSubmit={onSubmit}
         method="post"
         className={"flex justify-center items-center"}
@@ -63,7 +63,7 @@ export default function LoginForm() {
 
             <Link
               className={" mt-2"}
-              href={"/"} /*Todo: /register*/
+              href={"/register"} /*Todo: /register*/
               style={{ color: "#006FEE" }}
               //color={"primary"} remind me to send a pipe bomb to whomever set the colour to inherit by default
             >

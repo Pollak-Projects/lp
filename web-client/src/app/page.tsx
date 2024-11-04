@@ -26,9 +26,14 @@ export default async function Home() {
               <Button type={"submit"}>Sign out</Button>
             </form>
           ) : (
-            <Link href="/login">
-              <Button color="primary">Sign In</Button>
-            </Link>
+            <>
+              <Link href="/login">
+                <Button color="primary">Sign In</Button>
+              </Link>
+              <Link href="/register">
+                <Button color="secondary">Register</Button>
+              </Link>
+            </>
           )}
           <Button color={"primary"}>Click me</Button>
         </div>

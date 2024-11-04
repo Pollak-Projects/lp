@@ -1,6 +1,6 @@
-import NextAuth, { Account, type DefaultSession, Session } from "next-auth";
+import { type DefaultSession, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { AdapterSession, AdapterUser } from "@auth/core/adapters";
+import { AdapterSession } from "@auth/core/adapters";
 
 declare module "next-auth" {
   interface Session {
@@ -18,5 +18,19 @@ declare module "next-auth/jwt" {
     expires_at?: number;
     refresh_token?: string;
     error?: "RefreshTokenError";
+  }
+}
+
+declare module "next-auth" {
+  interface RegisterUser extends User {
+    username?: string | null;
+    email?: string | null;
+    enabled?: boolean | null;
+    firstName?: string | null;
+    lastName?: string | null;
+    credentials?: {
+      type?: string | null
+      value?: string | null
+    } | null;
   }
 }

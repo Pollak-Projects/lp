@@ -17,7 +17,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/quiz/answer/order")
 @RequiredArgsConstructor
 public class QuestionOrderAnswerController {
-    // TODO: Implement this controller
     private final QuestionOrderAnswerService questionOrderAnswerService;
     private final QuestionOrderService questionOrderService;
 

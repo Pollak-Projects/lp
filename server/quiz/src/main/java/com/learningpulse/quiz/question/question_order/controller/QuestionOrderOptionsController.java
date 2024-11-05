@@ -18,7 +18,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/quiz/question/order/options")
 @RequiredArgsConstructor
 public class QuestionOrderOptionsController {
-    // TODO: Implement this controller
     private final QuestionOrderOptionsService questionOrderOptionsService;
 
     @GetMapping(params = "id")

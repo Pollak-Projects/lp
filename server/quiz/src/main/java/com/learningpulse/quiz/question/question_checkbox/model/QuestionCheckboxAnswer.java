@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,19 +17,19 @@ import java.util.UUID;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "QUESTION_CHECKBOX_ANSWER", schema = "quiz")
-public class QuestionCheckboxAnswer {
+public class QuestionCheckboxAnswer implements Serializable {
     @Id
     @GeneratedValue
     // Isn't defined in the database diagram
     private UUID id;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "questionCheckBoxAnswer")
+    @OneToMany(mappedBy = "questionCheckboxAnswer")
     private Set<QuestionCheckboxOptions> questionCheckboxOptions;
 
     private UUID createdBy;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "questionCheckBoxAnswer")
+    @OneToMany(mappedBy = "questionCheckboxAnswer")
     private Set<QuestionCheckbox> questionCheckbox;
 }

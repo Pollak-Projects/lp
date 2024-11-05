@@ -1,48 +1,55 @@
 package com.learningpulse.quiz.question.question_order.controller;
 
-import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.question.question_order.service.QuestionOrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/quiz/question/order")
+@RequestMapping("/api/v1/quiz/question/Order")
 @RequiredArgsConstructor
 public class QuestionOrderController {
-    // TODO: Implement this controller
     private final QuestionOrderService questionOrderService;
 
-    @GetMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionOrder> getQuestionOrderById(@RequestParam UUID id) {
-        return null;
+    @GetMapping(params = "id")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionOrder getQuestionOrderById(@RequestBody UUID id) {
+        return questionOrderService.getQuestionOrderById(id);
+    }
+
+    @GetMapping("/current-user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionOrder> getAllQuestionOrdersByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return questionOrderService.getAllQuestionOrdersByUser(jwt.getSub());
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public Mono<Iterable<QuestionOrder>> getAllQuestionOrdersByUser(@RequestBody UserDTO user) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionOrder> getAllQuestionOrders() {
+        return questionOrderService.getAllQuestionOrders();
     }
 
-    @PostMapping(value = "/", params = "questionOrderId")
-    @ResponseBody
-    public Mono<QuestionOrder> createQuestionOrder(@RequestBody QuestionOrder questionOrder) {
-        return null;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestionOrder createQuestionOrder(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionOrder questionOrder) {
+        return questionOrderService.createQuestionOrder(jwt.getSub(), questionOrder);
     }
 
-    @PutMapping("/")
-    @ResponseBody
-    public Mono<QuestionOrder> updateQuestionOrder(@RequestBody QuestionOrder questionOrder) {
-        return null;
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionOrder updateQuestionOrder(@RequestBody QuestionOrder questionOrder) {
+        return questionOrderService.updateQuestionOrder(questionOrder);
     }
 
-    @DeleteMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionOrder> deleteQuestionOrder(@RequestParam UUID id) {
-        return null;
+    @DeleteMapping(params = "id")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionOrder deleteQuestionOrder(@RequestBody UUID id) {
+        return questionOrderService.deleteQuestionOrder(id);
     }
 }

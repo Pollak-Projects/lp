@@ -29,7 +29,9 @@ public class QuestionCheckboxOptions implements Serializable {
 
     private boolean answer;
 
+    private UUID createdBy;
+
     @JsonBackReference
     @ManyToOne
-    private QuestionCheckboxAnswer questionCheckBoxAnswer;
+    private QuestionCheckboxAnswer questionCheckboxAnswer;
 }

@@ -1,60 +1,55 @@
 package com.learningpulse.quiz.question.question_checkbox.controller;
 
-import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckboxOptions;
 import com.learningpulse.quiz.question.question_checkbox.service.QuestionCheckboxOptionsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/quiz/question/checkbox/options")
+@RequestMapping("/api/v1/quiz/question/Checkbox/options")
 @RequiredArgsConstructor
 public class QuestionCheckboxOptionsController {
-    // TODO: Implement this controller
     private final QuestionCheckboxOptionsService questionCheckboxOptionsService;
 
-    @GetMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionCheckboxOptions> getQuestionCheckboxOptionsById(@RequestParam UUID id) {
-        return null;
+    @GetMapping(params = "id")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionCheckboxOptions getQuestionCheckboxOptionsById(@RequestParam UUID id) {
+        return questionCheckboxOptionsService.getQuestionCheckboxOptionsById(id);
+    }
+
+    @GetMapping("/current-user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionCheckboxOptions> getAllQuestionCheckboxOptionsByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return questionCheckboxOptionsService.getAllQuestionCheckboxOptionsByUser(jwt.getSub());
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    public Mono<Iterable<QuestionCheckboxOptions>> getAllQuestionCheckboxOptionsByUser(@RequestBody UserDTO user) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    public List<QuestionCheckboxOptions> getAllQuestionCheckboxOptions() {
+        return questionCheckboxOptionsService.getAllQuestionCheckboxOptions();
     }
 
-    @GetMapping(value = "/", params = "questionCheckboxId")
-    @ResponseBody
-    public Mono<Iterable<QuestionCheckboxOptions>> getAllQuestionCheckboxOptionsByQuestion(@RequestParam UUID questionCheckboxId) {
-        return null;
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public QuestionCheckboxOptions createQuestionCheckboxOptions(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionCheckboxOptions questionCheckboxOptions) {
+        return questionCheckboxOptionsService.createQuestionCheckboxOptions(jwt.getSub(), questionCheckboxOptions);
     }
 
-    @GetMapping(value = "/", params = "questionCheckboxAnswerId")
-    @ResponseBody
-    public Mono<Iterable<QuestionCheckboxOptions>> getAllQuestionCheckboxOptionsByQuestionAnswer(@RequestParam UUID questionCheckboxAnswerId) {
-        return null;
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionCheckboxOptions updateQuestionCheckboxOptions(@RequestBody QuestionCheckboxOptions questionCheckboxOptions) {
+        return questionCheckboxOptionsService.updateQuestionCheckboxOptions(questionCheckboxOptions);
     }
 
-    @PostMapping("/")
-    @ResponseBody
-    public Mono<QuestionCheckboxOptions> createQuestionCheckboxOptions(@RequestBody QuestionCheckboxOptions questionCheckboxOptions) {
-        return null;
-    }
-
-    @PutMapping("/")
-    @ResponseBody
-    public Mono<QuestionCheckboxOptions> updateQuestionCheckboxOptions(@RequestBody QuestionCheckboxOptions questionCheckboxOptions) {
-        return null;
-    }
-
-    @DeleteMapping(value = "/", params = "id")
-    @ResponseBody
-    public Mono<QuestionCheckboxOptions> deleteQuestionCheckboxOptions(@RequestParam UUID id) {
-        return null;
+    @DeleteMapping(params = "id")
+    @ResponseStatus(HttpStatus.OK)
+    public QuestionCheckboxOptions deleteQuestionCheckboxOptions(@RequestParam UUID id) {
+        return questionCheckboxOptionsService.deleteQuestionCheckboxOptions(id);
     }
 }

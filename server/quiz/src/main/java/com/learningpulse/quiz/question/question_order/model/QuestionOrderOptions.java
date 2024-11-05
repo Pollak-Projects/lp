@@ -29,6 +29,8 @@ public class QuestionOrderOptions implements Serializable {
 
     private int place;
 
+    private UUID createdBy;
+
     @JsonBackReference
     @ManyToOne
     private QuestionOrderAnswer questionOrderAnswer;

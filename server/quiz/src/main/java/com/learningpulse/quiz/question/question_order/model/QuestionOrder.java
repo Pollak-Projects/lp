@@ -2,6 +2,8 @@ package com.learningpulse.quiz.question.question_order.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learningpulse.quiz.question.question_order.model.QuestionOrderAnswer;
+import com.learningpulse.quiz.question.question_order.model.QuestionOrderAnswer;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -33,4 +35,10 @@ public class QuestionOrder implements Serializable {
     @JsonManagedReference
     @OneToMany(mappedBy = "questionOrder")
     private Set<QuestionOrderOptions> options;
+
+    private UUID createdBy;
+
+    @JsonBackReference
+    @ManyToOne
+    private QuestionOrderAnswer questionOrderAnswer;
 }

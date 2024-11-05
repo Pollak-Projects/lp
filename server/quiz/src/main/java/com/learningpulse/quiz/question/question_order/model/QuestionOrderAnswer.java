@@ -1,10 +1,12 @@
 package com.learningpulse.quiz.question.question_order.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,7 +18,7 @@ import java.util.UUID;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "QUESTION_ORDER_ANSWER", schema = "quiz")
-public class QuestionOrderAnswer {
+public class QuestionOrderAnswer implements Serializable {
     @Id
     @GeneratedValue
     // Isn't defined in the database diagram
@@ -29,5 +31,9 @@ public class QuestionOrderAnswer {
     private int place;
 
     private UUID createdBy;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "questionOrderAnswer")
+    private Set<QuestionOrderOptions> selected;
 
 }

@@ -34,7 +34,9 @@ public class QuestionCheckbox implements Serializable {
     @OneToMany(mappedBy = "questionCheckbox")
     private Set<QuestionCheckboxOptions> options;
 
+    private UUID createdBy;
+
     @JsonBackReference
     @ManyToOne
-    private QuestionCheckboxAnswer questionCheckBoxAnswer;
+    private QuestionCheckboxAnswer questionCheckboxAnswer;
 }

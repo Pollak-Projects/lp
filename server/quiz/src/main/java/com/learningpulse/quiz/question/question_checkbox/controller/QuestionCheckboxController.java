@@ -25,14 +25,14 @@ public class QuestionCheckboxController {
 
     @GetMapping("/current-user")
     @ResponseStatus(HttpStatus.OK)
-    public List<QuestionCheckbox> getAllQuestionCheckboxsByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
-        return questionCheckboxService.getAllQuestionCheckboxsByUser(jwt.getSub());
+    public List<QuestionCheckbox> getAllQuestionCheckboxesByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return questionCheckboxService.getAllQuestionCheckboxesByUser(jwt.getSub());
     }
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<QuestionCheckbox> getAllQuestionCheckboxs() {
-        return questionCheckboxService.getAllQuestionCheckboxs();
+    public List<QuestionCheckbox> getAllQuestionCheckboxes() {
+        return questionCheckboxService.getAllQuestionCheckboxes();
     }
 
     @PostMapping

@@ -21,18 +21,18 @@ public class QuestionCheckboxService {
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckbox not found", HttpStatus.NOT_FOUND));
     }
 
-    public List<QuestionCheckbox> getAllQuestionCheckboxsByUser(UUID sub) {
-        List<QuestionCheckbox> questionCheckboxs = questionCheckboxRepository.findAllByCreatedBy(sub);
-        if (questionCheckboxs.isEmpty())
+    public List<QuestionCheckbox> getAllQuestionCheckboxesByUser(UUID sub) {
+        List<QuestionCheckbox> questionCheckboxes = questionCheckboxRepository.findAllByCreatedBy(sub);
+        if (questionCheckboxes.isEmpty())
             throw new HttpStatusCodeException("QuestionCheckbox not found", HttpStatus.NOT_FOUND);
-        return questionCheckboxs;
+        return questionCheckboxes;
     }
 
-    public List<QuestionCheckbox> getAllQuestionCheckboxs() {
-        List<QuestionCheckbox> questionCheckboxs = questionCheckboxRepository.findAll();
-        if (questionCheckboxs.isEmpty())
+    public List<QuestionCheckbox> getAllQuestionCheckboxes() {
+        List<QuestionCheckbox> questionCheckboxes = questionCheckboxRepository.findAll();
+        if (questionCheckboxes.isEmpty())
             throw new HttpStatusCodeException("QuestionCheckbox not found", HttpStatus.NOT_FOUND);
-        return questionCheckboxs;
+        return questionCheckboxes;
     }
 
     public QuestionCheckbox createQuestionCheckbox(UUID sub, @NotNull QuestionCheckbox questionCheckbox) {

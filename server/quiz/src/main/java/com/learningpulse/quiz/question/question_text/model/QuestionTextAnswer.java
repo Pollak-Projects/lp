@@ -23,7 +23,7 @@ public class  QuestionTextAnswer implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionTextAnswer-belongsTo")
     @ManyToOne
     private QuestionText belongsTo;
 

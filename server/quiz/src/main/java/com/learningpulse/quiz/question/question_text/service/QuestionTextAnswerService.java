@@ -1,10 +1,12 @@
 package com.learningpulse.quiz.question.question_text.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
+import com.learningpulse.quiz.question.question_text.dto.question_text_answer.QuestionTextAnswerCreateDTO;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import com.learningpulse.quiz.question.question_text.model.QuestionTextAnswer;
 import com.learningpulse.quiz.question.question_text.model.QuestionTextAnswerRepository;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -38,11 +40,16 @@ public class QuestionTextAnswerService {
         return questionTextAnswerRepository.findAllByBelongsTo(QuestionText.builder().id(questionTextId).build());
     }
 
-    public QuestionTextAnswer createQuestionTextAnswer(QuestionTextAnswer questionTextAnswer) {
+    public QuestionTextAnswer createQuestionTextAnswer(UUID sub, @NotNull QuestionTextAnswerCreateDTO questionTextAnswerDTO) {
+        QuestionTextAnswer questionTextAnswer = QuestionTextAnswer.builder()
+                .answer(questionTextAnswerDTO.answer())
+                .createdBy(sub)
+                .belongsTo(QuestionText.builder().id(questionTextAnswerDTO.belongsToId()).build())
+                .build();
         return questionTextAnswerRepository.save(questionTextAnswer);
     }
 
-    public QuestionTextAnswer updateQuestionTextAnswer(QuestionTextAnswer questionTextAnswer) {
+    public QuestionTextAnswer updateQuestionTextAnswer(@NotNull QuestionTextAnswer questionTextAnswer) {
         return questionTextAnswerRepository.findById(questionTextAnswer.getId())
                 .map(q -> questionTextAnswerRepository.save(questionTextAnswer))
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));

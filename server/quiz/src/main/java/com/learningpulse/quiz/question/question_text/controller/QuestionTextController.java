@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.question.question_text.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.question.question_text.dto.question_text.QuestionTextCreateDTO;
+import com.learningpulse.quiz.question.question_text.dto.question_text.QuestionTextUpdateDTO;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import com.learningpulse.quiz.question.question_text.service.QuestionTextService;
 import lombok.RequiredArgsConstructor;
@@ -41,14 +43,14 @@ public class QuestionTextController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionText createQuestionText(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionText questionText) {
-        logger.atDebug().log("Creating question text", questionText);
-        return questionTextService.createQuestionText(jwt.getSub(), questionText);
+    public QuestionText createQuestionText(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionTextCreateDTO questionTextCreateDTO) {
+        logger.atDebug().log("Creating question text", questionTextCreateDTO);
+        return questionTextService.createQuestionText(jwt.getSub(), questionTextCreateDTO);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuestionText updateQuestionText(@RequestBody QuestionText questionText) {
+    public QuestionText updateQuestionText(@RequestBody QuestionTextUpdateDTO questionText) {
         return questionTextService.updateQuestionText(questionText);
     }
 

@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_text.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.question.question_text.dto.question_text_answer.QuestionTextAnswerCreateDTO;
 import com.learningpulse.quiz.question.question_text.model.QuestionTextAnswer;
 import com.learningpulse.quiz.question.question_text.service.QuestionTextAnswerService;
 import lombok.RequiredArgsConstructor;
@@ -43,8 +44,8 @@ public class QuestionTextAnswerController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionTextAnswer createQuestionTextAnswer(@RequestBody QuestionTextAnswer questionTextAnswer) {
-        return questionTextAnswerService.createQuestionTextAnswer(questionTextAnswer);
+    public QuestionTextAnswer createQuestionTextAnswer(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionTextAnswerCreateDTO questionTextAnswerCreateDTO) {
+        return questionTextAnswerService.createQuestionTextAnswer(jwt.getSub(), questionTextAnswerCreateDTO);
     }
 
     @PutMapping("/")

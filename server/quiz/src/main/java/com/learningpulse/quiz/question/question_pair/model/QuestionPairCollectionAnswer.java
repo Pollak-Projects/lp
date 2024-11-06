@@ -21,17 +21,17 @@ public class QuestionPairCollectionAnswer {
     @GeneratedValue
     private UUID id;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionPairCollectionAnswer-questionPairCollection")
     @OneToMany(mappedBy = "questionPairCollectionAnswer")
     private Set<QuestionPairCollection> questionPairCollection;
 
     private UUID createdBy;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "questionPairCollectionAnswer")
-    private Set<QuestionPairOptions> left;
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "questionPairCollectionAnswer")
+    @JsonManagedReference("right-questionPairCollectionAnswer")
+    @OneToMany(mappedBy = "rightQuestionPairCollectionAnswer")
     private Set<QuestionPairOptions> right;
+
+    @JsonManagedReference("left-questionPairCollectionAnswer")
+    @OneToMany(mappedBy = "leftQuestionPairCollectionAnswer")
+    private Set<QuestionPairOptions> left;
 }

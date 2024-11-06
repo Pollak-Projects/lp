@@ -21,12 +21,23 @@ public class QuestionPairOptions implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    // FIXME this is an incredibly hacky way to do this, should be done by using @JoinColumn
+    @JsonBackReference("right-questionPairCollectionPair")
     @OneToOne
-    private QuestionPairCollectionPair questionPairCollectionPair;
+    private QuestionPairCollectionPair rightQuestionPairCollectionPair;
+
+    @JsonBackReference("left-questionPairCollectionPair")
+    @OneToOne
+    private QuestionPairCollectionPair leftQuestionPairCollectionPair;
 
     private String contents;
 
-    @JsonBackReference
+    // FIXME same thing again
+    @JsonBackReference("right-questionPairCollectionAnswer")
     @ManyToOne
-    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
+    private QuestionPairCollectionAnswer rightQuestionPairCollectionAnswer;
+
+    @JsonBackReference("left-questionPairCollectionAnswer")
+    @ManyToOne
+    private QuestionPairCollectionAnswer leftQuestionPairCollectionAnswer;
 }

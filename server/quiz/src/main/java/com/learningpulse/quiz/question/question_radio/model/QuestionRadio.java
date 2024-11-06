@@ -24,19 +24,19 @@ public class QuestionRadio implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionRadio-quiz")
     @ManyToOne
     private Quiz quiz;
 
     private String title;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionRadioOptions-questionRadio")
     @OneToMany(mappedBy = "questionRadio")
     private Set<QuestionRadioOptions> options;
 
     private UUID createdBy;
 
-    @JsonBackReference
+    @JsonBackReference("questionRadioAnswer-questionRadio")
     @ManyToOne
     private QuestionRadioAnswer questionRadioAnswer;
 }

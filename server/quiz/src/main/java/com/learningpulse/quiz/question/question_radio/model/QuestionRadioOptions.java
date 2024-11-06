@@ -21,7 +21,7 @@ public class QuestionRadioOptions implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionRadioOptions-questionRadio")
     @ManyToOne
     private QuestionRadio questionRadio;
 
@@ -32,7 +32,7 @@ public class QuestionRadioOptions implements Serializable {
     private UUID createdBy;
 
     // this is the other side of the relationship defined in QuestionRadioAnswer.java
-    @JsonBackReference
+    @JsonBackReference("questionRadioAnswer-selected")
     @ManyToOne
     private QuestionRadioAnswer questionRadioAnswer;
 }

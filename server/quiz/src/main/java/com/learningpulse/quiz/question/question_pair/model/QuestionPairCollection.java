@@ -24,7 +24,7 @@ public class QuestionPairCollection implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionPairCollection-quiz")
     @ManyToOne
     private Quiz quiz;
 
@@ -32,11 +32,11 @@ public class QuestionPairCollection implements Serializable {
 
     private String title;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "questionPairCollection")
-    private Set<QuestionPairCollectionPair> options;
+    @JsonManagedReference("questionPairCollectionPair-questionPairCollection")
+    @OneToMany(mappedBy = "belongsTo")
+    private Set<QuestionPairCollectionPair> questionPairCollectionPairs;
 
-    @JsonBackReference
+    @JsonBackReference("questionPairCollectionAnswer-questionPairCollection")
     @ManyToOne
     private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 }

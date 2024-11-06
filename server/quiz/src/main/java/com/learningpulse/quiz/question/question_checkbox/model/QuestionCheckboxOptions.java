@@ -21,7 +21,7 @@ public class QuestionCheckboxOptions implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionCheckboxOptions-questionCheckbox")
     @ManyToOne
     private QuestionCheckbox questionCheckbox;
 
@@ -31,7 +31,7 @@ public class QuestionCheckboxOptions implements Serializable {
 
     private UUID createdBy;
 
-    @JsonBackReference
+    @JsonBackReference("questionCheckboxAnswer-questionCheckboxOptions")
     @ManyToOne
     private QuestionCheckboxAnswer questionCheckboxAnswer;
 }

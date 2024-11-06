@@ -23,13 +23,13 @@ public class QuestionCheckboxAnswer implements Serializable {
     // Isn't defined in the database diagram
     private UUID id;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionCheckboxAnswer-questionCheckboxOptions")
     @OneToMany(mappedBy = "questionCheckboxAnswer")
     private Set<QuestionCheckboxOptions> questionCheckboxOptions;
 
     private UUID createdBy;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionCheckboxAnswer-questionCheckbox")
     @OneToMany(mappedBy = "questionCheckboxAnswer")
     private Set<QuestionCheckbox> questionCheckbox;
 }

@@ -43,7 +43,7 @@ export default function InputOrder({ question }: { question: QuestionOrder }) {
   const order_elements = isOrder.map((value, index: number) => {
     return (
       <div
-        className={"w-full flex-1 border rounded-md p-2 m-2 cursor-pointer"}
+        className={"w-full flex-1 border rounded-md p-2 m-2 cursor-move"}
         draggable
         key={value.id}
         onDragStart={(e) => {

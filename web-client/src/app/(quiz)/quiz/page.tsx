@@ -12,6 +12,7 @@ import NextLink from "next/link";
 import React from "react";
 import { QuestionPair } from "@/src/types/questionPair";
 import InputPair from "@/src/components/quizComponents/inputPair";
+import QuizSidebar from "@/src/components/quizComponents/quizSidebar";
 
 
 
@@ -32,7 +33,7 @@ export default function Home() {
     value: [
       { title: "why", answer: false },
       { title: "just", answer: false },
-      { title: "cause", answer: false },
+      { title: "cause", answer: false }, // WHA!!??
       { title: "bad", answer: false },
       { title: "game", answer: false },
       { title: "I jest", answer: false },
@@ -90,6 +91,10 @@ export default function Home() {
     comment: "Pair them. Even a monkey could do it"
   }
 
+  const getDummyDataTitles = ():string[] => {
+    return [TextDummyData.value.title, OrderDummyData.title, CheckDummyData.title, PairDummyData.title, RadioDummyData.title]
+  }
+
   return (
     <>
       <section
@@ -113,7 +118,7 @@ export default function Home() {
               Go back
             </NextLink>
             {/*<h1>{Radio}</h1>*/}
-            <InputText question={TextDummyData} />
+            <InputText question={TextDummyData}/>
 
             <InputRadio question={RadioDummyData} />
 
@@ -126,7 +131,11 @@ export default function Home() {
         </section>
         <section
           className={"w-1/5 bg-content1-opacity15 p-1 h-[98.4vh] rounded-md"}
-        ></section>
+        >
+          <QuizSidebar dummyDataTitles={() => {
+            return [TextDummyData.value.title, OrderDummyData.title, CheckDummyData.title, PairDummyData.title, RadioDummyData.title]
+          }} />
+        </section>
       </section>
     </>
   );

@@ -8,6 +8,7 @@ export default function InputCheck({ question }: { question: QuestionCheck }) {
   // what the sigma?
   function setCheckState(index: number) {
     // flippity floppity value goin wompitiy
+    // womp~ womp~
     let temp = isCheck;
     isCheck[index].answer = !isCheck[index].answer;
     setCheck(temp);

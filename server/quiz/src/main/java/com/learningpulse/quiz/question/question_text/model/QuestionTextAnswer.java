@@ -18,7 +18,7 @@ import java.util.UUID;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "QUESTION_TEXT_ANSWER", schema = "quiz")
-public class QuestionTextAnswer implements Serializable {
+public class  QuestionTextAnswer implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;

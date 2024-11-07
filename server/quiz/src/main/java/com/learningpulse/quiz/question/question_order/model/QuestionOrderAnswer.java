@@ -1,7 +1,6 @@
 package com.learningpulse.quiz.question.question_order.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,15 +23,11 @@ public class QuestionOrderAnswer implements Serializable {
     // Isn't defined in the database diagram
     private UUID id;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "questionOrderAnswer")
-    private Set<QuestionOrderOptions> questionOrderOptions;
-
     private int place;
 
     private UUID createdBy;
 
-    @JsonManagedReference
+    @JsonManagedReference("selected-questionOrderAnswer")
     @OneToMany(mappedBy = "questionOrderAnswer")
     private Set<QuestionOrderOptions> selected;
 

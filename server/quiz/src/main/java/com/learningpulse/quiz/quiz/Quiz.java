@@ -49,27 +49,27 @@ public class Quiz implements Serializable {
 
     private boolean viewAfterSubmission;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionText-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionText> questionTexts;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionRadio-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionRadio> questionRadios;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionCheckbox-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionCheckbox> questionCheckboxes;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionFile-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionFile> questionFiles;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionOrder-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionOrder> questionOrders;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionPairCollection-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
     private Set<QuestionPairCollection> questionPairCollections;
 }

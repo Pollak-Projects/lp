@@ -9,5 +9,6 @@ import java.util.UUID;
 @Repository
 public interface QuestionPairCollectionPairRepository extends JpaRepository<QuestionPairCollectionPair, UUID> {
     List<QuestionPairCollectionPair> findAllByCreatedBy(UUID sub);
-    List<QuestionPairCollectionPair> findAllByQuestionPairCollectionId(UUID questionPairCollectionId);
+
+    List<QuestionPairCollectionPair> findAllByBelongsToId(UUID questionPairCollectionId);
 }

@@ -22,7 +22,7 @@ public class QuestionFile implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionFile-quiz")
     @ManyToOne
     private Quiz quiz;
 
@@ -32,7 +32,7 @@ public class QuestionFile implements Serializable {
     // UUID is only a placeholder
     private UUID file;
 
-    @JsonBackReference
+    @JsonBackReference("questionFile-answerTo")
     @ManyToOne(optional = false)
     private QuestionFileAnswer questionFileAnswers;
 }

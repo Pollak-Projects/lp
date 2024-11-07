@@ -36,7 +36,7 @@ public class QuestionPairCollectionPairService {
     }
 
     public List<QuestionPairCollectionPair> getAllQuestionPairCollectionPairsByQuestion(UUID questionPairId) {
-        List<QuestionPairCollectionPair> questionPairCollectionPairs = questionPairCollectionPairRepository.findAllByQuestionPairCollectionId(questionPairId);
+        List<QuestionPairCollectionPair> questionPairCollectionPairs = questionPairCollectionPairRepository.findAllByBelongsToId(questionPairId);
         if (questionPairCollectionPairs.isEmpty())
             throw new HttpStatusCodeException("QuestionPairCollectionPair not found", HttpStatus.NOT_FOUND);
         return questionPairCollectionPairs;

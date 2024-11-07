@@ -23,7 +23,7 @@ public class QuestionFileAnswer implements Serializable {
     // Isn't defined in the database diagram
     private UUID id;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionFile-answerTo")
     @OneToMany(mappedBy = "questionFileAnswers")
     private Set<QuestionFile> answerTo;
 

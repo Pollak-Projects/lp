@@ -22,13 +22,13 @@ public class QuestionRadioAnswer implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionRadioAnswer-questionRadio")
     @OneToMany(mappedBy = "questionRadioAnswer")
     private Set<QuestionRadio> questionRadios;
 
     private UUID createdBy;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionRadioAnswer-selected")
     @OneToMany(mappedBy = "questionRadioAnswer")
     private Set<QuestionRadioOptions> selected;
 

@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface QuestionTextAnswerRepository extends JpaRepository<QuestionTextAnswer, UUID> {
     List<QuestionTextAnswer> findAllByCreatedBy(UUID sub);
     List<QuestionTextAnswer> findAllByBelongsTo(QuestionText belongsTo);
+
+    void deleteAllByBelongsToId(UUID id);
 }

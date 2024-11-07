@@ -21,7 +21,7 @@ public class QuestionOrderOptions implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionOrderOptions-questionOrder")
     @ManyToOne
     private QuestionOrder questionOrder;
 
@@ -31,7 +31,7 @@ public class QuestionOrderOptions implements Serializable {
 
     private UUID createdBy;
 
-    @JsonBackReference
+    @JsonBackReference("selected-questionOrderAnswer")
     @ManyToOne
     private QuestionOrderAnswer questionOrderAnswer;
 }

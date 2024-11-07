@@ -26,7 +26,7 @@ public class QuestionText implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonBackReference
+    @JsonBackReference("questionText-quiz")
     @ManyToOne
     private Quiz quiz;
 
@@ -34,7 +34,7 @@ public class QuestionText implements Serializable {
 
     private String answer;
 
-    @JsonManagedReference
+    @JsonManagedReference("questionTextAnswer-belongsTo")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionTextAnswer> questionTextAnswers;
 

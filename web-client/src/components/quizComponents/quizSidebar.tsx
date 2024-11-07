@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-export default function QuizSidebar({dummyDataTitles}:{dummyDataTitles: () => string[]}) {
+export default function QuizSidebar() {
 
-  const [titles, setTitles] = useState(dummyDataTitles);
 
   function printTitles() {
     return (

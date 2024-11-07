@@ -13,12 +13,21 @@ import React from "react";
 import { QuestionPair } from "@/src/types/questionPair";
 import InputPair from "@/src/components/quizComponents/inputPair";
 import QuizSidebar from "@/src/components/quizComponents/quizSidebar";
+import { QuizData } from "@/src/types/quizData";
+import QuizTitle from "@/src/components/quizComponents/quizTitle";
 
 
 
 
 
 export default function Home() {
+
+  const QuizDummyData: QuizData = {
+    title: "My ass is a dummy quiz",
+    description: "this is some dumb ss dummy quiz, please do not pay any attention whatsoever to the typos in this page as there is a lot of them, if you find them all you will get candy",
+    assigner: "Mr. Gary Coleman",
+    deadline: "2001-09-11 8:35"
+  }
   const TextDummyData: QuestionText = {
     value: {
       title:
@@ -91,9 +100,7 @@ export default function Home() {
     comment: "Pair them. Even a monkey could do it"
   }
 
-  const getDummyDataTitles = ():string[] => {
-    return [TextDummyData.value.title, OrderDummyData.title, CheckDummyData.title, PairDummyData.title, RadioDummyData.title]
-  }
+
 
   return (
     <>
@@ -104,7 +111,10 @@ export default function Home() {
       >
         <section
           className={"w-1/5 bg-content1-opacity15 h-[98.4vh] p-1 rounded-md"}
-        ></section>
+        >
+          <QuizTitle QuizDummyData={QuizDummyData} />
+
+        </section>
         <section
           className={
             "w-3/5 bg-content1-opacity15 h-[98.4vh] p-1 rounded-md overflow-scroll"
@@ -132,9 +142,7 @@ export default function Home() {
         <section
           className={"w-1/5 bg-content1-opacity15 p-1 h-[98.4vh] rounded-md"}
         >
-          <QuizSidebar dummyDataTitles={() => {
-            return [TextDummyData.value.title, OrderDummyData.title, CheckDummyData.title, PairDummyData.title, RadioDummyData.title]
-          }} />
+          <QuizSidebar />
         </section>
       </section>
     </>

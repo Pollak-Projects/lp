@@ -34,7 +34,6 @@ public class QuestionOrder implements Serializable {
 
     @JsonManagedReference("questionOrderOptions-questionOrder")
     @OneToMany(mappedBy = "questionOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_order_options_id", referencedColumnName = "id")
     private Set<QuestionOrderOptions> options;
 
     private UUID createdBy;

@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -25,14 +26,12 @@ public class QuestionPairOptions implements Serializable {
     // FIXME this is an incredibly hacky way to do this, should be done by using @JoinColumn
     // Its now defined with @JoinColumn, yet its still as hacky as before
     @JsonBackReference("left-questionPairCollectionPair")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_pair_collection_pair_id", referencedColumnName = "id")
-    private QuestionPairCollectionPair leftQuestionPairCollectionPair;
+    @OneToMany(mappedBy = "left", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionPairCollectionPair> leftQuestionPairCollectionPair;
 
     @JsonBackReference("right-questionPairCollectionPair")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_pair_collection_pair_id", referencedColumnName = "id")
-    private QuestionPairCollectionPair rightQuestionPairCollectionPair;
+    @OneToMany(mappedBy = "right", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionPairCollectionPair> rightQuestionPairCollectionPair;
 
     private String contents;
 

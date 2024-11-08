@@ -1,5 +1,6 @@
-package com.learningpulse.quiz.question.question_radio.model;
+package com.learningpulse.quiz.question.question_radio.repository;
 
+import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

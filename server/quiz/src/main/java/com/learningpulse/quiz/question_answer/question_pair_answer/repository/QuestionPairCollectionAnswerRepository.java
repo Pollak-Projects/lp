@@ -1,5 +1,6 @@
-package com.learningpulse.quiz.question_answer.question_pair_answer.model;
+package com.learningpulse.quiz.question_answer.question_pair_answer.repository;
 
+import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

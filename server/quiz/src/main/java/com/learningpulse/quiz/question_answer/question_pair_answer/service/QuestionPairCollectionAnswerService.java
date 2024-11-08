@@ -2,7 +2,7 @@ package com.learningpulse.quiz.question_answer.question_pair_answer.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
 import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswer;
-import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswerRepository;
+import com.learningpulse.quiz.question_answer.question_pair_answer.repository.QuestionPairCollectionAnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;

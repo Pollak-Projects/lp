@@ -2,7 +2,7 @@ package com.learningpulse.quiz.question.question_radio.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
-import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptionsRepository;
+import com.learningpulse.quiz.question.question_radio.repository.QuestionRadioOptionsRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;

@@ -2,7 +2,7 @@ package com.learningpulse.quiz.question_answer.question_checkbox_answer.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
 import com.learningpulse.quiz.question_answer.question_checkbox_answer.model.QuestionCheckboxAnswer;
-import com.learningpulse.quiz.question_answer.question_checkbox_answer.model.QuestionCheckboxAnswerRepository;
+import com.learningpulse.quiz.question_answer.question_checkbox_answer.repository.QuestionCheckboxAnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;

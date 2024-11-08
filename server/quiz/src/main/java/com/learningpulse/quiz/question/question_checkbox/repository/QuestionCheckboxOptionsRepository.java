@@ -1,6 +1,6 @@
-package com.learningpulse.quiz.question.question_checkbox.model;
+package com.learningpulse.quiz.question.question_checkbox.repository;
 
-import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
+import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckboxOptions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

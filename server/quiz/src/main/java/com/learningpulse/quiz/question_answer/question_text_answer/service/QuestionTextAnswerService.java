@@ -4,7 +4,7 @@ import com.learningpulse.quiz.exception.HttpStatusCodeException;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import com.learningpulse.quiz.question_answer.question_text_answer.dto.question_text_answer.QuestionTextAnswerCreateDTO;
 import com.learningpulse.quiz.question_answer.question_text_answer.model.QuestionTextAnswer;
-import com.learningpulse.quiz.question_answer.question_text_answer.model.QuestionTextAnswerRepository;
+import com.learningpulse.quiz.question_answer.question_text_answer.repository.QuestionTextAnswerRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;

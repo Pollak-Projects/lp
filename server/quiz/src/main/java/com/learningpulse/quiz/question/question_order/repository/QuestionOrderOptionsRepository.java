@@ -1,5 +1,6 @@
-package com.learningpulse.quiz.question.question_order.model;
+package com.learningpulse.quiz.question.question_order.repository;
 
+import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

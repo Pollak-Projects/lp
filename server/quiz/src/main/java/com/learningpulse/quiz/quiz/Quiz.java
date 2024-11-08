@@ -15,7 +15,6 @@ import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -39,7 +38,6 @@ public class Quiz implements Serializable {
 
     private String name;
 
-    @CreatedBy
     private UUID createdBy;
 
     @CreatedDate

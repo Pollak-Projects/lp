@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_pair.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

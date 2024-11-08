@@ -2,6 +2,7 @@ package com.learningpulse.quiz.question.question_pair.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswer;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;

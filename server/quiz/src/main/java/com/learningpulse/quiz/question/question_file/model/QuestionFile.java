@@ -1,6 +1,7 @@
 package com.learningpulse.quiz.question.question_file.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.learningpulse.quiz.question_answer.question_file_answer.model.QuestionFileAnswer;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;

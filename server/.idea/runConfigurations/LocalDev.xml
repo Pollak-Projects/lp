@@ -6,8 +6,8 @@
         <option name="services">
           <list>
             <option value="pgadmin" />
-            <option value="keycloak" />
             <option value="database" />
+            <option value="rabbitmq" />
           </list>
         </option>
         <option name="sourceFilePath" value="docker-compose.yml" />

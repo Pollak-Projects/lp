@@ -10,6 +10,10 @@ import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +23,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class QuestionTextService {
+    private static final Logger logger = LoggerFactory.getLogger(QuestionTextService.class);
     private final QuestionTextRepository questionTextRepository;
     private final QuestionTextAnswerRepository questionTextAnswerRepository;
+    private final RabbitTemplate rabbitTemplate;
 
     public QuestionText getQuestionTextById(UUID id) {
         return questionTextRepository.findById(id)
@@ -28,6 +34,8 @@ public class QuestionTextService {
     }
 
     public List<QuestionText> getAllQuestionTextsByUser(UUID sub) {
+        Object asdf = rabbitTemplate.convertSendAndReceive("checkUser", sub.toString());
+        logger.atDebug().log("User exists status: " + asdf);
         List<QuestionText> questionTexts = questionTextRepository.findAllByCreatedBy(sub);
         if (questionTexts.isEmpty())
             throw new HttpStatusCodeException("QuestionText not found", HttpStatus.NOT_FOUND);
@@ -85,5 +93,10 @@ public class QuestionTextService {
                 })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionText not found", HttpStatus.NOT_FOUND));
 
+    }
+
+    @RabbitListener(queues = "myQueue")
+    public void listen(String in) {
+        logger.atDebug().log("Message read from myQueue: " + in);
     }
 }

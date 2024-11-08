@@ -93,7 +93,26 @@ services:
     networks:
       - learningpulse
 
+  rabbitmq:
+    container_name: 'rabbitmq'
+    image: rabbitmq:3-management-alpine
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    volumes:
+      - learning_pulse_rabbitmqdata:/var/lib/rabbitmq/
+      - ./logs/rabbitmq:/var/log/rabbitmq
+    networks:
+      - learningpulse
+
 volumes:
   learning_pulse_pgdata:
+  learning_pulse_rabbitmqdata:
   learning_pulse_pgadmin:
   realms:

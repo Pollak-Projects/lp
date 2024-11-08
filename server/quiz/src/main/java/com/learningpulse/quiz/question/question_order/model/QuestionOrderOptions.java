@@ -23,7 +23,8 @@ public class QuestionOrderOptions implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionOrderOptions-questionOrder")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_order_id", referencedColumnName = "id")
     private QuestionOrder questionOrder;
 
     private String title;

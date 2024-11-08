@@ -26,13 +26,15 @@ public class QuestionOrder implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionOrder-quiz")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 
     private String title;
 
     @JsonManagedReference("questionOrderOptions-questionOrder")
-    @OneToMany(mappedBy = "questionOrder")
+    @OneToMany(mappedBy = "questionOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_order_options_id", referencedColumnName = "id")
     private Set<QuestionOrderOptions> options;
 
     private UUID createdBy;

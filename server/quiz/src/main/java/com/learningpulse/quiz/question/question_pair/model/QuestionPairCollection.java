@@ -26,7 +26,8 @@ public class QuestionPairCollection implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionPairCollection-quiz")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 
     private UUID createdBy;
@@ -34,7 +35,7 @@ public class QuestionPairCollection implements Serializable {
     private String title;
 
     @JsonManagedReference("questionPairCollectionPair-questionPairCollection")
-    @OneToMany(mappedBy = "belongsTo")
+    @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionPairCollectionPair> questionPairCollectionPairs;
 
     @JsonBackReference("questionPairCollectionAnswer-questionPairCollection")

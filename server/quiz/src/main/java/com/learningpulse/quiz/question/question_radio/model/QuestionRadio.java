@@ -26,13 +26,14 @@ public class QuestionRadio implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionRadio-quiz")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 
     private String title;
 
     @JsonManagedReference("questionRadioOptions-questionRadio")
-    @OneToMany(mappedBy = "questionRadio")
+    @OneToMany(mappedBy = "questionRadio", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionRadioOptions> options;
 
     private UUID createdBy;

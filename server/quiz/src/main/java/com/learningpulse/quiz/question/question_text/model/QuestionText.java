@@ -27,8 +27,9 @@ public class QuestionText implements Serializable {
     @GeneratedValue
     private UUID id;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference("questionText-quiz")
-    @ManyToOne
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 
     private String title;

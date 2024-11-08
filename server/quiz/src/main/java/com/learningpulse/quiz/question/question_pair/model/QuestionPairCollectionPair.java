@@ -23,16 +23,19 @@ public class QuestionPairCollectionPair implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionPairCollectionPair-questionPairCollection")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_pair_collection_id", referencedColumnName = "id")
     private QuestionPairCollection belongsTo;
 
     private UUID createdBy;
 
     @JsonManagedReference("left-questionPairCollectionPair")
-    @OneToOne(mappedBy = "leftQuestionPairCollectionPair")
+    @OneToOne(mappedBy = "leftQuestionPairCollectionPair", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_options_id", referencedColumnName = "id")
     private QuestionPairOptions left;
 
     @JsonManagedReference("right-questionPairCollectionPair")
-    @OneToOne(mappedBy = "rightQuestionPairCollectionPair")
+    @OneToOne(mappedBy = "rightQuestionPairCollectionPair", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_options_id", referencedColumnName = "id")
     private QuestionPairOptions right;
 }

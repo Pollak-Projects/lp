@@ -23,7 +23,8 @@ public class QuestionRadioOptions implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionRadioOptions-questionRadio")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_radio_id", referencedColumnName = "id")
     private QuestionRadio questionRadio;
 
     private String title;
@@ -32,6 +33,7 @@ public class QuestionRadioOptions implements Serializable {
 
     private UUID createdBy;
 
+    // TODO REMOVE THESE
     // this is the other side of the relationship defined in QuestionRadioAnswer.java
     @JsonBackReference("questionRadioAnswer-selected")
     @ManyToOne

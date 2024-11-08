@@ -26,13 +26,14 @@ public class QuestionCheckbox implements Serializable {
     private UUID id;
 
     @JsonBackReference("questionCheckbox-quiz")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 
     private String title;
 
     @JsonManagedReference("questionCheckboxOptions-questionCheckbox")
-    @OneToMany(mappedBy = "questionCheckbox")
+    @OneToMany(mappedBy = "questionCheckbox", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionCheckboxOptions> options;
 
     private UUID createdBy;

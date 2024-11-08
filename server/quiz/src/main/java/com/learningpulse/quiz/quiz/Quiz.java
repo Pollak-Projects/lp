@@ -48,26 +48,26 @@ public class Quiz implements Serializable {
     private boolean viewAfterSubmission;
 
     @JsonManagedReference("questionText-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionText> questionTexts;
 
     @JsonManagedReference("questionRadio-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionRadio> questionRadios;
 
     @JsonManagedReference("questionCheckbox-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionCheckbox> questionCheckboxes;
 
     @JsonManagedReference("questionFile-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionFile> questionFiles;
 
     @JsonManagedReference("questionOrder-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionOrder> questionOrders;
 
     @JsonManagedReference("questionPairCollection-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionPairCollection> questionPairCollections;
 }

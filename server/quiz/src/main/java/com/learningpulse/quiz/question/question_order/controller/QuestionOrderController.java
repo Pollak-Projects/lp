@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/quiz/question/Order")
+@RequestMapping("/api/v1/quiz/question/order")
 @RequiredArgsConstructor
 public class QuestionOrderController {
     private final QuestionOrderService questionOrderService;

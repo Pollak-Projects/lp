@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/quiz/question/Checkbox")
+@RequestMapping("/api/v1/quiz/question/checkbox")
 @RequiredArgsConstructor
 public class QuestionCheckboxController {
     private final QuestionCheckboxService questionCheckboxService;

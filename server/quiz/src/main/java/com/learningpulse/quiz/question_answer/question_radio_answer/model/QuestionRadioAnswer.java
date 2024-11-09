@@ -1,8 +1,9 @@
 package com.learningpulse.quiz.question_answer.question_radio_answer.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
+import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,9 +25,10 @@ public class QuestionRadioAnswer implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @JsonManagedReference("questionRadioAnswer-questionRadio")
-    @OneToMany(mappedBy = "questionRadioAnswer")
-    private Set<QuestionRadio> questionRadios;
+    @JsonBackReference("questionRadioAnswer-quizAnswer")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "quiz_answer_id", referencedColumnName = "id")
+    private QuizAnswer belongsTo;
 
     private UUID createdBy;
 

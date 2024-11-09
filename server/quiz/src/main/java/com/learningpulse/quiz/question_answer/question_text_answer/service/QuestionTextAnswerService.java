@@ -1,10 +1,11 @@
 package com.learningpulse.quiz.question_answer.question_text_answer.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
-import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import com.learningpulse.quiz.question_answer.question_text_answer.dto.question_text_answer.QuestionTextAnswerCreateDTO;
+import com.learningpulse.quiz.question_answer.question_text_answer.dto.question_text_answer.QuestionTextAnswerUpdateDTO;
 import com.learningpulse.quiz.question_answer.question_text_answer.model.QuestionTextAnswer;
 import com.learningpulse.quiz.question_answer.question_text_answer.repository.QuestionTextAnswerRepository;
+import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -37,21 +38,29 @@ public class QuestionTextAnswerService {
     }
 
     public List<QuestionTextAnswer> getAllQuestionTextAnswersByQuestion(UUID questionTextId) {
-        return questionTextAnswerRepository.findAllByBelongsTo(QuestionText.builder().id(questionTextId).build());
+        List<QuestionTextAnswer> questionTextAnswers = questionTextAnswerRepository.findAllByBelongsToId(questionTextId);
+        if (questionTextAnswers.isEmpty())
+            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND);
+        return questionTextAnswers;
     }
 
+    // sub can be used if we want to add an updatedBy field
     public QuestionTextAnswer createQuestionTextAnswer(UUID sub, @NotNull QuestionTextAnswerCreateDTO questionTextAnswerDTO) {
         QuestionTextAnswer questionTextAnswer = QuestionTextAnswer.builder()
                 .answer(questionTextAnswerDTO.answer())
                 .createdBy(sub)
-                .belongsTo(QuestionText.builder().id(questionTextAnswerDTO.belongsToId()).build())
+                .belongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.belongsToId()).build())
                 .build();
         return questionTextAnswerRepository.save(questionTextAnswer);
     }
 
-    public QuestionTextAnswer updateQuestionTextAnswer(@NotNull QuestionTextAnswer questionTextAnswer) {
-        return questionTextAnswerRepository.findById(questionTextAnswer.getId())
-                .map(q -> questionTextAnswerRepository.save(questionTextAnswer))
+    public QuestionTextAnswer updateQuestionTextAnswer(@NotNull QuestionTextAnswerUpdateDTO questionTextAnswerDTO) {
+        return questionTextAnswerRepository.findById(questionTextAnswerDTO.questionTextId())
+                .map(q -> {
+                    q.setAnswer(questionTextAnswerDTO.answer());
+                    q.setBelongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.belongsToId()).build());
+                    return q;
+                })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));
     }
 

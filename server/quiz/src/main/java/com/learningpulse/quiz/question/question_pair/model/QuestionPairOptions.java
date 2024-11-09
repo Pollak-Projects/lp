@@ -37,10 +37,12 @@ public class QuestionPairOptions implements Serializable {
 
     // FIXME same thing again, this may need to be moved to question_pair_answer
     @JsonBackReference("right-questionPairCollectionAnswer")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id")
     private QuestionPairCollectionAnswer rightQuestionPairCollectionAnswer;
 
     @JsonBackReference("left-questionPairCollectionAnswer")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id")
     private QuestionPairCollectionAnswer leftQuestionPairCollectionAnswer;
 }

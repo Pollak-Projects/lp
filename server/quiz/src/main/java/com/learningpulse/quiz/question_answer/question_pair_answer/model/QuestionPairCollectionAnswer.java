@@ -32,10 +32,10 @@ public class QuestionPairCollectionAnswer {
     private UUID createdBy;
 
     @JsonManagedReference("right-questionPairCollectionAnswer")
-    @OneToMany(mappedBy = "rightQuestionPairCollectionAnswer")
+    @OneToMany(mappedBy = "rightQuestionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionPairOptions> right;
 
     @JsonManagedReference("left-questionPairCollectionAnswer")
-    @OneToMany(mappedBy = "leftQuestionPairCollectionAnswer")
+    @OneToMany(mappedBy = "leftQuestionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionPairOptions> left;
 }

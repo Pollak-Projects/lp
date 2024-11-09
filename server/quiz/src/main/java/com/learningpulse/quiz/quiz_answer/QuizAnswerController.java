@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.quiz_answer;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.quiz_answer.dto.QuizAnswerCreateDTO;
+import com.learningpulse.quiz.quiz_answer.dto.QuizAnswerUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,13 +37,13 @@ public class QuizAnswerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuizAnswer createQuizAnswer(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuizAnswer quizAnswer) {
+    public QuizAnswer createQuizAnswer(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuizAnswerCreateDTO quizAnswer) {
         return quizAnswerService.createQuizAnswer(jwt.getSub(), quizAnswer);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuizAnswer updateQuizAnswer(@RequestBody QuizAnswer quizAnswer) {
+    public QuizAnswer updateQuizAnswer(@RequestBody QuizAnswerUpdateDTO quizAnswer) {
         return quizAnswerService.updateQuizAnswer(quizAnswer);
     }
 

@@ -43,7 +43,7 @@ public class QuizAnswer implements Serializable {
     private UUID createdBy;
 
     @JsonManagedReference("questionTextAnswer-quizAnswer")
-    @OneToMany(mappedBy = "belongsToa", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionTextAnswer> questionTextAnswers;
 
     @JsonManagedReference("questionRadioAnswer-quizAnswer")

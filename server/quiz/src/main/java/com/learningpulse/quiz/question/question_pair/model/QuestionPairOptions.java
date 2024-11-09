@@ -35,7 +35,7 @@ public class QuestionPairOptions implements Serializable {
 
     private String contents;
 
-    // FIXME same thing again
+    // FIXME same thing again, this may need to be moved to question_pair_answer
     @JsonBackReference("right-questionPairCollectionAnswer")
     @ManyToOne
     private QuestionPairCollectionAnswer rightQuestionPairCollectionAnswer;

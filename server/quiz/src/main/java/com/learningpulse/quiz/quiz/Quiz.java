@@ -13,6 +13,7 @@ import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
+import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -70,4 +71,8 @@ public class Quiz implements Serializable {
     @JsonManagedReference("questionPairCollection-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<QuestionPairCollection> questionPairCollections;
+
+    @JsonManagedReference("quizAnswer-quiz")
+    @OneToOne(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private QuizAnswer quizAnswer;
 }

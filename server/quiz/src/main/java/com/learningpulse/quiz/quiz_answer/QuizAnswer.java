@@ -33,7 +33,7 @@ public class QuizAnswer implements Serializable {
     private UUID id;
 
     @JsonBackReference("quizAnswer-quiz")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 

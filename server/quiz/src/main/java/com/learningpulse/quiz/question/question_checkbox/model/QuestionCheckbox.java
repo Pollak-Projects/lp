@@ -2,7 +2,6 @@ package com.learningpulse.quiz.question.question_checkbox.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.learningpulse.quiz.question_answer.question_checkbox_answer.model.QuestionCheckboxAnswer;
 import com.learningpulse.quiz.quiz.Quiz;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,8 +36,4 @@ public class QuestionCheckbox implements Serializable {
     private Set<QuestionCheckboxOptions> options;
 
     private UUID createdBy;
-
-    @JsonBackReference("questionCheckboxAnswer-questionCheckbox")
-    @ManyToOne
-    private QuestionCheckboxAnswer questionCheckboxAnswer;
 }

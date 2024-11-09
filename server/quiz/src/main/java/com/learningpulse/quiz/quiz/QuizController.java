@@ -2,6 +2,9 @@ package com.learningpulse.quiz.quiz;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.quiz.dto.QuizCreateDTO;
+import com.learningpulse.quiz.quiz.dto.QuizFullCreateDTO;
+import com.learningpulse.quiz.quiz.dto.QuizUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,14 +60,20 @@ public class QuizController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Quiz createQuiz(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody Quiz quiz) {
+    public Quiz createQuiz(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuizCreateDTO quiz) {
         logger.atDebug().log("Creating quiz", quiz);
         return quizService.createQuiz(jwt.getSub(), quiz);
     }
 
+    @PostMapping("/full")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Quiz createFullQuiz(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuizFullCreateDTO quiz) {
+        return quizService.createFullQuiz(jwt.getSub(), quiz);
+    }
+
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public Quiz updateQuiz(@RequestBody Quiz quiz) {
+    public Quiz updateQuiz(@RequestBody QuizUpdateDTO quiz) {
         return quizService.updateQuiz(quiz);
     }
 

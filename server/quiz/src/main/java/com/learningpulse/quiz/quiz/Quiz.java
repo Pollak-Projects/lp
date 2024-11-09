@@ -21,7 +21,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -39,6 +39,8 @@ public class Quiz implements Serializable {
 
     private String name;
 
+    private String description;
+
     private UUID createdBy;
 
     @CreatedDate
@@ -48,30 +50,30 @@ public class Quiz implements Serializable {
 
     private boolean viewAfterSubmission;
 
-    @JsonManagedReference("questionText-quiz")
+    @JsonManagedReference("questionCheckbox-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionText> questionTexts;
+    private List<QuestionCheckbox> questionCheckboxes;
+    
+    @JsonManagedReference("questionFile-quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionFile> questionFiles;
+    
+    @JsonManagedReference("questionOrder-quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionOrder> questionOrders;
+    
+    @JsonManagedReference("questionPairCollection-quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionPairCollection> questionPairCollections;
 
     @JsonManagedReference("questionRadio-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionRadio> questionRadios;
+    private List<QuestionRadio> questionRadios;
 
-    @JsonManagedReference("questionCheckbox-quiz")
+    @JsonManagedReference("questionText-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionCheckbox> questionCheckboxes;
-
-    @JsonManagedReference("questionFile-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionFile> questionFiles;
-
-    @JsonManagedReference("questionOrder-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionOrder> questionOrders;
-
-    @JsonManagedReference("questionPairCollection-quiz")
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionPairCollection> questionPairCollections;
-
+    private List<QuestionText> questionTexts;
+    
     @JsonManagedReference("quizAnswer-quiz")
     @OneToOne(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private QuizAnswer quizAnswer;

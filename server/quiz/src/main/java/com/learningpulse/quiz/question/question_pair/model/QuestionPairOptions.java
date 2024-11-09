@@ -1,7 +1,6 @@
 package com.learningpulse.quiz.question.question_pair.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,15 +32,4 @@ public class QuestionPairOptions implements Serializable {
     private QuestionPairCollectionPair rightQuestionPairCollectionPair;
 
     private String content;
-
-    // FIXME same thing again, this may need to be moved to question_pair_answer
-    @JsonBackReference("right-questionPairCollectionAnswer")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private QuestionPairCollectionAnswer rightQuestionPairCollectionAnswer;
-
-    @JsonBackReference("left-questionPairCollectionAnswer")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private QuestionPairCollectionAnswer leftQuestionPairCollectionAnswer;
 }

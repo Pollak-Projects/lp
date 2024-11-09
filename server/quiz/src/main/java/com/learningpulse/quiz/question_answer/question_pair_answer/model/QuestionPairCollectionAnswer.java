@@ -2,12 +2,12 @@ package com.learningpulse.quiz.question_answer.question_pair_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.learningpulse.quiz.question.question_pair.model.QuestionPairOptions;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +19,7 @@ import java.util.UUID;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "QUESTION_PAIR_COLLECTION_ANSWER", schema = "quiz")
-public class QuestionPairCollectionAnswer {
+public class QuestionPairCollectionAnswer implements Serializable {
     @Id
     @GeneratedValue
     private UUID id;
@@ -31,11 +31,7 @@ public class QuestionPairCollectionAnswer {
 
     private UUID createdBy;
 
-    @JsonManagedReference("right-questionPairCollectionAnswer")
-    @OneToMany(mappedBy = "rightQuestionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<QuestionPairOptions> right;
-
-    @JsonManagedReference("left-questionPairCollectionAnswer")
-    @OneToMany(mappedBy = "leftQuestionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<QuestionPairOptions> left;
+    @JsonManagedReference("questionPairCollectionPairAnswer-questionPairCollectionAnswer")
+    @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionPairCollectionPairAnswer> questionPairCollectionPairAnswers;
 }

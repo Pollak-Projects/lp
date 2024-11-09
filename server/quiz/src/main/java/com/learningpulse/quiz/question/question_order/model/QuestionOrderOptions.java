@@ -28,7 +28,7 @@ public class QuestionOrderOptions implements Serializable {
 
     private String title;
 
-    private int place;
+    private Integer place;
 
     private UUID createdBy;
 }

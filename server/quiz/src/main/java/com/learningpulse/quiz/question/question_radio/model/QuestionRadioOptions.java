@@ -28,7 +28,7 @@ public class QuestionRadioOptions implements Serializable {
 
     private String title;
 
-    private boolean answer;
+    private Boolean answer;
 
     private UUID createdBy;
 }

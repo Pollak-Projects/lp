@@ -8,7 +8,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -35,5 +35,5 @@ public class QuestionPairCollection implements Serializable {
 
     @JsonManagedReference("questionPairCollectionPair-questionPairCollection")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionPairCollectionPair> questionPairCollectionPairs;
+    private List<QuestionPairCollectionPair> questionPairCollectionPairs;
 }

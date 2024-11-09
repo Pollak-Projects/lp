@@ -32,12 +32,12 @@ public class QuestionPairCollectionPair implements Serializable {
     // FIXME this might be wrong, because the same column is used for both left and right,
     //  but that's how it is in the database diagram
     @JsonManagedReference("left-questionPairCollectionPair")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "question_options_id", referencedColumnName = "id", insertable = false, updatable = false)
     private QuestionPairOptions left;
 
     @JsonManagedReference("right-questionPairCollectionPair")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "question_options_id", referencedColumnName = "id", insertable = false, updatable = false)
     private QuestionPairOptions right;
 }

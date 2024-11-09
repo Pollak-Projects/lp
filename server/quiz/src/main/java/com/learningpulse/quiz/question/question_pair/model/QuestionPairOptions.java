@@ -7,7 +7,6 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -26,23 +25,23 @@ public class QuestionPairOptions implements Serializable {
     // FIXME this is an incredibly hacky way to do this, should be done by using @JoinColumn
     // Its now defined with @JoinColumn, yet its still as hacky as before
     @JsonBackReference("left-questionPairCollectionPair")
-    @OneToMany(mappedBy = "left", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<QuestionPairCollectionPair> leftQuestionPairCollectionPair;
+    @OneToOne(mappedBy = "left", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private QuestionPairCollectionPair leftQuestionPairCollectionPair;
 
     @JsonBackReference("right-questionPairCollectionPair")
-    @OneToMany(mappedBy = "right", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<QuestionPairCollectionPair> rightQuestionPairCollectionPair;
+    @OneToOne(mappedBy = "right", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private QuestionPairCollectionPair rightQuestionPairCollectionPair;
 
-    private String contents;
+    private String content;
 
     // FIXME same thing again, this may need to be moved to question_pair_answer
     @JsonBackReference("right-questionPairCollectionAnswer")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id", insertable = false, updatable = false)
     private QuestionPairCollectionAnswer rightQuestionPairCollectionAnswer;
 
     @JsonBackReference("left-questionPairCollectionAnswer")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id", insertable = false, updatable = false)
     private QuestionPairCollectionAnswer leftQuestionPairCollectionAnswer;
 }

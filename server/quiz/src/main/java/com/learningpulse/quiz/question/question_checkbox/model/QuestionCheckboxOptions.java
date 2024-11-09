@@ -28,7 +28,7 @@ public class QuestionCheckboxOptions implements Serializable {
 
     private String name;
 
-    private boolean answer;
+    private Boolean answer;
 
     private UUID createdBy;
 }

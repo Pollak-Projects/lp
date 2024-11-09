@@ -8,7 +8,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,7 +33,7 @@ public class QuestionCheckbox implements Serializable {
 
     @JsonManagedReference("questionCheckboxOptions-questionCheckbox")
     @OneToMany(mappedBy = "questionCheckbox", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionCheckboxOptions> options;
+    private List<QuestionCheckboxOptions> options;
 
     private UUID createdBy;
 }

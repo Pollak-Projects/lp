@@ -64,23 +64,13 @@ public class QuestionTextService {
     // This may cause inconsistencies in the database
     @Transactional
     public QuestionText updateQuestionText(@NotNull QuestionTextUpdateDTO questionTextUpdateDTO) {
-        QuestionText questionText = questionTextRepository.findById(questionTextUpdateDTO.id()).orElseThrow(() -> new HttpStatusCodeException("QuestionText not found", HttpStatus.NOT_FOUND));
+        QuestionText questionText = questionTextRepository.findById(questionTextUpdateDTO.questionTextId()).orElseThrow(() -> new HttpStatusCodeException("QuestionText not found", HttpStatus.NOT_FOUND));
 
         questionText.setTitle(questionTextUpdateDTO.title());
         questionText.setAnswer(questionTextUpdateDTO.answer());
         questionText.setQuiz(Quiz.builder()
                 .id(questionTextUpdateDTO.quizId())
                 .build());
-
-        if (questionTextUpdateDTO.answerIds().isEmpty()) {
-            return questionTextRepository.save(questionText);
-        }
-
-        questionTextAnswerRepository.deleteAllByBelongsToId(questionText.getId());
-        questionTextAnswerRepository.findAllById(questionTextUpdateDTO.answerIds()).forEach(questionTextAnswer -> {
-            questionTextAnswer.setBelongsTo(questionText);
-            questionTextAnswerRepository.save(questionTextAnswer);
-        });
 
         return questionTextRepository.save(questionText);
     }

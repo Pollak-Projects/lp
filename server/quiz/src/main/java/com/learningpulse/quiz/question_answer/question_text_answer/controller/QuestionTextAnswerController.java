@@ -2,6 +2,7 @@ package com.learningpulse.quiz.question_answer.question_text_answer.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.question_answer.question_text_answer.dto.question_text_answer.QuestionTextAnswerCreateDTO;
+import com.learningpulse.quiz.question_answer.question_text_answer.dto.question_text_answer.QuestionTextAnswerUpdateDTO;
 import com.learningpulse.quiz.question_answer.question_text_answer.model.QuestionTextAnswer;
 import com.learningpulse.quiz.question_answer.question_text_answer.service.QuestionTextAnswerService;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class QuestionTextAnswerController {
 
     @PutMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    public QuestionTextAnswer updateQuestionTextAnswer(@RequestBody QuestionTextAnswer questionTextAnswer) {
+    public QuestionTextAnswer updateQuestionTextAnswer(@RequestBody QuestionTextAnswerUpdateDTO questionTextAnswer) {
         return questionTextAnswerService.updateQuestionTextAnswer(questionTextAnswer);
     }
 

@@ -1,15 +1,12 @@
 package com.learningpulse.quiz.question_answer.question_checkbox_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckbox;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -31,10 +28,5 @@ public class QuestionCheckboxAnswer implements Serializable {
     @JoinColumn(name = "quiz_answer_id", referencedColumnName = "id")
     private QuizAnswer belongsTo;
 
-
     private UUID createdBy;
-
-    @JsonManagedReference("questionCheckboxAnswer-questionCheckbox")
-    @OneToMany(mappedBy = "questionCheckboxAnswer")
-    private Set<QuestionCheckbox> questionCheckbox;
 }

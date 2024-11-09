@@ -35,12 +35,6 @@ public class QuestionPairCollectionAnswerController {
         return questionPairCollectionAnswerService.getAllQuestionPairCollectionAnswers();
     }
 
-    @GetMapping(value = "/collection", params = "questionPairCollection_id")
-    @ResponseStatus(HttpStatus.OK)
-    public List<QuestionPairCollectionAnswer> getAllQuestionPairCollectionAnswersByQuestionPairCollectionId(@RequestParam UUID questionPairCollection_id) {
-        return questionPairCollectionAnswerService.getAllQuestionPairCollectionAnswersByQuestionPairCollectionId(questionPairCollection_id);
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public QuestionPairCollectionAnswer createQuestionPairCollectionAnswer(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionPairCollectionAnswer questionPairCollectionAnswer) {

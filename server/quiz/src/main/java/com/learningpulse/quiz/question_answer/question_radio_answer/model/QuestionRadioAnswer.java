@@ -1,15 +1,12 @@
 package com.learningpulse.quiz.question_answer.question_radio_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -31,9 +28,4 @@ public class QuestionRadioAnswer implements Serializable {
     private QuizAnswer belongsTo;
 
     private UUID createdBy;
-
-    @JsonManagedReference("questionRadioAnswer-selected")
-    @OneToMany(mappedBy = "questionRadioAnswer")
-    private Set<QuestionRadioOptions> selected;
-
 }

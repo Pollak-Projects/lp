@@ -35,12 +35,6 @@ public class QuestionPairCollectionAnswerService {
         return questionPairCollectionAnswers;
     }
 
-    public List<QuestionPairCollectionAnswer> getAllQuestionPairCollectionAnswersByQuestionPairCollectionId(UUID questionPairCollectionId) {
-        List<QuestionPairCollectionAnswer> questionPairCollectionAnswers = questionPairCollectionAnswerRepository.findAllByQuestionPairCollectionId(questionPairCollectionId);
-        if (questionPairCollectionAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND);
-        return questionPairCollectionAnswers;
-    }
 
     public QuestionPairCollectionAnswer createQuestionPairCollectionAnswer(UUID sub, @NotNull QuestionPairCollectionAnswer questionPairCollectionAnswer) {
         questionPairCollectionAnswer.setCreatedBy(sub);
@@ -63,10 +57,10 @@ public class QuestionPairCollectionAnswerService {
     }
 
     // This is an easter egg lol
-    public void deleteAllQuestionPairCollectionAnswersByQuestionPairCollectionId(UUID questionPairCollection_id) {
-        List<QuestionPairCollectionAnswer> questionPairCollectionAnswers = questionPairCollectionAnswerRepository.findAllByQuestionPairCollectionId(questionPairCollection_id);
-        if (questionPairCollectionAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND);
-        questionPairCollectionAnswerRepository.deleteAll(questionPairCollectionAnswers);
-    }
+//    public void deleteAllQuestionPairCollectionAnswersByQuestionPairCollectionId(UUID questionPairCollection_id) {
+//        List<QuestionPairCollectionAnswer> questionPairCollectionAnswers = questionPairCollectionAnswerRepository.findAllByQuestionPairCollectionId(questionPairCollection_id);
+//        if (questionPairCollectionAnswers.isEmpty())
+//            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND);
+//        questionPairCollectionAnswerRepository.deleteAll(questionPairCollectionAnswers);
+//    }
 }

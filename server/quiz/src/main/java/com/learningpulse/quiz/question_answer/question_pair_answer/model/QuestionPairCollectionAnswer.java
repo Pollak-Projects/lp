@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,9 +33,9 @@ public class QuestionPairCollectionAnswer {
 
     @JsonManagedReference("right-questionPairCollectionAnswer")
     @OneToMany(mappedBy = "rightQuestionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionPairOptions> right;
+    private List<QuestionPairOptions> right;
 
     @JsonManagedReference("left-questionPairCollectionAnswer")
     @OneToMany(mappedBy = "leftQuestionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionPairOptions> left;
+    private List<QuestionPairOptions> left;
 }

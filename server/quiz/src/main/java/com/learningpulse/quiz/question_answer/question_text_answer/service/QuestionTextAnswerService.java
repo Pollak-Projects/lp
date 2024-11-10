@@ -49,7 +49,7 @@ public class QuestionTextAnswerService {
         QuestionTextAnswer questionTextAnswer = QuestionTextAnswer.builder()
                 .answer(questionTextAnswerDTO.answer())
                 .createdBy(sub)
-                .belongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.belongsToId()).build())
+                .belongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.quizAnswerId()).build())
                 .build();
         return questionTextAnswerRepository.save(questionTextAnswer);
     }
@@ -58,7 +58,7 @@ public class QuestionTextAnswerService {
         return questionTextAnswerRepository.findById(questionTextAnswerDTO.questionTextId())
                 .map(q -> {
                     q.setAnswer(questionTextAnswerDTO.answer());
-                    q.setBelongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.belongsToId()).build());
+                    q.setBelongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.quizAnswerId()).build());
                     return q;
                 })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));

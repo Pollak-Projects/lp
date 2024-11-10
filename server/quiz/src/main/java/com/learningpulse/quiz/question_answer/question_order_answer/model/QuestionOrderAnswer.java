@@ -1,12 +1,15 @@
 package com.learningpulse.quiz.question_answer.question_order_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -28,7 +31,14 @@ public class QuestionOrderAnswer implements Serializable {
     @JoinColumn(name = "quiz_answer_id", referencedColumnName = "id")
     private QuizAnswer belongsTo;
 
-    private int place;
+    @JsonManagedReference("questionOrderOptionsAnswer-questionOrderAnswer")
+    @OneToMany(mappedBy = "questionOrderAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuestionOrderOptionsAnswer> options;
+
+    @JsonManagedReference("questionOrder-questionOrderAnswer")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn(name = "question_order_id", referencedColumnName = "id")
+    private QuestionOrder questionOrder;
 
     private UUID createdBy;
 }

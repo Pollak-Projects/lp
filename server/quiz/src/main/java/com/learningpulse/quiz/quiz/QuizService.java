@@ -75,101 +75,111 @@ public class QuizService {
                 .viewAfterSubmission(quizFullCreateDTO.viewAfterSubmission())
                 .build();
 
-        quiz.setQuestionCheckboxes(quizFullCreateDTO.questionCheckboxes().stream().map(q -> {
-            QuestionCheckbox questionCheckbox = QuestionCheckbox.builder()
-                    .createdBy(sub)
-                    .quiz(quiz)
-                    .title(q.title())
-                    .build();
-
-            questionCheckbox.setOptions(q.options().stream().map(o ->
-                    QuestionCheckboxOptions.builder()
-                            .createdBy(sub)
-                            .name(o.name())
-                            .answer(o.answer())
-                            .questionCheckbox(questionCheckbox)
-                            .build()).toList());
-
-            return questionCheckbox;
-        }).toList());
-
-        quiz.setQuestionFiles(quizFullCreateDTO.questionFiles().stream().map(q -> QuestionFile.builder()
-                .createdBy(sub)
-                .quiz(quiz)
-                .build()
-        ).toList());
-
-        quiz.setQuestionOrders(quizFullCreateDTO.questionOrders().stream().map(q -> {
-            QuestionOrder questionOrder = QuestionOrder.builder()
-                    .createdBy(sub)
-                    .quiz(quiz)
-                    .title(q.title())
-                    .build();
-
-            questionOrder.setOptions(q.options().stream().map(o ->
-                    QuestionOrderOptions.builder()
-                            .createdBy(sub)
-                            .title(o.title())
-                            .place(o.place())
-                            .questionOrder(questionOrder)
-                            .build()).toList());
-
-            return questionOrder;
-        }).toList());
-
-        quiz.setQuestionPairCollections(quizFullCreateDTO.questionPairCollections().stream().map(q -> {
-            QuestionPairCollection questionPairCollection = QuestionPairCollection.builder()
-                    .createdBy(sub)
-                    .quiz(quiz)
-                    .title(q.title())
-                    .build();
-
-            questionPairCollection.setPairs(q.pairs().stream().map(p -> {
-                QuestionPairCollectionPair questionPairCollectionPair = QuestionPairCollectionPair.builder()
+        if (quizFullCreateDTO.questionCheckboxes() != null && !quizFullCreateDTO.questionCheckboxes().isEmpty())
+            quiz.setQuestionCheckboxes(quizFullCreateDTO.questionCheckboxes().stream().map(q -> {
+                QuestionCheckbox questionCheckbox = QuestionCheckbox.builder()
                         .createdBy(sub)
-                        .belongsTo(questionPairCollection)
+                        .quiz(quiz)
+                        .title(q.title())
                         .build();
 
-                QuestionPairCollectionPairOptions left = QuestionPairCollectionPairOptions.builder()
-                        .content(p.left().content())
-                        .build();
-                questionPairCollectionPair.setLeft(left);
+                questionCheckbox.setOptions(q.options().stream().map(o ->
+                        QuestionCheckboxOptions.builder()
+                                .createdBy(sub)
+                                .name(o.name())
+                                .answer(o.answer())
+                                .questionCheckbox(questionCheckbox)
+                                .build()).toList());
 
-                QuestionPairCollectionPairOptions right = QuestionPairCollectionPairOptions.builder()
-                        .content(p.right().content())
-                        .build();
-                questionPairCollectionPair.setRight(right);
-
-                return questionPairCollectionPair;
+                return questionCheckbox;
             }).toList());
 
-            return questionPairCollection;
-        }).toList());
+        if (quizFullCreateDTO.questionFiles() != null && !quizFullCreateDTO.questionFiles().isEmpty())
+            quiz.setQuestionFiles(quizFullCreateDTO.questionFiles().stream().map(q -> QuestionFile.builder()
+                    .createdBy(sub)
+                    .quiz(quiz)
+                    .build()
+            ).toList());
 
-        quiz.setQuestionRadios(quizFullCreateDTO.questionRadios().stream().map(q -> {
-            QuestionRadio questionRadio = QuestionRadio.builder()
+
+        if (quizFullCreateDTO.questionOrders() != null && !quizFullCreateDTO.questionOrders().isEmpty())
+            quiz.setQuestionOrders(quizFullCreateDTO.questionOrders().stream().map(q -> {
+                QuestionOrder questionOrder = QuestionOrder.builder()
+                        .createdBy(sub)
+                        .quiz(quiz)
+                        .title(q.title())
+                        .build();
+
+                questionOrder.setOptions(q.options().stream().map(o ->
+                        QuestionOrderOptions.builder()
+                                .createdBy(sub)
+                                .title(o.title())
+                                .place(o.place())
+                                .questionOrder(questionOrder)
+                                .build()).toList());
+
+                return questionOrder;
+            }).toList());
+
+
+        if (quizFullCreateDTO.questionPairCollections() != null && !quizFullCreateDTO.questionPairCollections().isEmpty())
+            quiz.setQuestionPairCollections(quizFullCreateDTO.questionPairCollections().stream().map(q -> {
+                QuestionPairCollection questionPairCollection = QuestionPairCollection.builder()
+                        .createdBy(sub)
+                        .quiz(quiz)
+                        .title(q.title())
+                        .build();
+
+                questionPairCollection.setPairs(q.pairs().stream().map(p -> {
+                    QuestionPairCollectionPair questionPairCollectionPair = QuestionPairCollectionPair.builder()
+                            .createdBy(sub)
+                            .belongsTo(questionPairCollection)
+                            .build();
+
+                    QuestionPairCollectionPairOptions left = QuestionPairCollectionPairOptions.builder()
+                            .content(p.left().content())
+                            .build();
+                    questionPairCollectionPair.setLeft(left);
+
+                    QuestionPairCollectionPairOptions right = QuestionPairCollectionPairOptions.builder()
+                            .content(p.right().content())
+                            .build();
+                    questionPairCollectionPair.setRight(right);
+
+                    return questionPairCollectionPair;
+                }).toList());
+
+                return questionPairCollection;
+            }).toList());
+
+
+        if (quizFullCreateDTO.questionRadios() != null && !quizFullCreateDTO.questionRadios().isEmpty())
+            quiz.setQuestionRadios(quizFullCreateDTO.questionRadios().stream().map(q -> {
+                QuestionRadio questionRadio = QuestionRadio.builder()
+                        .createdBy(sub)
+                        .quiz(quiz)
+                        .title(q.title())
+                        .build();
+
+                questionRadio.setOptions(q.options().stream().map(o ->
+                        QuestionRadioOptions.builder()
+                                .createdBy(sub)
+                                .questionRadio(questionRadio)
+                                .title(o.title())
+                                .answer(o.answer())
+                                .build()).toList());
+
+                return questionRadio;
+            }).toList());
+
+
+        if (quizFullCreateDTO.questionTexts() != null && !quizFullCreateDTO.questionTexts().isEmpty())
+            quiz.setQuestionTexts(quizFullCreateDTO.questionTexts().stream().map(q -> QuestionText.builder()
                     .createdBy(sub)
                     .quiz(quiz)
                     .title(q.title())
-                    .build();
-
-            questionRadio.setOptions(q.options().stream().map(o ->
-                    QuestionRadioOptions.builder()
-                            .createdBy(sub)
-                            .questionRadio(questionRadio)
-                            .title(o.title())
-                            .answer(o.answer())
-                            .build()).toList());
-
-            return questionRadio;
-        }).toList());
-
-        quiz.setQuestionTexts(quizFullCreateDTO.questionTexts().stream().map(q -> QuestionText.builder()
-                .createdBy(sub)
-                .quiz(quiz)
-                .title(q.title())
-                .answer(q.answer())
-                .build()).toList());
+                    .answer(q.answer())
+                    .build()).toList());
 
         return quizRepository.save(quiz);
     }
@@ -178,28 +188,38 @@ public class QuizService {
     public Quiz updateQuiz(@NotNull QuizUpdateDTO quizUpdateDTO) {
         return quizRepository.findById(quizUpdateDTO.quizId())
                 .map(q -> {
-                    q.setName(quizUpdateDTO.name());
-                    q.setDescription(quizUpdateDTO.description());
-                    q.setDeadline(quizUpdateDTO.deadline());
-                    q.setViewAfterSubmission(quizUpdateDTO.viewAfterSubmission());
-                    q.setQuestionCheckboxes(quizUpdateDTO.questionCheckboxes().stream().map(qcb -> QuestionCheckbox.builder()
-                            .id(qcb)
-                            .build()).toList());
-                    q.setQuestionFiles(quizUpdateDTO.questionFiles().stream().map(qf -> QuestionFile.builder()
-                            .id(qf)
-                            .build()).toList());
-                    q.setQuestionOrders(quizUpdateDTO.questionOrders().stream().map(qo -> QuestionOrder.builder()
-                            .id(qo)
-                            .build()).toList());
-                    q.setQuestionPairCollections(quizUpdateDTO.questionPairCollections().stream().map(qpc -> QuestionPairCollection.builder()
-                            .id(qpc)
-                            .build()).toList());
-                    q.setQuestionRadios(quizUpdateDTO.questionRadios().stream().map(qr -> QuestionRadio.builder()
-                            .id(qr)
-                            .build()).toList());
-                    q.setQuestionTexts(quizUpdateDTO.questionTexts().stream().map(qt -> QuestionText.builder()
-                            .id(qt)
-                            .build()).toList());
+                    if (quizUpdateDTO.name() != null)
+                        q.setName(quizUpdateDTO.name());
+                    if (quizUpdateDTO.description() != null)
+                        q.setDescription(quizUpdateDTO.description());
+                    if (quizUpdateDTO.deadline() != null)
+                        q.setDeadline(quizUpdateDTO.deadline());
+                    if (quizUpdateDTO.viewAfterSubmission() != null)
+                        q.setViewAfterSubmission(quizUpdateDTO.viewAfterSubmission());
+                    if (quizUpdateDTO.questionCheckboxes() != null && !quizUpdateDTO.questionCheckboxes().isEmpty())
+                        q.setQuestionCheckboxes(quizUpdateDTO.questionCheckboxes().stream().map(qcb -> QuestionCheckbox.builder()
+                                .id(qcb)
+                                .build()).toList());
+                    if (quizUpdateDTO.questionFiles() != null && !quizUpdateDTO.questionFiles().isEmpty())
+                        q.setQuestionFiles(quizUpdateDTO.questionFiles().stream().map(qf -> QuestionFile.builder()
+                                .id(qf)
+                                .build()).toList());
+                    if (quizUpdateDTO.questionOrders() != null && !quizUpdateDTO.questionOrders().isEmpty())
+                        q.setQuestionOrders(quizUpdateDTO.questionOrders().stream().map(qo -> QuestionOrder.builder()
+                                .id(qo)
+                                .build()).toList());
+                    if (quizUpdateDTO.questionPairCollections() != null && !quizUpdateDTO.questionPairCollections().isEmpty())
+                        q.setQuestionPairCollections(quizUpdateDTO.questionPairCollections().stream().map(qpc -> QuestionPairCollection.builder()
+                                .id(qpc)
+                                .build()).toList());
+                    if (quizUpdateDTO.questionRadios() != null && !quizUpdateDTO.questionRadios().isEmpty())
+                        q.setQuestionRadios(quizUpdateDTO.questionRadios().stream().map(qr -> QuestionRadio.builder()
+                                .id(qr)
+                                .build()).toList());
+                    if (quizUpdateDTO.questionTexts() != null && !quizUpdateDTO.questionTexts().isEmpty())
+                        q.setQuestionTexts(quizUpdateDTO.questionTexts().stream().map(qt -> QuestionText.builder()
+                                .id(qt)
+                                .build()).toList());
                     return quizRepository.save(q);
                 })
                 .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NOT_FOUND));

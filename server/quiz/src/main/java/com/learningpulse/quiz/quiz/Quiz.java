@@ -73,8 +73,8 @@ public class Quiz implements Serializable {
     @JsonManagedReference("questionText-quiz")
     @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<QuestionText> questionTexts;
-    
-    @JsonManagedReference("quizAnswer-quiz")
-    @OneToOne(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private QuizAnswer quizAnswer;
+
+    @JsonManagedReference("quizAnswers-quiz")
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<QuizAnswer> quizAnswers;
 }

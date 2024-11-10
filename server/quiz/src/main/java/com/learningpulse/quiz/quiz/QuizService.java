@@ -9,7 +9,7 @@ import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollectionPair;
-import com.learningpulse.quiz.question.question_pair.model.QuestionPairOptions;
+import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollectionPairOptions;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
@@ -124,21 +124,19 @@ public class QuizService {
                     .title(q.title())
                     .build();
 
-            questionPairCollection.setQuestionPairCollectionPairs(q.questionPairCollectionPairs().stream().map(p -> {
+            questionPairCollection.setPairs(q.pairs().stream().map(p -> {
                 QuestionPairCollectionPair questionPairCollectionPair = QuestionPairCollectionPair.builder()
                         .createdBy(sub)
                         .belongsTo(questionPairCollection)
                         .build();
 
-                QuestionPairOptions left = QuestionPairOptions.builder()
+                QuestionPairCollectionPairOptions left = QuestionPairCollectionPairOptions.builder()
                         .content(p.left().content())
-                        .leftQuestionPairCollectionPair(questionPairCollectionPair)
                         .build();
                 questionPairCollectionPair.setLeft(left);
 
-                QuestionPairOptions right = QuestionPairOptions.builder()
+                QuestionPairCollectionPairOptions right = QuestionPairCollectionPairOptions.builder()
                         .content(p.right().content())
-                        .rightQuestionPairCollectionPair(questionPairCollectionPair)
                         .build();
                 questionPairCollectionPair.setRight(right);
 

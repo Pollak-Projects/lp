@@ -6,6 +6,6 @@ import java.util.List;
 
 public record QuestionPairCollectionEmbedCreateDTO(
         String title,
-        List<QuestionPairCollectionPairEmbedCreateDTO> questionPairCollectionPairs
+        List<QuestionPairCollectionPairEmbedCreateDTO> pairs
 ) {
 }

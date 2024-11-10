@@ -33,11 +33,11 @@ public class QuestionPairCollectionPair implements Serializable {
     //  but that's how it is in the database diagram
     @JsonManagedReference("left-questionPairCollectionPair")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_options_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private QuestionPairOptions left;
+    @PrimaryKeyJoinColumn(name = "question_options_id", referencedColumnName = "id")
+    private QuestionPairCollectionPairOptions left;
 
     @JsonManagedReference("right-questionPairCollectionPair")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_options_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private QuestionPairOptions right;
+    @PrimaryKeyJoinColumn(name = "question_options_id", referencedColumnName = "id")
+    private QuestionPairCollectionPairOptions right;
 }

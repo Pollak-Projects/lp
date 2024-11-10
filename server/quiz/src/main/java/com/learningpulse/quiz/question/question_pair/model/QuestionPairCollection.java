@@ -35,5 +35,5 @@ public class QuestionPairCollection implements Serializable {
 
     @JsonManagedReference("questionPairCollectionPair-questionPairCollection")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<QuestionPairCollectionPair> questionPairCollectionPairs;
+    private List<QuestionPairCollectionPair> pairs;
 }

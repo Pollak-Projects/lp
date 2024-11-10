@@ -8,6 +8,6 @@ import java.util.UUID;
 public record QuestionPairCollectionCreateDTO(
         UUID quizId,
         String title,
-        List<QuestionPairCollectionPairEmbedCreateDTO> questionPairCollectionPairs
+        List<QuestionPairCollectionPairEmbedCreateDTO> pairs
 ) {
 }

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record QuestionTextAnswerUpdateDTO(
         UUID questionTextId,
-        UUID belongsToId,
+        UUID quizAnswerId,
         String answer
 ) {
 }

@@ -3,7 +3,8 @@ package com.learningpulse.quiz.question_answer.question_text_answer.dto.question
 import java.util.UUID;
 
 public record QuestionTextAnswerCreateDTO(
-        UUID belongsToId,
+        UUID quizAnswerId,
+        UUID questionTextId,
         String answer
 ) {
 }

@@ -16,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,7 +33,7 @@ public class QuizAnswer implements Serializable {
     private UUID id;
 
     @JsonBackReference("quizAnswer-quiz")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "quiz_id", referencedColumnName = "id")
     private Quiz quiz;
 
@@ -44,25 +44,25 @@ public class QuizAnswer implements Serializable {
 
     @JsonManagedReference("questionTextAnswer-quizAnswer")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionTextAnswer> questionTextAnswers;
+    private List<QuestionTextAnswer> questionTextAnswers;
 
     @JsonManagedReference("questionRadioAnswer-quizAnswer")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionRadioAnswer> questionRadioAnswers;
+    private List<QuestionRadioAnswer> questionRadioAnswers;
 
     @JsonManagedReference("questionCheckboxAnswer-quizAnswer")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionCheckboxAnswer> questionCheckboxAnswers;
+    private List<QuestionCheckboxAnswer> questionCheckboxAnswers;
 
     @JsonManagedReference("questionFileAnswer-quizAnswer")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionFileAnswer> questionFileAnswers;
+    private List<QuestionFileAnswer> questionFileAnswers;
 
     @JsonManagedReference("questionOrderAnswer-quizAnswer")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionOrderAnswer> questionOrderAnswers;
+    private List<QuestionOrderAnswer> questionOrderAnswers;
 
     @JsonManagedReference("questionPairCollectionAnswer-quizAnswer")
     @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<QuestionPairCollectionAnswer> questionPairCollectionAnswers;
+    private List<QuestionPairCollectionAnswer> questionPairCollectionAnswers;
 }

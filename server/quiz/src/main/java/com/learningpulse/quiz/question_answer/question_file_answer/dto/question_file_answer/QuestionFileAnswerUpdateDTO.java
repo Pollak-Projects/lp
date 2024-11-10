@@ -7,6 +7,6 @@ public record QuestionFileAnswerUpdateDTO(
         UUID questionFileAnswerId,
         UUID quizAnswerId,
         UUID questionFileId,
-        UUID file
+        UUID fileId
 ) {
 }

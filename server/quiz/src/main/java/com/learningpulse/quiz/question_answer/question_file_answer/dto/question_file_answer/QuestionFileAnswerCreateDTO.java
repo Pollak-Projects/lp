@@ -6,6 +6,6 @@ import java.util.UUID;
 public record QuestionFileAnswerCreateDTO(
         UUID quizAnswerId,
         UUID questionFileId,
-        UUID file
+        UUID fileId
 ) {
 }

@@ -5,6 +5,6 @@ import java.util.UUID;
 // TODO when file is implemented
 public record QuestionFileAnswerEmbedCreateDTO(
         UUID questionFileId,
-        UUID file
+        UUID fileId
 ) {
 }

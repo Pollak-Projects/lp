@@ -1,9 +1,12 @@
 package com.learningpulse.quiz.quiz_answer;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
+import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckbox;
 import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckboxOptions;
 import com.learningpulse.quiz.question.question_file.model.QuestionFile;
+import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
+import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollectionPair;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
@@ -75,6 +78,7 @@ public class QuizAnswerService {
                 QuestionCheckboxAnswer questionCheckboxAnswer = QuestionCheckboxAnswer.builder()
                         .createdBy(sub)
                         .belongsTo(quizAnswer)
+                        .questionCheckbox(QuestionCheckbox.builder().id(qca.questionCheckboxId()).build())
                         .build();
 
                 questionCheckboxAnswer.setOptions(qca.options().stream().map(o -> QuestionCheckboxOptionsAnswer.builder()
@@ -94,6 +98,7 @@ public class QuizAnswerService {
                     .createdBy(sub)
                     .belongsTo(quizAnswer)
                     .questionFile(QuestionFile.builder().id(qfa.questionFileId()).build())
+                    .fileId(qfa.fileId())
                     .build()
             ).toList());
 
@@ -103,6 +108,7 @@ public class QuizAnswerService {
                 QuestionOrderAnswer questionOrderAnswer = QuestionOrderAnswer.builder()
                         .createdBy(sub)
                         .belongsTo(quizAnswer)
+                        .questionOrder(QuestionOrder.builder().id(qoa.questionOrderId()).build())
                         .build();
 
                 questionOrderAnswer.setOptions(qoa.options().stream().map(o -> QuestionOrderOptionsAnswer.builder()
@@ -121,9 +127,10 @@ public class QuizAnswerService {
                 QuestionPairCollectionAnswer questionPairCollectionAnswer = QuestionPairCollectionAnswer.builder()
                         .createdBy(sub)
                         .belongsTo(quizAnswer)
+                        .questionPairCollection(QuestionPairCollection.builder().id(qpca.questionPairCollectionId()).build())
                         .build();
 
-                questionPairCollectionAnswer.setPairs(qpca.pairs().stream().map(p -> {
+                questionPairCollectionAnswer.setAnswerPairs(qpca.pairs().stream().map(p -> {
                     QuestionPairCollectionPairAnswer questionPairCollectionPairAnswer = QuestionPairCollectionPairAnswer.builder()
                             .createdBy(sub)
                             .questionPairCollectionAnswer(questionPairCollectionAnswer)
@@ -131,12 +138,10 @@ public class QuizAnswerService {
                             .build();
 
                     questionPairCollectionPairAnswer.setLeft(QuestionPairCollectionPairOptionsAnswer.builder()
-                            .questionPairCollectionPairAnswer(questionPairCollectionPairAnswer)
                             .content(p.left().content())
                             .build());
 
                     questionPairCollectionPairAnswer.setRight(QuestionPairCollectionPairOptionsAnswer.builder()
-                            .questionPairCollectionPairAnswer(questionPairCollectionPairAnswer)
                             .content(p.right().content())
                             .build());
 

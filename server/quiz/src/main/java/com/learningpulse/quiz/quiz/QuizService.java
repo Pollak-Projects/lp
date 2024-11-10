@@ -98,6 +98,8 @@ public class QuizService {
             quiz.setQuestionFiles(quizFullCreateDTO.questionFiles().stream().map(q -> QuestionFile.builder()
                     .createdBy(sub)
                     .quiz(quiz)
+                    .title(q.title())
+                    .fileId(q.fileId())
                     .build()
             ).toList());
 

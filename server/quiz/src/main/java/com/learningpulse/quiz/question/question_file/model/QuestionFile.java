@@ -30,7 +30,7 @@ public class QuestionFile implements Serializable {
 
     // TODO actually add file entity to somewhere
     // UUID is only a placeholder
-    private UUID file;
+    private UUID fileId;
 
     private UUID createdBy;
 }

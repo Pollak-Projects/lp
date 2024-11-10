@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTION_PAIR_OPTIONS", schema = "quiz")
+@Table(name = "QUESTION_PAIR_collection_pair_OPTIONS", schema = "quiz")
 public class QuestionPairCollectionPairOptions implements Serializable {
     @Id
     @GeneratedValue

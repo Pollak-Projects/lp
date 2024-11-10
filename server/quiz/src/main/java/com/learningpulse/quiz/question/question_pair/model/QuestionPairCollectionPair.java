@@ -1,7 +1,6 @@
 package com.learningpulse.quiz.question.question_pair.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -31,13 +30,11 @@ public class QuestionPairCollectionPair implements Serializable {
 
     // FIXME this might be wrong, because the same column is used for both left and right,
     //  but that's how it is in the database diagram
-    @JsonManagedReference("left-questionPairCollectionPair")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "question_options_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_pair_collection_pair_left_options_id", referencedColumnName = "id")
     private QuestionPairCollectionPairOptions left;
 
-    @JsonManagedReference("right-questionPairCollectionPair")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "question_options_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_pair_collection_pair_right_options_id", referencedColumnName = "id")
     private QuestionPairCollectionPairOptions right;
 }

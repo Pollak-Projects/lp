@@ -3,7 +3,7 @@ package com.learningpulse.quiz.question_answer.question_order_answer.dto.questio
 import java.util.UUID;
 
 public record QuestionOrderOptionsAnswerEmbedCreateDTO(
-        UUID questionOptionsId,
-        Integer order
+        UUID questionOrderOptionsId,
+        Integer place
 ) {
 }

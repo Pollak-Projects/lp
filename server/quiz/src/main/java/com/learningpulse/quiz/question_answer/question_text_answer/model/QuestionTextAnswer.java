@@ -32,7 +32,7 @@ public class  QuestionTextAnswer implements Serializable {
     private QuizAnswer belongsTo;
 
     @JsonManagedReference("questionText-questionTextAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_text_id", referencedColumnName = "id")
     private QuestionText questionText;
 

@@ -28,10 +28,10 @@ public class QuestionPairCollectionPairAnswer implements Serializable {
     @JsonBackReference("questionPairCollectionPairAnswer-questionPairCollectionAnswer")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id")
-    private QuestionPairCollectionAnswer belongsTo;
+    private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 
     @JsonManagedReference("questionPairCollectionPair-questionPairCollectionPairAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_pair_collection_pair_id", referencedColumnName = "id")
     private QuestionPairCollectionPair questionPairCollectionPair;
 

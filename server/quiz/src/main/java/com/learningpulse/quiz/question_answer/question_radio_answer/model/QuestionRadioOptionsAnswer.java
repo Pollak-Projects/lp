@@ -31,7 +31,7 @@ public class QuestionRadioOptionsAnswer implements Serializable {
     private String answer;
 
     @JsonManagedReference("questionRadioOptions-questionRadioOptionsAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_radio_options_id", referencedColumnName = "id")
     private QuestionRadioOptions questionRadioOptions;
 

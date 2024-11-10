@@ -33,11 +33,11 @@ public class QuestionPairCollectionAnswer implements Serializable {
     private UUID createdBy;
 
     @JsonManagedReference("questionPairCollection-questionPairCollectionAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_pair_collection_id", referencedColumnName = "id")
     private QuestionPairCollection questionPairCollection;
 
     @JsonManagedReference("questionPairCollectionPairAnswer-questionPairCollectionAnswer")
-    @OneToMany(mappedBy = "belongsTo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "questionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<QuestionPairCollectionPairAnswer> pairs;
 }

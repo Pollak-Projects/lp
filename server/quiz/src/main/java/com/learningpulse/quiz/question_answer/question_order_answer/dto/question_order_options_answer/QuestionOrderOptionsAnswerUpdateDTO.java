@@ -5,7 +5,7 @@ import java.util.UUID;
 public record QuestionOrderOptionsAnswerUpdateDTO(
         UUID questionOrderOptionsAnswerId,
         UUID questionOrderAnswerId,
-        UUID questionOptionsId,
-        Integer order
+        UUID questionOrderOptionsId,
+        Integer place
 ) {
 }

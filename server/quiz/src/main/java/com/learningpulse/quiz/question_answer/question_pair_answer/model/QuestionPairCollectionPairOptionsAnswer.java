@@ -25,7 +25,7 @@ public class QuestionPairCollectionPairOptionsAnswer implements Serializable {
     @JsonBackReference("questionPairCollectionPairOptionsAnswer-questionPairCollectionPairAnswer")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn(name = "question_pair_collection_pair_answer_id", referencedColumnName = "id")
-    private QuestionPairCollectionAnswer belongsTo;
+    private QuestionPairCollectionPairAnswer questionPairCollectionPairAnswer;
 
     private String content;
 }

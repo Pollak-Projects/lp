@@ -29,7 +29,7 @@ public class QuestionOrderOptionsAnswer implements Serializable {
     private QuestionOrderAnswer questionOrderAnswer;
 
     @JsonManagedReference("questionOrderOptions-questionOrderOptionsAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_order_options_id", referencedColumnName = "id")
     private QuestionOrderOptions questionOrderOptions;
 

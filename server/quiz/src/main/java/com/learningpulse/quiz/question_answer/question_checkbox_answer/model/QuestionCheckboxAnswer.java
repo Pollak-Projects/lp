@@ -36,7 +36,7 @@ public class QuestionCheckboxAnswer implements Serializable {
     private List<QuestionCheckboxOptionsAnswer> options;
 
     @JsonManagedReference("questionCheckbox-questionCheckboxAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_checkbox_id", referencedColumnName = "id")
     private QuestionCheckbox questionCheckbox;
 

@@ -1,7 +1,9 @@
 package com.learningpulse.quiz.question_answer.question_file_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.learningpulse.quiz.question.question_file.model.QuestionFile;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
@@ -30,13 +32,14 @@ public class QuestionFileAnswer implements Serializable {
     @JoinColumn(name = "quiz_answer_id", referencedColumnName = "id")
     private QuizAnswer belongsTo;
 
-    @JsonManagedReference("questionFile-questionFileAnswer")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_file_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_file_answer_to_id", referencedColumnName = "id")
     private QuestionFile questionFile;
 
     private UUID createdBy;
 
     // TODO replace this with the actual File type
-    private UUID file;
+    private UUID fileId;
 }

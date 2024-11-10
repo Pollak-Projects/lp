@@ -1,7 +1,6 @@
 package com.learningpulse.quiz.question_answer.question_pair_answer.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
@@ -32,12 +31,13 @@ public class QuestionPairCollectionAnswer implements Serializable {
 
     private UUID createdBy;
 
-    @JsonManagedReference("questionPairCollection-questionPairCollectionAnswer")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_pair_collection_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_pair_collection_answer_to_id", referencedColumnName = "id")
     private QuestionPairCollection questionPairCollection;
 
     @JsonManagedReference("questionPairCollectionPairAnswer-questionPairCollectionAnswer")
     @OneToMany(mappedBy = "questionPairCollectionAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<QuestionPairCollectionPairAnswer> pairs;
+    private List<QuestionPairCollectionPairAnswer> answerPairs;
 }

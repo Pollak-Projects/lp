@@ -1,7 +1,9 @@
 package com.learningpulse.quiz.question_answer.question_pair_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollectionPair;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,18 +32,20 @@ public class QuestionPairCollectionPairAnswer implements Serializable {
     @JoinColumn(name = "question_pair_collection_answer_id", referencedColumnName = "id")
     private QuestionPairCollectionAnswer questionPairCollectionAnswer;
 
-    @JsonManagedReference("questionPairCollectionPair-questionPairCollectionPairAnswer")
+    // Gonna leave this here, if someone needs it
+    // @JsonIncludeProperties({"id"})
+    // @JsonProperty("questionPairCollectionPairId")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_pair_collection_pair_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_pair_collection_pair_answer_to_id", referencedColumnName = "id")
     private QuestionPairCollectionPair questionPairCollectionPair;
 
-    @JsonManagedReference("left-questionPairCollectionPairAnswer")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "QUESTION_PAIR_COLLECTION_PAIR_options_ANSWER_id", referencedColumnName = "id")
+    @JoinColumn(name = "QUESTION_PAIR_COLLECTION_PAIR_options_left_ANSWER_id", referencedColumnName = "id")
     private QuestionPairCollectionPairOptionsAnswer left;
 
-    @JsonManagedReference("right-questionPairCollectionPairAnswer")
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "QUESTION_PAIR_COLLECTION_PAIR_options_ANSWER_id", referencedColumnName = "id")
+    @JoinColumn(name = "QUESTION_PAIR_COLLECTION_PAIR_options_right_ANSWER_id", referencedColumnName = "id")
     private QuestionPairCollectionPairOptionsAnswer right;
 }

@@ -1,7 +1,9 @@
 package com.learningpulse.quiz.question_answer.question_checkbox_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckboxOptions;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,9 +30,10 @@ public class QuestionCheckboxOptionsAnswer implements Serializable {
     @JoinColumn(name = "question_checkbox_answer_id", referencedColumnName = "id")
     private QuestionCheckboxAnswer questionCheckboxAnswer;
 
-    @JsonManagedReference("questionCheckboxOptionsAnswer-questionCheckboxOptions")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_checkbox_options_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_checkbox_options_answer_to_id", referencedColumnName = "id")
     private QuestionCheckboxOptions questionCheckboxOptions;
 
     private Boolean answer;

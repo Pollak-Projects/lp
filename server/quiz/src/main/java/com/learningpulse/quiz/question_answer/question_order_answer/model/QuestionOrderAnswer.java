@@ -1,7 +1,6 @@
 package com.learningpulse.quiz.question_answer.question_order_answer.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
@@ -35,9 +34,10 @@ public class QuestionOrderAnswer implements Serializable {
     @OneToMany(mappedBy = "questionOrderAnswer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<QuestionOrderOptionsAnswer> options;
 
-    @JsonManagedReference("questionOrder-questionOrderAnswer")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_order_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_order_answer_to_id", referencedColumnName = "id")
     private QuestionOrder questionOrder;
 
     private UUID createdBy;

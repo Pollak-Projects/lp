@@ -1,7 +1,9 @@
 package com.learningpulse.quiz.question_answer.question_radio_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,9 +32,10 @@ public class QuestionRadioOptionsAnswer implements Serializable {
 
     private String answer;
 
-    @JsonManagedReference("questionRadioOptions-questionRadioOptionsAnswer")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_radio_options_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_radio_options_answer_to_id", referencedColumnName = "id")
     private QuestionRadioOptions questionRadioOptions;
 
     private UUID createdBy;

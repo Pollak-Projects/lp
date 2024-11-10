@@ -1,7 +1,9 @@
 package com.learningpulse.quiz.question_answer.question_text_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.learningpulse.quiz.question.question_text.model.QuestionText;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
@@ -31,9 +33,10 @@ public class  QuestionTextAnswer implements Serializable {
     @JoinColumn(name = "quiz_answer_id", referencedColumnName = "id")
     private QuizAnswer belongsTo;
 
-    @JsonManagedReference("questionText-questionTextAnswer")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @PrimaryKeyJoinColumn(name = "question_text_id", referencedColumnName = "id")
+    @JoinColumn(name = "question_text_answer_to_id", referencedColumnName = "id")
     private QuestionText questionText;
 
     private String answer;

@@ -2,6 +2,7 @@ package com.learningpulse.quiz.question_answer.question_file_answer.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.learningpulse.quiz.question.question_file.model.QuestionFile;
 import com.learningpulse.quiz.quiz_answer.QuizAnswer;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,9 +31,9 @@ public class QuestionFileAnswer implements Serializable {
     private QuizAnswer belongsTo;
 
     @JsonManagedReference("questionFile-questionFileAnswer")
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @PrimaryKeyJoinColumn(name = "question_file_id", referencedColumnName = "id")
-    private QuestionFileAnswer questionFile;
+    private QuestionFile questionFile;
 
     private UUID createdBy;
 

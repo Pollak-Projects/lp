@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.question.question_radio.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.question.question_radio.dto.question_radio.QuestionRadioCreateDTO;
+import com.learningpulse.quiz.question.question_radio.dto.question_radio.QuestionRadioUpdateDTO;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_radio.service.QuestionRadioService;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +39,13 @@ public class QuestionRadioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionRadio createQuestionRadio(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionRadio questionRadio) {
+    public QuestionRadio createQuestionRadio(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionRadioCreateDTO questionRadio) {
         return questionRadioService.createQuestionRadio(jwt.getSub(), questionRadio);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuestionRadio updateQuestionRadio(@RequestBody QuestionRadio questionRadio) {
+    public QuestionRadio updateQuestionRadio(@RequestBody QuestionRadioUpdateDTO questionRadio) {
         return questionRadioService.updateQuestionRadio(questionRadio);
     }
 

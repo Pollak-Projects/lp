@@ -1,8 +1,13 @@
 package com.learningpulse.quiz.question.question_pair.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
+import com.learningpulse.quiz.question.question_pair.dto.question_pair_collection_pair.QuestionPairCollectionPairCreateDTO;
+import com.learningpulse.quiz.question.question_pair.dto.question_pair_collection_pair.QuestionPairCollectionPairUpdateDTO;
+import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollection;
 import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollectionPair;
+import com.learningpulse.quiz.question.question_pair.model.QuestionPairCollectionPairOptions;
 import com.learningpulse.quiz.question.question_pair.repository.QuestionPairCollectionPairRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -42,14 +47,33 @@ public class QuestionPairCollectionPairService {
         return questionPairCollectionPairs;
     }
 
-    public QuestionPairCollectionPair createQuestionPairCollectionPair(UUID sub, @NotNull QuestionPairCollectionPair questionPairCollectionPair) {
-        questionPairCollectionPair.setCreatedBy(sub);
+    public QuestionPairCollectionPair createQuestionPairCollectionPair(UUID sub, @NotNull QuestionPairCollectionPairCreateDTO dto) {
+        QuestionPairCollectionPair questionPairCollectionPair = QuestionPairCollectionPair.builder()
+                .createdBy(sub)
+                .belongsTo(QuestionPairCollection.builder().id(dto.belongsToQuestionPairCollectionId()).build())
+                .left(QuestionPairCollectionPairOptions.builder()
+                        .content(dto.left().content()).build())
+                .right(QuestionPairCollectionPairOptions.builder()
+                        .content(dto.right().content()).build())
+                .build();
+
         return questionPairCollectionPairRepository.save(questionPairCollectionPair);
     }
 
-    public QuestionPairCollectionPair updateQuestionPairCollectionPair(@NotNull QuestionPairCollectionPair questionPairCollectionPair) {
-        return questionPairCollectionPairRepository.findById(questionPairCollectionPair.getId())
-                .map(q -> questionPairCollectionPairRepository.save(questionPairCollectionPair))
+    @Transactional
+    public QuestionPairCollectionPair updateQuestionPairCollectionPair(@NotNull QuestionPairCollectionPairUpdateDTO dto) {
+        return questionPairCollectionPairRepository.findById(dto.questionPairCollectionPairId())
+                .map(q -> {
+                    if (dto.belongsToQuestionPairCollectionId() != null)
+                        q.setBelongsTo(QuestionPairCollection.builder().id(dto.belongsToQuestionPairCollectionId()).build());
+                    if (dto.rightQuestionPairOptionsId() != null)
+                        q.setLeft(QuestionPairCollectionPairOptions.builder()
+                                .id(dto.leftQuestionPairOptionsId()).build());
+                    if (dto.rightQuestionPairOptionsId() != null)
+                        q.setRight(QuestionPairCollectionPairOptions.builder()
+                                .id(dto.rightQuestionPairOptionsId()).build());
+                    return questionPairCollectionPairRepository.save(q);
+                })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionPair not found", HttpStatus.NOT_FOUND));
     }
 

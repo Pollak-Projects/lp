@@ -7,6 +7,6 @@ public record QuestionCheckboxUpdateDTO(
         UUID questionCheckboxId,
         UUID quizId,
         String title,
-        List<UUID> optionIds
+        List<UUID> options
 ) {
 }

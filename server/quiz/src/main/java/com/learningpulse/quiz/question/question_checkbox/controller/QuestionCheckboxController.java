@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.question.question_checkbox.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.question.question_checkbox.dto.question_checkbox.QuestionCheckboxCreateDTO;
+import com.learningpulse.quiz.question.question_checkbox.dto.question_checkbox.QuestionCheckboxUpdateDTO;
 import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckbox;
 import com.learningpulse.quiz.question.question_checkbox.service.QuestionCheckboxService;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +39,13 @@ public class QuestionCheckboxController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionCheckbox createQuestionCheckbox(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionCheckbox questionCheckbox) {
+    public QuestionCheckbox createQuestionCheckbox(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionCheckboxCreateDTO questionCheckbox) {
         return questionCheckboxService.createQuestionCheckbox(jwt.getSub(), questionCheckbox);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuestionCheckbox updateQuestionCheckbox(@RequestBody QuestionCheckbox questionCheckbox) {
+    public QuestionCheckbox updateQuestionCheckbox(@RequestBody QuestionCheckboxUpdateDTO questionCheckbox) {
         return questionCheckboxService.updateQuestionCheckbox(questionCheckbox);
     }
 

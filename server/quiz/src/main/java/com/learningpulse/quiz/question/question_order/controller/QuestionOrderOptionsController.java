@@ -1,15 +1,14 @@
 package com.learningpulse.quiz.question.question_order.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
-import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.question.question_order.dto.question_order_options.QuestionOrderOptionsCreateDTO;
+import com.learningpulse.quiz.question.question_order.dto.question_order_options.QuestionOrderOptionsUpdateDTO;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
 import com.learningpulse.quiz.question.question_order.service.QuestionOrderOptionsService;
-import com.learningpulse.quiz.question.question_order.model.QuestionOrderOptions;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,13 +39,13 @@ public class QuestionOrderOptionsController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionOrderOptions createQuestionOrderOptions(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionOrderOptions questionOrderOptions) {
+    public QuestionOrderOptions createQuestionOrderOptions(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionOrderOptionsCreateDTO questionOrderOptions) {
         return questionOrderOptionsService.createQuestionOrderOptions(jwt.getSub(), questionOrderOptions);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuestionOrderOptions updateQuestionOrderOptions(@RequestBody QuestionOrderOptions questionOrderOptions) {
+    public QuestionOrderOptions updateQuestionOrderOptions(@RequestBody QuestionOrderOptionsUpdateDTO questionOrderOptions) {
         return questionOrderOptionsService.updateQuestionOrderOptions(questionOrderOptions);
     }
 

@@ -7,6 +7,6 @@ public record QuestionOrderUpdateDTO(
         UUID questionOrderId,
         UUID quizId,
         String title,
-        List<UUID> optionIds
+        List<UUID> options
 ) {
 }

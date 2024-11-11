@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.question.question_order.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.question.question_order.dto.question_order.QuestionOrderCreateDTO;
+import com.learningpulse.quiz.question.question_order.dto.question_order.QuestionOrderUpdateDTO;
 import com.learningpulse.quiz.question.question_order.model.QuestionOrder;
 import com.learningpulse.quiz.question.question_order.service.QuestionOrderService;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +39,13 @@ public class QuestionOrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionOrder createQuestionOrder(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionOrder questionOrder) {
+    public QuestionOrder createQuestionOrder(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionOrderCreateDTO questionOrder) {
         return questionOrderService.createQuestionOrder(jwt.getSub(), questionOrder);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuestionOrder updateQuestionOrder(@RequestBody QuestionOrder questionOrder) {
+    public QuestionOrder updateQuestionOrder(@RequestBody QuestionOrderUpdateDTO questionOrder) {
         return questionOrderService.updateQuestionOrder(questionOrder);
     }
 

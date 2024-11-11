@@ -7,6 +7,6 @@ public record QuestionPairCollectionUpdateDTO(
         UUID questionPairCollectionId,
         UUID quizId,
         String title,
-        List<UUID> questionPairCollectionPairIds
+        List<UUID> pairs
 ) {
 }

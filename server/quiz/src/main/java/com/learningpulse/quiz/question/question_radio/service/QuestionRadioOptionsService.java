@@ -1,8 +1,12 @@
 package com.learningpulse.quiz.question.question_radio.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
+import com.learningpulse.quiz.question.question_radio.dto.question_radio_options.QuestionRadioOptionsCreateDTO;
+import com.learningpulse.quiz.question.question_radio.dto.question_radio_options.QuestionRadioOptionsUpdateDTO;
+import com.learningpulse.quiz.question.question_radio.model.QuestionRadio;
 import com.learningpulse.quiz.question.question_radio.model.QuestionRadioOptions;
 import com.learningpulse.quiz.question.question_radio.repository.QuestionRadioOptionsRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -35,14 +39,26 @@ public class QuestionRadioOptionsService {
         return questionRadioOptions;
     }
 
-    public QuestionRadioOptions createQuestionRadioOptions(UUID sub, @NotNull QuestionRadioOptions questionRadioOptions) {
-        questionRadioOptions.setCreatedBy(sub);
+    public QuestionRadioOptions createQuestionRadioOptions(UUID sub, @NotNull QuestionRadioOptionsCreateDTO dto) {
+        QuestionRadioOptions questionRadioOptions = QuestionRadioOptions.builder()
+                .createdBy(sub)
+                .questionRadio(QuestionRadio.builder().id(dto.questionRadioId()).build())
+                .title(dto.title())
+                .answer(dto.answer())
+                .build();
         return questionRadioOptionsRepository.save(questionRadioOptions);
     }
 
-    public QuestionRadioOptions updateQuestionRadioOptions(@NotNull QuestionRadioOptions questionRadioOptions) {
-        return questionRadioOptionsRepository.findById(questionRadioOptions.getId())
-                .map(q -> questionRadioOptionsRepository.save(questionRadioOptions))
+    // FIXME if answer is not defined in the request, it will be set to as false
+    @Transactional
+    public QuestionRadioOptions updateQuestionRadioOptions(@NotNull QuestionRadioOptionsUpdateDTO dto) {
+        return questionRadioOptionsRepository.findById(dto.questionRadioOptionsId())
+                .map(q -> {
+                    if (dto.title() != null)
+                        q.setTitle(dto.title());
+                    q.setAnswer(dto.answer());
+                    return questionRadioOptionsRepository.save(q);
+                })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptions not found", HttpStatus.NOT_FOUND));
     }
 

@@ -1,8 +1,12 @@
 package com.learningpulse.quiz.question.question_checkbox.service;
 
 import com.learningpulse.quiz.exception.HttpStatusCodeException;
+import com.learningpulse.quiz.question.question_checkbox.dto.question_checkbox_options.QuestionCheckboxOptionsCreateDTO;
+import com.learningpulse.quiz.question.question_checkbox.dto.question_checkbox_options.QuestionCheckboxOptionsUpdateDTO;
+import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckbox;
 import com.learningpulse.quiz.question.question_checkbox.model.QuestionCheckboxOptions;
 import com.learningpulse.quiz.question.question_checkbox.repository.QuestionCheckboxOptionsRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpStatus;
@@ -35,14 +39,28 @@ public class QuestionCheckboxOptionsService {
         return questionCheckboxOptions;
     }
 
-    public QuestionCheckboxOptions createQuestionCheckboxOptions(UUID sub, @NotNull QuestionCheckboxOptions questionCheckboxOptions) {
-        questionCheckboxOptions.setCreatedBy(sub);
+    public QuestionCheckboxOptions createQuestionCheckboxOptions(UUID sub, @NotNull QuestionCheckboxOptionsCreateDTO questionCheckboxOptionsCreateDTO) {
+        QuestionCheckboxOptions questionCheckboxOptions = QuestionCheckboxOptions.builder()
+                .createdBy(sub)
+                .questionCheckbox(QuestionCheckbox.builder().id(questionCheckboxOptionsCreateDTO.questionCheckboxId()).build())
+                .name(questionCheckboxOptionsCreateDTO.name())
+                .answer(questionCheckboxOptionsCreateDTO.answer())
+                .build();
         return questionCheckboxOptionsRepository.save(questionCheckboxOptions);
     }
 
-    public QuestionCheckboxOptions updateQuestionCheckboxOptions(@NotNull QuestionCheckboxOptions questionCheckboxOptions) {
-        return questionCheckboxOptionsRepository.findById(questionCheckboxOptions.getId())
-                .map(q -> questionCheckboxOptionsRepository.save(questionCheckboxOptions))
+    @Transactional
+    public QuestionCheckboxOptions updateQuestionCheckboxOptions(@NotNull QuestionCheckboxOptionsUpdateDTO dto) {
+        return questionCheckboxOptionsRepository.findById(dto.questionCheckboxOptionId())
+                .map(q -> {
+                    if (dto.questionCheckboxId() != null)
+                        q.setQuestionCheckbox(QuestionCheckbox.builder().id(dto.questionCheckboxId()).build());
+                    if (dto.name() != null)
+                        q.setName(dto.name());
+                    if (dto.answer() != null)
+                        q.setAnswer(dto.answer());
+                    return questionCheckboxOptionsRepository.save(q);
+                })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptions not found", HttpStatus.NOT_FOUND));
     }
 

@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.question.question_file.controller;
 
 import com.learningpulse.quiz.external.UserDTO;
+import com.learningpulse.quiz.question.question_file.dto.question_file.QuestionFileCreateDTO;
+import com.learningpulse.quiz.question.question_file.dto.question_file.QuestionFileUpdateDTO;
 import com.learningpulse.quiz.question.question_file.model.QuestionFile;
 import com.learningpulse.quiz.question.question_file.service.QuestionFileService;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +32,13 @@ public class QuestionFileController {
 
     @PostMapping("/")
     @ResponseBody
-    public Mono<QuestionFile> createQuestionFile(@RequestBody QuestionFile questionFile) {
+    public Mono<QuestionFile> createQuestionFile(@RequestBody QuestionFileCreateDTO questionFile) {
         return null;
     }
 
     @PutMapping("/")
     @ResponseBody
-    public Mono<QuestionFile> updateQuestionFile(@RequestBody QuestionFile questionFile) {
+    public Mono<QuestionFile> updateQuestionFile(@RequestBody QuestionFileUpdateDTO questionFile) {
         return null;
     }
 

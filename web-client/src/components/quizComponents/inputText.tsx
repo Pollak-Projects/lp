@@ -1,4 +1,4 @@
-import { QuestionText } from "@/src/types/questionText";
+import { QuestionText } from "@/src/types/question/questionTexts";
 import { Textarea } from "@nextui-org/input";
 import { useState } from "react";
 

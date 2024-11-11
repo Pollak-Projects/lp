@@ -1,4 +1,4 @@
-import { QuestionOrder } from "@/src/types/questionOrder";
+import { QuestionOrder } from "@/src/types/question/questionOrders";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function InputOrder({ question }: { question: QuestionOrder }) {
@@ -63,6 +63,10 @@ export default function InputOrder({ question }: { question: QuestionOrder }) {
       </div>
     );
   });
+
+  if (loading) {
+    return <div>Loading...</div>; // Optionally, display a loading state while shuffling
+  }
 
   return (
     <>

@@ -1,27 +1,21 @@
 "use client";
-import InputRadio from "@/src/components/quizComponents/inputRadio";
-import InputCheck from "@/src/components/quizComponents/inputCheck";
-import InputOrder from "@/src/components/quizComponents/inputOrder";
-import InputText from "@/src/components/quizComponents/inputText";
-import { QuestionRadio } from "@/src/types/questionRadio";
-import { QuestionOrder } from "@/src/types/questionOrder";
-import { QuestionCheck } from "@/src/types/questionCheck";
-import { QuestionText } from "@/src/types/questionText";
-import { v4 as uuidv4 } from "uuid";
 import NextLink from "next/link";
-import React from "react";
-import { QuestionPair } from "@/src/types/questionPair";
-import InputPair from "@/src/components/quizComponents/inputPair";
+import React, { useState } from "react";
+
 import QuizSidebar from "@/src/components/quizComponents/quizSidebar";
-import { QuizData } from "@/src/types/quizData";
-import QuizTitle from "@/src/components/quizComponents/quizTitle";
+
+import { QuestionTextAnswers } from "@/src/types/questionAnswer/questionTextAnswers";
+import { QuestionRadioAnswers } from "@/src/types/questionAnswer/questionRadioAnswers";
+import { QuestionPairCollectionAnswers } from "@/src/types/questionAnswer/questionPairCollectionAnswers";
+import { PairCollectionAnswers} from "@/src/types/questionAnswer/pairCollection/pairCollectionAnswers";
+import { QuestionOrderAnswers } from "@/src/types/questionAnswer/questionOrderAnswers";
+import { QuestionFileAnswers } from "@/src/types/questionAnswer/questionFileAnswers";
+import { QuestionCheckboxAnswers } from "@/src/types/questionAnswer/questionCheckboxAnswers";
 
 
+export default function Quiz() {
 
-
-
-export default function Home() {
-
+  /*
   const QuizDummyData: QuizData = {
     title: "My ass is a dummy quiz",
     description: "this is some dumb ss dummy quiz, please do not pay any attention whatsoever to the typos in this page as there is a lot of them, if you find them all you will get candy",
@@ -100,34 +94,52 @@ export default function Home() {
     comment: "Pair them. Even a monkey could do it"
   }
 
+   */
+
+
+  const [QuizFileAnswers, setQuizFileAnswers] = useState(Array<QuestionFileAnswers>);
+  const [QuizTextAnswers, setQuizTextAnswers] = useState(Array<QuestionTextAnswers>);
+
+  const [QuizRadioAnswers, setQuizRadioAnswers] = useState(Array<QuestionRadioAnswers>);
+  const [QuizOrderAnswers, setQuizOrderAnswers] = useState(Array<QuestionOrderAnswers>);
+  const [QuizCheckboxAnswers, setQuizCheckboxAnswers] = useState(Array<QuestionCheckboxAnswers>);
+
+  const [QuizPairCollectionAnswers, setQuizPairCollectionAnswers] = useState(Array<QuestionPairCollectionAnswers>);
+  const [PairCollectionAnswers, setPairCollectionAnswers] = useState(Array<PairCollectionAnswers>);
+
+
 
 
   return (
     <>
       <section
         className={
-          "flex flex-row h-fit gap-4 items-center justify-center "
+          "flex flex-row h-fit mx-1 gap-4 py-1 items-center justify-center "
         }
       >
         <section
-          className={"w-1/5 bg-content1-opacity15 h-[98.4vh] p-1 rounded-md"}
+          className={"w-1/5 flex flex-col gap-2 bg-content1-opacity15 h-[99vh] p-1 rounded-md"}
         >
+          {/*
           <QuizTitle QuizDummyData={QuizDummyData} />
 
+          <QuizSubmit QuizDummyData={QuizDummyData} />
+          */}
         </section>
         <section
           className={
-            "w-3/5 bg-content1-opacity15 h-[98.4vh] p-1 rounded-md overflow-scroll"
+            "w-3/5 bg-content1-opacity15 h-[99vh] p-1 rounded-md overflow-scroll"
           }
         >
           <div className="w-full flex h-fit flex-col items-center justify-center mb-2 px-4 gap-4 ">
             <NextLink
-              href="/"
+              href="/public"
               //style={{color: "#006FEE"}}
             >
               Go back
             </NextLink>
-            {/*<h1>{Radio}</h1>*/}
+            {/*
+
             <InputText question={TextDummyData}/>
 
             <InputRadio question={RadioDummyData} />
@@ -137,13 +149,15 @@ export default function Home() {
             <InputOrder question={OrderDummyData} />
 
             <InputPair question={PairDummyData} />
+            */}
           </div>
         </section>
         <section
-          className={"w-1/5 bg-content1-opacity15 p-1 h-[98.4vh] rounded-md"}
+          className={"w-1/5 bg-content1-opacity15 p-1 h-[99vh] rounded-md"}
         >
           <QuizSidebar />
         </section>
+
       </section>
     </>
   );

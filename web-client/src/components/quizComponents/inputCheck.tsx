@@ -1,5 +1,5 @@
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
-import { QuestionCheck } from "@/src/types/questionCheck";
+import { QuestionCheck } from "@/src/types/question/questionCheckboxes";
 import React, { useState } from "react";
 
 export default function InputCheck({ question }: { question: QuestionCheck }) {

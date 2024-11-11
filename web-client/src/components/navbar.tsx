@@ -29,7 +29,7 @@ export const Navbar = ({ loggedIn }: { loggedIn: boolean }) => {
               </NextLink>
             </NavbarItem>
             <NavbarItem>
-              <NextLink className={"align-middle"} href={"/quiz"}>
+              <NextLink className={"align-middle"} href={"/quizSelect"}>
                 Quiz
               </NextLink>
             </NavbarItem>

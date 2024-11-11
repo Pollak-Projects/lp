@@ -6,6 +6,9 @@ import { Providers } from "./providers";
 
 import { Navbar } from "@/src/components/navbar";
 import GlobalStyles from "@/src/components/globalStyles";
+import IfOnlyWeKnewTheSufferingThatWouldBefallUsNext
+  from "@/src/components/ifOnlyWeKnewTheSufferingThatWouldBefallUsNext";
+import React from "react";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -27,6 +30,9 @@ export default function RootLayout({
       </head>
       <body className={"bg-gradient-to-tl from-violet-600 from-0% via-black via-50% to-blue-500 to-100% bg-cover bg-center min-h-[100dvh]"}>
         <main className={"select-none m-0"}>
+          <div className={"text-center"}>
+            <IfOnlyWeKnewTheSufferingThatWouldBefallUsNext/>
+          </div>
           <Providers>{children}</Providers>
         </main>
       </body>

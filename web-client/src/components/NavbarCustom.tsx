@@ -1,14 +1,24 @@
+"use client";
+
 import {
   Navbar as NextUINavbar,
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/navbar";
 import NextLink from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Avatar } from "@nextui-org/avatar";
+import { auth } from "@/src/auth";
+import { useSession } from "next-auth/react";
 
-export const Navbar = ({ loggedIn }: { loggedIn: boolean }) => {
+export const NavbarCustom = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  // useEffect(() => {
+  //    setLoggedIn(useSession().status === "authenticated")
+  // }, []);
+
   return (
     <>
       <NextUINavbar
@@ -31,6 +41,12 @@ export const Navbar = ({ loggedIn }: { loggedIn: boolean }) => {
             <NavbarItem>
               <NextLink className={"align-middle"} href={"/quizSelect"}>
                 Quiz
+              </NextLink>
+            </NavbarItem>
+            <NavbarItem>
+              {/*THIS IS TEMPORARY*/}
+              <NextLink className={"align-middle"} href={"/quiz-create"}>
+                QuizCreate
               </NextLink>
             </NavbarItem>
           </ul>

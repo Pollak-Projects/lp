@@ -1,5 +1,5 @@
 import LoginForm from "@/src/components/login-form";
-import { Navbar } from "@/src/components/navbar";
+import { NavbarCustom } from "@/src/components/NavbarCustom";
 import { auth } from "@/src/auth";
 
 export default async function LoginPage() {
@@ -11,7 +11,7 @@ export default async function LoginPage() {
     <main>
       <section className={"pt-2"}>
         <div>
-          <Navbar loggedIn={!loggedIn} />
+          <NavbarCustom/>
           <LoginForm />
         </div>
       </section>

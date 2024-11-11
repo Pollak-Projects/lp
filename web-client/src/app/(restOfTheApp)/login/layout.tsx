@@ -3,7 +3,7 @@ import { Viewport } from "next";
 
 import { Providers } from "@/src/app/providers";
 
-import { Navbar } from "@/src/components/navbar";
+import { NavbarCustom } from "@/src/components/NavbarCustom";
 
 export default function RootLayout({
   children,

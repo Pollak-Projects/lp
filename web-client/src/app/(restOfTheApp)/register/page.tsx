@@ -1,4 +1,4 @@
-import { Navbar } from "@/src/components/navbar";
+import { NavbarCustom } from "@/src/components/NavbarCustom";
 import { auth } from "@/src/auth";
 import RegisterForm from "@/src/components/register-form";
 
@@ -10,7 +10,7 @@ export default async function RegisterPage() {
   return (
     <main>
       <div>
-        <Navbar loggedIn={!loggedIn} />
+        <NavbarCustom loggedIn={!loggedIn} />
         <RegisterForm />
       </div>
     </main>

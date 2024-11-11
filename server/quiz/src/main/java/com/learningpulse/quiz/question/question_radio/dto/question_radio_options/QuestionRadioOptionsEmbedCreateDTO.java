@@ -2,6 +2,6 @@ package com.learningpulse.quiz.question.question_radio.dto.question_radio_option
 
 public record QuestionRadioOptionsEmbedCreateDTO(
         String title,
-        boolean answer
+        Boolean answer
 ) {
 }

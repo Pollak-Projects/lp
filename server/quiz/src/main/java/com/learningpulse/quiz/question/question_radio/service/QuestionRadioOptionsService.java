@@ -49,14 +49,14 @@ public class QuestionRadioOptionsService {
         return questionRadioOptionsRepository.save(questionRadioOptions);
     }
 
-    // FIXME if answer is not defined in the request, it will be set to as false
     @Transactional
     public QuestionRadioOptions updateQuestionRadioOptions(@NotNull QuestionRadioOptionsUpdateDTO dto) {
         return questionRadioOptionsRepository.findById(dto.questionRadioOptionsId())
                 .map(q -> {
                     if (dto.title() != null)
                         q.setTitle(dto.title());
-                    q.setAnswer(dto.answer());
+                    if (dto.answer() != null)
+                        q.setAnswer(dto.answer());
                     return questionRadioOptionsRepository.save(q);
                 })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptions not found", HttpStatus.NOT_FOUND));

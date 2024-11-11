@@ -5,6 +5,6 @@ import java.util.UUID;
 public record QuestionRadioOptionsCreateDTO(
         UUID questionRadioId,
         String title,
-        boolean answer
+        Boolean answer
 ) {
 }

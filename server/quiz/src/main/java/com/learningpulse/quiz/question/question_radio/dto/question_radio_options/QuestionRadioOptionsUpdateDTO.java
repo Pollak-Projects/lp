@@ -6,6 +6,6 @@ public record QuestionRadioOptionsUpdateDTO(
         UUID questionRadioOptionsId,
         UUID questionRadioId,
         String title,
-        boolean answer
+        Boolean answer
 ) {
 }

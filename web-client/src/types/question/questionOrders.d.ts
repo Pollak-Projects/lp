@@ -2,14 +2,14 @@ export interface QuestionOrders {
   id: string,
   quiz: string,
   title: string,
-  options: [
+  options: Array<
     {
       id: string,
       questionOrder: string,
       title: string,
-      place: 0,
+      place: number,
       createdBy: string
     }
-  ],
+  >,
   createdBy: string
 }

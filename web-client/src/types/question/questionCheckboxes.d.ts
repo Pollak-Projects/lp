@@ -2,14 +2,15 @@ export interface QuestionCheckboxes {
   id: string,
   quiz: string,
   title: string,
-  options: [
+  options: Array<
     {
       id: string,
       questionCheckbox: string,
       name: string,
-      answer: true,
+      answer: boolean,
       createdBy: string
-    }
-  ],
+    }>
+  ,
   createdBy: string
+
 }

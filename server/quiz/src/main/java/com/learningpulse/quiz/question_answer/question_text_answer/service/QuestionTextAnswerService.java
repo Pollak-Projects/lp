@@ -44,12 +44,11 @@ public class QuestionTextAnswerService {
         return questionTextAnswers;
     }
 
-    // sub can be used if we want to add an updatedBy field
     public QuestionTextAnswer createQuestionTextAnswer(UUID sub, @NotNull QuestionTextAnswerCreateDTO questionTextAnswerDTO) {
         QuestionTextAnswer questionTextAnswer = QuestionTextAnswer.builder()
-                .answer(questionTextAnswerDTO.answer())
                 .createdBy(sub)
                 .belongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.quizAnswerId()).build())
+                .answer(questionTextAnswerDTO.answer())
                 .build();
         return questionTextAnswerRepository.save(questionTextAnswer);
     }
@@ -57,8 +56,10 @@ public class QuestionTextAnswerService {
     public QuestionTextAnswer updateQuestionTextAnswer(@NotNull QuestionTextAnswerUpdateDTO questionTextAnswerDTO) {
         return questionTextAnswerRepository.findById(questionTextAnswerDTO.questionTextId())
                 .map(q -> {
-                    q.setAnswer(questionTextAnswerDTO.answer());
-                    q.setBelongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.quizAnswerId()).build());
+                    if (questionTextAnswerDTO.quizAnswerId() != null)
+                        q.setBelongsTo(QuizAnswer.builder().id(questionTextAnswerDTO.quizAnswerId()).build());
+                    if (questionTextAnswerDTO.answer() != null)
+                        q.setAnswer(questionTextAnswerDTO.answer());
                     return q;
                 })
                 .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));

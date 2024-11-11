@@ -1,6 +1,8 @@
 package com.learningpulse.quiz.question_answer.question_pair_answer.controller;
 
 import com.learningpulse.quiz.config.KeycloakJwt;
+import com.learningpulse.quiz.question_answer.question_pair_answer.dto.question_pair_collection_answer.QuestionPairCollectionAnswerCreateDTO;
+import com.learningpulse.quiz.question_answer.question_pair_answer.dto.question_pair_collection_answer.QuestionPairCollectionAnswerUpdateDTO;
 import com.learningpulse.quiz.question_answer.question_pair_answer.model.QuestionPairCollectionAnswer;
 import com.learningpulse.quiz.question_answer.question_pair_answer.service.QuestionPairCollectionAnswerService;
 import lombok.RequiredArgsConstructor;
@@ -37,13 +39,13 @@ public class QuestionPairCollectionAnswerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public QuestionPairCollectionAnswer createQuestionPairCollectionAnswer(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionPairCollectionAnswer questionPairCollectionAnswer) {
+    public QuestionPairCollectionAnswer createQuestionPairCollectionAnswer(@AuthenticationPrincipal KeycloakJwt jwt, @RequestBody QuestionPairCollectionAnswerCreateDTO questionPairCollectionAnswer) {
         return questionPairCollectionAnswerService.createQuestionPairCollectionAnswer(jwt.getSub(), questionPairCollectionAnswer);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public QuestionPairCollectionAnswer updateQuestionPairCollectionAnswer(@RequestBody QuestionPairCollectionAnswer questionPairCollectionAnswer) {
+    public QuestionPairCollectionAnswer updateQuestionPairCollectionAnswer(@RequestBody QuestionPairCollectionAnswerUpdateDTO questionPairCollectionAnswer) {
         return questionPairCollectionAnswerService.updateQuestionPairCollectionAnswer(questionPairCollectionAnswer);
     }
 

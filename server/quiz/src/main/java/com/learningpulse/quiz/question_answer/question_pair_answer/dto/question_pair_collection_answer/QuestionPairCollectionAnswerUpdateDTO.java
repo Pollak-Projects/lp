@@ -9,6 +9,6 @@ public record QuestionPairCollectionAnswerUpdateDTO(
         UUID questionPairCollectionAnswerId,
         UUID quizAnswerId,
         UUID questionPairCollectionId,
-        List<QuestionPairCollectionPairAnswerEmbedCreateDTO> pairs
+        List<UUID> pairs
 ) {
 }

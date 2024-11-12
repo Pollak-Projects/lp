@@ -1,4 +1,4 @@
-"use client"
+
 import QuizCreateSidebar from "@/src/components/QuizCreateComponents/QuizCreateSidebar";
 import React from "react";
 import { NavbarCustom } from "@/src/components/NavbarCustom";

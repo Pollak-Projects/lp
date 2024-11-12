@@ -11,6 +11,8 @@ import { PairCollectionAnswers} from "@/src/types/questionAnswer/pairCollection/
 import { QuestionOrderAnswers } from "@/src/types/questionAnswer/questionOrderAnswers";
 import { QuestionFileAnswers } from "@/src/types/questionAnswer/questionFileAnswers";
 import { QuestionCheckboxAnswers } from "@/src/types/questionAnswer/questionCheckboxAnswers";
+import { useSession } from "next-auth/react";
+import { auth } from "@/src/auth";
 
 
 export default function Quiz() {
@@ -96,10 +98,12 @@ export default function Quiz() {
 
    */
 
+  await auth()
 
   const [QuizFileAnswers, setQuizFileAnswers] = useState(Array<QuestionFileAnswers>);
   const [QuizTextAnswers, setQuizTextAnswers] = useState(Array<QuestionTextAnswers>);
 
+  console.log(useSession())
   const [QuizRadioAnswers, setQuizRadioAnswers] = useState(Array<QuestionRadioAnswers>);
   const [QuizOrderAnswers, setQuizOrderAnswers] = useState(Array<QuestionOrderAnswers>);
   const [QuizCheckboxAnswers, setQuizCheckboxAnswers] = useState(Array<QuestionCheckboxAnswers>);

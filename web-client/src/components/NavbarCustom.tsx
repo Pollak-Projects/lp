@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Navbar as NextUINavbar,
@@ -15,10 +15,16 @@ import { useSession } from "next-auth/react";
 export const NavbarCustom = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
-  // useEffect(() => {
-  //    setLoggedIn(useSession().status === "authenticated")
-  // }, []);
+/*
+  useEffect(() => {
+    async function checkLogin(){
 
+      const session = (await auth()) ?? false;
+      setLoggedIn(!!session);
+    }
+    checkLogin();
+   }, []);
+*/
   return (
     <>
       <NextUINavbar

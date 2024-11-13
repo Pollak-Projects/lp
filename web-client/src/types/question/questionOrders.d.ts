@@ -1,4 +1,6 @@
-export interface QuestionOrders {
+import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
+
+export interface QuestionOrdersDTO {
   id: string,
   quiz: string,
   title: string,

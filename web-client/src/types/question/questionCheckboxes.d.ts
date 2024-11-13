@@ -1,4 +1,4 @@
-export interface QuestionCheckboxes {
+export interface QuestionCheckboxesDTO {
   id: string,
   quiz: string,
   title: string,

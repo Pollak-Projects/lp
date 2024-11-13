@@ -1,168 +1,371 @@
-"use client";
-import NextLink from "next/link";
-import React, { useState } from "react";
 
-import QuizSidebar from "@/src/components/quizComponents/quizSidebar";
+import React from "react";
 
-import { QuestionTextAnswers } from "@/src/types/questionAnswer/questionTextAnswers";
-import { QuestionRadioAnswers } from "@/src/types/questionAnswer/questionRadioAnswers";
-import { QuestionPairCollectionAnswers } from "@/src/types/questionAnswer/questionPairCollectionAnswers";
-import { PairCollectionAnswers} from "@/src/types/questionAnswer/pairCollection/pairCollectionAnswers";
-import { QuestionOrderAnswers } from "@/src/types/questionAnswer/questionOrderAnswers";
-import { QuestionFileAnswers } from "@/src/types/questionAnswer/questionFileAnswers";
-import { QuestionCheckboxAnswers } from "@/src/types/questionAnswer/questionCheckboxAnswers";
-import { useSession } from "next-auth/react";
-import { auth } from "@/src/auth";
+import QuizPage from "@/src/components/quizPage/quizPage";
+import { QuizDataDTO } from "@/src/types/question/quizData";
+
 
 
 export default function Quiz() {
 
-  /*
-  const QuizDummyData: QuizData = {
-    title: "My ass is a dummy quiz",
-    description: "this is some dumb ss dummy quiz, please do not pay any attention whatsoever to the typos in this page as there is a lot of them, if you find them all you will get candy",
-    assigner: "Mr. Gary Coleman",
-    deadline: "2001-09-11 8:35"
-  }
-  const TextDummyData: QuestionText = {
-    value: {
-      title:
-        "This is such a long ass dummy question, that it needs to be displayed in two completely different set of lines",
-      comment: "Please don't set your sister on fire",
-    },
-  };
-
-  const RadioDummyData: QuestionRadio = {
-    title:
-      "This is again such a long ass dummy question, that it needs to be displayed in two completely different set of lines",
-    value: [
-      { title: "why", answer: false },
-      { title: "just", answer: false },
-      { title: "cause", answer: false }, // WHA!!??
-      { title: "bad", answer: false },
-      { title: "game", answer: false },
-      { title: "I jest", answer: false },
-    ],
-    comment: "I would like to say something",
-  };
-  const CheckDummyData: QuestionCheck = {
-    title: "This is again and again such a long ass dummy question",
-    value: [
-      { title: "some text", answer: false },
-      { title: "why not again some text", answer: false },
-      { title: "just how many do we need?", answer: false },
-      { title: "nvm, I'll just put there two more", answer: false },
-      { title: "so this is the first one", answer: false },
-      { title: "and this is the second one, enjoy", answer: false },
-    ],
-    comment: "4 answers may be correct",
-  };
-  const OrderDummyData: QuestionOrder = {
-    // database field: "place"  in QUESTION_ORDER_OPTIONS should be handled in the backend for security reasons
-    title: "some title",
-    value: [
-      { id: uuidv4(), content: "This should be the first" },
-      { id: uuidv4(), content: "Or should this be the first one" },
-      { id: uuidv4(), content: "Maybe this is the one " },
-      {
-        id: uuidv4(),
-        content:
-          "This is such a long ass statement that this will surely be the right one you're looking for, no doubt",
-      },
-      { id: uuidv4(), content: "Short one but a strong one " },
-      { id: uuidv4(), content: "This is the one" },
-    ],
-    comment: "Order them descending from top to bottom",
-  };
-
-  const PairDummyData: QuestionPair = {
-    title: "Title of Pair component",
-    value: {
-      left: [
-        {id: uuidv4(), content: "first pair"},
-        {id: uuidv4(), content: "second pair but this is so long it requires multiple lines to display this fat text "},
-        {id: uuidv4(), content: "third pair"},
-        {id: uuidv4(), content: "fourth pair"},
-        {id: uuidv4(), content: "fifth pair but this is so long it requires multiple lines to display this fat text"}
+  const quizData: Array<QuizDataDTO> = [
+    {
+      id: "quiz1",
+      name: "Sample Quiz",
+      description: "This is a sample quiz description.",
+      createdBy: "user1",
+      createdAt: "2024-01-01T10:00:00Z",
+      deadline: "2024-01-10T10:00:00Z",
+      viewAfterSubmission: true,
+      questionCheckboxes: [
+        {
+          id: "qcb1",
+          quiz: "quiz1",
+          title: "Select applicable options",
+          options: [
+            { id: "opt1", questionCheckbox: "qcb1", name: "Option 1", answer: true, createdBy: "user1" },
+            { id: "opt2", questionCheckbox: "qcb1", name: "Option 2", answer: false, createdBy: "user1" },
+            { id: "opt3", questionCheckbox: "qcb1", name: "Option 3", answer: true, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qcb2",
+          quiz: "quiz1",
+          title: "Choose the correct options",
+          options: [
+            { id: "opt4", questionCheckbox: "qcb2", name: "Option A", answer: true, createdBy: "user2" },
+            { id: "opt5", questionCheckbox: "qcb2", name: "Option B", answer: false, createdBy: "user2" },
+            { id: "opt6", questionCheckbox: "qcb2", name: "Option C", answer: true, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        },
+        {
+          id: "qcb3",
+          quiz: "quiz1",
+          title: "Identify the valid statements",
+          options: [
+            { id: "opt7", questionCheckbox: "qcb3", name: "Statement 1", answer: false, createdBy: "user3" },
+            { id: "opt8", questionCheckbox: "qcb3", name: "Statement 2", answer: true, createdBy: "user3" },
+            { id: "opt9", questionCheckbox: "qcb3", name: "Statement 3", answer: true, createdBy: "user3" }
+          ],
+          createdBy: "user3"
+        }
       ],
-      right: [
-        {id: uuidv4(), content: "first pair but this is so long it requires multiple lines to display this fat text"},
-        {id: uuidv4(), content: "second pair"},
-        {id: uuidv4(), content: "third pair but this is so long it requires multiple lines to display this fat text"},
-        {id: uuidv4(), content: "fourth pair"},
-        {id: uuidv4(), content: "fifth pair"}
-      ]
+      questionFiles: [
+        { id: "qf1", quiz: "quiz1", title: "Upload your resume", fileId: "file1", createdBy: "user1" },
+        { id: "qf2", quiz: "quiz1", title: "Upload your ID proof", fileId: "file2", createdBy: "user1" },
+        { id: "qf3", quiz: "quiz1", title: "Upload your assignment", fileId: "file3", createdBy: "user2" }
+      ],
+      questionOrders: [
+        {
+          id: "qo1",
+          quiz: "quiz1",
+          title: "Arrange in order of importance",
+          options: [
+            { id: "ord1", questionOrder: "qo1", title: "First", place: 1, createdBy: "user1" },
+            { id: "ord2", questionOrder: "qo1", title: "Second", place: 2, createdBy: "user1" },
+            { id: "ord3", questionOrder: "qo1", title: "Third", place: 3, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qo2",
+          quiz: "quiz1",
+          title: "Organize steps to complete the task",
+          options: [
+            { id: "ord4", questionOrder: "qo2", title: "Step 1", place: 1, createdBy: "user2" },
+            { id: "ord5", questionOrder: "qo2", title: "Step 2", place: 2, createdBy: "user2" },
+            { id: "ord6", questionOrder: "qo2", title: "Step 3", place: 3, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        }
+      ],
+      questionPairCollection: [
+        {
+          id: "qpc1",
+          quiz: "quiz1",
+          createdBy: "user1",
+          title: "Match the pairs",
+          pairs: [
+            { id: "pair1", belongsTo: "qpc1", createdBy: "user1", left: { id: "l1", content: "Apple" }, right: { id: "r1", content: "Fruit" } },
+            { id: "pair2", belongsTo: "qpc1", createdBy: "user1", left: { id: "l2", content: "Carrot" }, right: { id: "r2", content: "Vegetable" } },
+            { id: "pair3", belongsTo: "qpc1", createdBy: "user1", left: { id: "l3", content: "Dog" }, right: { id: "r3", content: "Animal" } }
+          ]
+        }
+      ],
+      questionRadios: [
+        {
+          id: "qr1",
+          quiz: "quiz1",
+          title: "Select the correct answer",
+          options: [
+            { id: "rad1", questionRadio: "qr1", title: "Option X", answer: false, createdBy: "user1" },
+            { id: "rad2", questionRadio: "qr1", title: "Option Y", answer: true, createdBy: "user1" },
+            { id: "rad3", questionRadio: "qr1", title: "Option Z", answer: false, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qr2",
+          quiz: "quiz1",
+          title: "Choose the best answer",
+          options: [
+            { id: "rad4", questionRadio: "qr2", title: "Answer 1", answer: false, createdBy: "user2" },
+            { id: "rad5", questionRadio: "qr2", title: "Answer 2", answer: true, createdBy: "user2" },
+            { id: "rad6", questionRadio: "qr2", title: "Answer 3", answer: false, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        }
+      ],
+      questionTexts: [
+        { id: "qt1", quiz: "quiz1", title: "Describe your experience", answer: "I have 5 years of experience.", createdBy: "user1", createdAt: "2024-01-01T11:00:00Z" },
+        { id: "qt2", quiz: "quiz1", title: "What are your goals?", answer: "To become a senior developer.", createdBy: "user2", createdAt: "2024-01-01T12:00:00Z" },
+        { id: "qt3", quiz: "quiz1", title: "Provide a brief introduction", answer: "I am a software engineer.", createdBy: "user3", createdAt: "2024-01-01T13:00:00Z" }
+      ],
+      quizAnswers: ["Answer 1", "Answer 2", "Answer 3"]
     },
-    comment: "Pair them. Even a monkey could do it"
-  }
+    {
 
-   */
+      id: "quiz1",
+      name: "Sample Quiz",
+      description: "This is a sample quiz description.",
+      createdBy: "user1",
+      createdAt: "2024-01-01T10:00:00Z",
+      deadline: "2024-01-10T10:00:00Z",
+      viewAfterSubmission: true,
+      questionCheckboxes: [
+        {
+          id: "qcb1",
+          quiz: "quiz1",
+          title: "Select applicable options",
+          options: [
+            { id: "opt1", questionCheckbox: "qcb1", name: "Option 1", answer: true, createdBy: "user1" },
+            { id: "opt2", questionCheckbox: "qcb1", name: "Option 2", answer: false, createdBy: "user1" },
+            { id: "opt3", questionCheckbox: "qcb1", name: "Option 3", answer: true, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qcb2",
+          quiz: "quiz1",
+          title: "Choose the correct options",
+          options: [
+            { id: "opt4", questionCheckbox: "qcb2", name: "Option A", answer: true, createdBy: "user2" },
+            { id: "opt5", questionCheckbox: "qcb2", name: "Option B", answer: false, createdBy: "user2" },
+            { id: "opt6", questionCheckbox: "qcb2", name: "Option C", answer: true, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        },
+        {
+          id: "qcb3",
+          quiz: "quiz1",
+          title: "Identify the valid statements",
+          options: [
+            { id: "opt7", questionCheckbox: "qcb3", name: "Statement 1", answer: false, createdBy: "user3" },
+            { id: "opt8", questionCheckbox: "qcb3", name: "Statement 2", answer: true, createdBy: "user3" },
+            { id: "opt9", questionCheckbox: "qcb3", name: "Statement 3", answer: true, createdBy: "user3" }
+          ],
+          createdBy: "user3"
+        }
+      ],
+      questionFiles: [
+        { id: "qf1", quiz: "quiz1", title: "Upload your resume", fileId: "file1", createdBy: "user1" },
+        { id: "qf2", quiz: "quiz1", title: "Upload your ID proof", fileId: "file2", createdBy: "user1" },
+        { id: "qf3", quiz: "quiz1", title: "Upload your assignment", fileId: "file3", createdBy: "user2" }
+      ],
+      questionOrders: [
+        {
+          id: "qo1",
+          quiz: "quiz1",
+          title: "Arrange in order of importance",
+          options: [
+            { id: "ord1", questionOrder: "qo1", title: "First", place: 1, createdBy: "user1" },
+            { id: "ord2", questionOrder: "qo1", title: "Second", place: 2, createdBy: "user1" },
+            { id: "ord3", questionOrder: "qo1", title: "Third", place: 3, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qo2",
+          quiz: "quiz1",
+          title: "Organize steps to complete the task",
+          options: [
+            { id: "ord4", questionOrder: "qo2", title: "Step 1", place: 1, createdBy: "user2" },
+            { id: "ord5", questionOrder: "qo2", title: "Step 2", place: 2, createdBy: "user2" },
+            { id: "ord6", questionOrder: "qo2", title: "Step 3", place: 3, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        }
+      ],
+      questionPairCollection: [
+        {
+          id: "qpc1",
+          quiz: "quiz1",
+          createdBy: "user1",
+          title: "Match the pairs",
+          pairs: [
+            { id: "pair1", belongsTo: "qpc1", createdBy: "user1", left: { id: "l1", content: "Apple" }, right: { id: "r1", content: "Fruit" } },
+            { id: "pair2", belongsTo: "qpc1", createdBy: "user1", left: { id: "l2", content: "Carrot" }, right: { id: "r2", content: "Vegetable" } },
+            { id: "pair3", belongsTo: "qpc1", createdBy: "user1", left: { id: "l3", content: "Dog" }, right: { id: "r3", content: "Animal" } }
+          ]
+        }
+      ],
+      questionRadios: [
+        {
+          id: "qr1",
+          quiz: "quiz1",
+          title: "Select the correct answer",
+          options: [
+            { id: "rad1", questionRadio: "qr1", title: "Option X", answer: false, createdBy: "user1" },
+            { id: "rad2", questionRadio: "qr1", title: "Option Y", answer: true, createdBy: "user1" },
+            { id: "rad3", questionRadio: "qr1", title: "Option Z", answer: false, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qr2",
+          quiz: "quiz1",
+          title: "Choose the best answer",
+          options: [
+            { id: "rad4", questionRadio: "qr2", title: "Answer 1", answer: false, createdBy: "user2" },
+            { id: "rad5", questionRadio: "qr2", title: "Answer 2", answer: true, createdBy: "user2" },
+            { id: "rad6", questionRadio: "qr2", title: "Answer 3", answer: false, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        }
+      ],
+      questionTexts: [
+        { id: "qt1", quiz: "quiz1", title: "Describe your experience", answer: "I have 5 years of experience.", createdBy: "user1", createdAt: "2024-01-01T11:00:00Z" },
+        { id: "qt2", quiz: "quiz1", title: "What are your goals?", answer: "To become a senior developer.", createdBy: "user2", createdAt: "2024-01-01T12:00:00Z" },
+        { id: "qt3", quiz: "quiz1", title: "Provide a brief introduction", answer: "I am a software engineer.", createdBy: "user3", createdAt: "2024-01-01T13:00:00Z" }
+      ],
+      quizAnswers: ["Answer 1", "Answer 2", "Answer 3"]
+    },
+    {
 
-  await auth()
-
-  const [QuizFileAnswers, setQuizFileAnswers] = useState(Array<QuestionFileAnswers>);
-  const [QuizTextAnswers, setQuizTextAnswers] = useState(Array<QuestionTextAnswers>);
-
-  console.log(useSession())
-  const [QuizRadioAnswers, setQuizRadioAnswers] = useState(Array<QuestionRadioAnswers>);
-  const [QuizOrderAnswers, setQuizOrderAnswers] = useState(Array<QuestionOrderAnswers>);
-  const [QuizCheckboxAnswers, setQuizCheckboxAnswers] = useState(Array<QuestionCheckboxAnswers>);
-
-  const [QuizPairCollectionAnswers, setQuizPairCollectionAnswers] = useState(Array<QuestionPairCollectionAnswers>);
-  const [PairCollectionAnswers, setPairCollectionAnswers] = useState(Array<PairCollectionAnswers>);
-
-
+      id: "quiz1",
+      name: "Sample Quiz",
+      description: "This is a sample quiz description.",
+      createdBy: "user1",
+      createdAt: "2024-01-01T10:00:00Z",
+      deadline: "2024-01-10T10:00:00Z",
+      viewAfterSubmission: true,
+      questionCheckboxes: [
+        {
+          id: "qcb1",
+          quiz: "quiz1",
+          title: "Select applicable options",
+          options: [
+            { id: "opt1", questionCheckbox: "qcb1", name: "Option 1", answer: true, createdBy: "user1" },
+            { id: "opt2", questionCheckbox: "qcb1", name: "Option 2", answer: false, createdBy: "user1" },
+            { id: "opt3", questionCheckbox: "qcb1", name: "Option 3", answer: true, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qcb2",
+          quiz: "quiz1",
+          title: "Choose the correct options",
+          options: [
+            { id: "opt4", questionCheckbox: "qcb2", name: "Option A", answer: true, createdBy: "user2" },
+            { id: "opt5", questionCheckbox: "qcb2", name: "Option B", answer: false, createdBy: "user2" },
+            { id: "opt6", questionCheckbox: "qcb2", name: "Option C", answer: true, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        },
+        {
+          id: "qcb3",
+          quiz: "quiz1",
+          title: "Identify the valid statements",
+          options: [
+            { id: "opt7", questionCheckbox: "qcb3", name: "Statement 1", answer: false, createdBy: "user3" },
+            { id: "opt8", questionCheckbox: "qcb3", name: "Statement 2", answer: true, createdBy: "user3" },
+            { id: "opt9", questionCheckbox: "qcb3", name: "Statement 3", answer: true, createdBy: "user3" }
+          ],
+          createdBy: "user3"
+        }
+      ],
+      questionFiles: [
+        { id: "qf1", quiz: "quiz1", title: "Upload your resume", fileId: "file1", createdBy: "user1" },
+        { id: "qf2", quiz: "quiz1", title: "Upload your ID proof", fileId: "file2", createdBy: "user1" },
+        { id: "qf3", quiz: "quiz1", title: "Upload your assignment", fileId: "file3", createdBy: "user2" }
+      ],
+      questionOrders: [
+        {
+          id: "qo1",
+          quiz: "quiz1",
+          title: "Arrange in order of importance",
+          options: [
+            { id: "ord1", questionOrder: "qo1", title: "First", place: 1, createdBy: "user1" },
+            { id: "ord2", questionOrder: "qo1", title: "Second", place: 2, createdBy: "user1" },
+            { id: "ord3", questionOrder: "qo1", title: "Third", place: 3, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qo2",
+          quiz: "quiz1",
+          title: "Organize steps to complete the task",
+          options: [
+            { id: "ord4", questionOrder: "qo2", title: "Step 1", place: 1, createdBy: "user2" },
+            { id: "ord5", questionOrder: "qo2", title: "Step 2", place: 2, createdBy: "user2" },
+            { id: "ord6", questionOrder: "qo2", title: "Step 3", place: 3, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        }
+      ],
+      questionPairCollection: [
+        {
+          id: "qpc1",
+          quiz: "quiz1",
+          createdBy: "user1",
+          title: "Match the pairs",
+          pairs: [
+            { id: "pair1", belongsTo: "qpc1", createdBy: "user1", left: { id: "l1", content: "Apple" }, right: { id: "r1", content: "Fruit" } },
+            { id: "pair2", belongsTo: "qpc1", createdBy: "user1", left: { id: "l2", content: "Carrot" }, right: { id: "r2", content: "Vegetable" } },
+            { id: "pair3", belongsTo: "qpc1", createdBy: "user1", left: { id: "l3", content: "Dog" }, right: { id: "r3", content: "Animal" } }
+          ]
+        }
+      ],
+      questionRadios: [
+        {
+          id: "qr1",
+          quiz: "quiz1",
+          title: "Select the correct answer",
+          options: [
+            { id: "rad1", questionRadio: "qr1", title: "Option X", answer: false, createdBy: "user1" },
+            { id: "rad2", questionRadio: "qr1", title: "Option Y", answer: true, createdBy: "user1" },
+            { id: "rad3", questionRadio: "qr1", title: "Option Z", answer: false, createdBy: "user1" }
+          ],
+          createdBy: "user1"
+        },
+        {
+          id: "qr2",
+          quiz: "quiz1",
+          title: "Choose the best answer",
+          options: [
+            { id: "rad4", questionRadio: "qr2", title: "Answer 1", answer: false, createdBy: "user2" },
+            { id: "rad5", questionRadio: "qr2", title: "Answer 2", answer: true, createdBy: "user2" },
+            { id: "rad6", questionRadio: "qr2", title: "Answer 3", answer: false, createdBy: "user2" }
+          ],
+          createdBy: "user2"
+        }
+      ],
+      questionTexts: [
+        { id: "qt1", quiz: "quiz1", title: "Describe your experience", answer: "I have 5 years of experience.", createdBy: "user1", createdAt: "2024-01-01T11:00:00Z" },
+        { id: "qt2", quiz: "quiz1", title: "What are your goals?", answer: "To become a senior developer.", createdBy: "user2", createdAt: "2024-01-01T12:00:00Z" },
+        { id: "qt3", quiz: "quiz1", title: "Provide a brief introduction", answer: "I am a software engineer.", createdBy: "user3", createdAt: "2024-01-01T13:00:00Z" }
+      ],
+      quizAnswers: ["Answer 1", "Answer 2", "Answer 3"]
+    }
+  ]
 
 
   return (
     <>
-      <section
-        className={
-          "flex flex-row h-fit mx-1 gap-4 py-1 items-center justify-center "
-        }
-      >
-        <section
-          className={"w-1/5 flex flex-col gap-2 bg-content1-opacity15 h-[99vh] p-1 rounded-md"}
-        >
-          {/*
-          <QuizTitle QuizDummyData={QuizDummyData} />
+      <QuizPage quizData={quizData[0]} />
 
-          <QuizSubmit QuizDummyData={QuizDummyData} />
-          */}
-        </section>
-        <section
-          className={
-            "w-3/5 bg-content1-opacity15 h-[99vh] p-1 rounded-md overflow-scroll"
-          }
-        >
-          <div className="w-full flex h-fit flex-col items-center justify-center mb-2 px-4 gap-4 ">
-            <NextLink
-              href="/public"
-              //style={{color: "#006FEE"}}
-            >
-              Go back
-            </NextLink>
-            {/*
-
-            <InputText question={TextDummyData}/>
-
-            <InputRadio question={RadioDummyData} />
-
-            <InputCheck question={CheckDummyData} />
-
-            <InputOrder question={OrderDummyData} />
-
-            <InputPair question={PairDummyData} />
-            */}
-          </div>
-        </section>
-        <section
-          className={"w-1/5 bg-content1-opacity15 p-1 h-[99vh] rounded-md"}
-        >
-          <QuizSidebar />
-        </section>
-
-      </section>
     </>
   );
 }

@@ -45,7 +45,7 @@ export const NavbarCustom = () => {
               </NextLink>
             </NavbarItem>
             <NavbarItem>
-              <NextLink className={"align-middle"} href={"/quizSelect"}>
+              <NextLink className={"align-middle"} href={"/quiz-select"}>
                 Quiz
               </NextLink>
             </NavbarItem>

@@ -1,4 +1,6 @@
-export interface PairCollections {
+import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
+
+export interface PairCollectionsDTO {
   id: string,
   belongsTo: string,
   createdBy: string,

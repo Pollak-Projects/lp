@@ -1,9 +1,9 @@
-import { QuestionText } from "@/src/types/question/questionTexts";
+import { QuestionTexts } from "@/src/types/question/questionTexts";
 import { Textarea } from "@nextui-org/input";
 import { useState } from "react";
 
-export default function InputText({ question }: { question: QuestionText }) {
-  const [isText, setText] = useState(question.value);
+export default function InputText({ question }: { question: QuestionTexts }) {
+  const [isText, setText] = useState(question);
 
   let getText = (e: string) => {
     // returns the answer from the text input field
@@ -14,7 +14,6 @@ export default function InputText({ question }: { question: QuestionText }) {
       className={"bg-content2 rounded-xl w-full pt-5 mb-2 mt-1 mx-12 flex text-center flex-nowrap flex-col align-middle place-items-center"}
     >
       <span className={"text-2xl"}>{isText.title}</span>
-      <span>{isText.comment}</span>
       <Textarea
         isRequired={true}
         style={{ background: "none" }}

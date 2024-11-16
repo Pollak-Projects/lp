@@ -1,17 +1,9 @@
-import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
+import { QuestionOrderOptionDTO } from "@/src/types/question/questionOrderOption";
 
 export interface QuestionOrdersDTO {
-  id: string,
-  quiz: string,
-  title: string,
-  options: Array<
-    {
-      id: string,
-      questionOrder: string,
-      title: string,
-      place: number,
-      createdBy: string
-    }
-  >,
-  createdBy: string
+  id: string;
+  quiz: string;
+  title: string;
+  options: Array<QuestionOrderOptionDTO>;
+  createdBy: string;
 }

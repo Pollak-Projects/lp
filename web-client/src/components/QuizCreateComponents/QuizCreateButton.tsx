@@ -6,15 +6,24 @@ import { useCreateFullQuiz } from "@/src/data/crudQuiz";
 
 
 export default function QuizCreateButton({ quizData }: { quizData: QuizData }) {
-  const { data, error, fetchStatus, refetch } = useCreateFullQuiz({ quizData, enabled: false });
+  const query = useCreateFullQuiz({ quizData, enabled: false });
 
   const handleQuizCreate = (e: PressEvent) => {
-    refetch();
+    query.refetch();
   };
 
   return (
     <>
       <Button onPress={handleQuizCreate}>Create Quiz</Button>
+      {query.isLoading ? (
+        <p>Loading...</p>
+      ) : query.isError ? (
+        <p>Error: {query.error.message}</p>
+      ) : query.isSuccess ? (
+        <p>{JSON.stringify(query.data, null, 2)}</p>
+      ) : (
+        <p>Click the button to create a quiz</p>
+      )}
     </>
   );
 }

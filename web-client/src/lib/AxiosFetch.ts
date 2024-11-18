@@ -1,13 +1,17 @@
+"use server";
 import axios from "axios";
+import logger from "@logger";
 
 import { auth } from "@/src/auth";
 
+const log = logger("lib:axiosFetch");
+
 export default async function axiosFetch() {
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    baseURL: process.env.BACKEND_URL,
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
 
   const session = await auth();
@@ -29,7 +33,6 @@ export default async function axiosFetch() {
 
   const responseInterceptor = instance.interceptors.response.use(
     (config) => {
-      config.data = config.data.json();
       return config;
     },
     (error) => {

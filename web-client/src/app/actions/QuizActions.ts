@@ -34,18 +34,23 @@ export async function getQuiz(quizId: string) {
 }
 
 export async function createFullQuiz(quizData: QuizData) {
+
+  log.debug("createQuizData", quizData);
+
   const response = await (
     await axiosFetch()
   )?.post("/api/v1/quiz/full", {
     ...quizData
   })!;
 
-  if (response.status !== 200) {
-    log.error("createQuiz", { json: await response.data });
+  log.debug(`createQuizResponse ${await response.status}`);
+
+  if (![200, 201].includes(response.status)) {
+    log.error("createQuiz", await response.data);
     throw new Error("Failed to create quiz");
   }
 
-  log.debug("createQuiz", response.data);
+  log.debug(`createQuiz ${await response.data}`, await response.data);
 
   return response.data;
 }

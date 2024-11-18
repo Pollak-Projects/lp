@@ -76,15 +76,6 @@ export const NavbarCustom = () => {
             <Avatar name="idk" />
           </ul>
 
-          {/*
-            {session ? ( // Todo: make the login and register only work if you aren't logged in
-              <>
-                <span>UserName</span>
-                <Avatar name={"User"} size={"sm"} className={"ml-auto"} />
-              </>
-            ) : (
-              <NextLink href={"/login"}>Login or Register</NextLink> // Todo: make the Login and the Register link route to a different path. Do after declaring register path.
-            )}*/}
         </NavbarContent>
       </NextUINavbar>
     </>

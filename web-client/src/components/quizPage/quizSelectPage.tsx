@@ -1,43 +1,58 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { QuizData } from "@/src/types/question/quizData";
+import NextLink from "next/link";
+import { useGetAllQuizzes, useGetAllQuizzesById } from "@/src/data/crudQuiz";
+import { CircularProgress } from "@nextui-org/progress";
 
 
-export default function QuizSelectPage({ quizData, quizSelectResponse }: {
-  quizData: Array<QuizData>,
-  quizSelectResponse: Promise<unknown>
-}) {
-  //TODO: ONLY FOR TEST PURPOSES!! REMOVE ARRAY WHEN DONE WITH API REQUEST!! !IMPORTANT
-  const QuizDataRequest: QuizData | Array<string> = ["", ""];
+export default function QuizSelectPage( userId:any) {
 
-  console.log(quizSelectResponse)
+  const userQueryAll = useGetAllQuizzesById(userId);
+
+  const query = useGetAllQuizzes()
 
 
-
-  const [quiz, SetQuiz] = useState(quizData)
-
-  const RenderQuizzes = quiz.map((quizzes: any) => {
+  const renderQuiz = query.data.map((quiz: any) => {
     return (
       <>
-        <div className={"w-full h-fit"}>
-          <span className={"text-2xl place-self-center"}>{quizzes.name}</span>
-          <span className={"text-sm italic"}>{quizzes.createdBy}</span>
-          <span className={""}>{quizzes.createdAt}</span>
-          <span className={""}>{quizzes.deadline}</span>
-          <span className={"text-justify"}>{quizzes.description}</span>
-        </div>
+      <button>
+        <NextLink href={"quiz/" + quiz.id}>
+
+          <div className={"flex flex-col bg-content2 w-[30dvw] rounded-lg h-[10dvh]"}>
+            <span className={"text-2xl place-self-center"}>{quiz.name}</span>
+            <span className={""}>{quiz.createdAt}</span>
+            <span className={""}>{quiz.deadline}</span>
+            <span className={"text-justify"}>{quiz.description}</span>
+          </div>
+        </NextLink>
+      </button>
       </>
     )
   })
 
+
+
+
   return (
     <>
-      <section className={"flex flex-col justify-center bg-opacity-15"}>
+      {query.isLoading ? (
+        <>
+          <div className="pt-2 w-[40dvh] mr-auto text-center text-xl">
+            <CircularProgress color={"danger"} label={"Loading..."} />
+          </div>
+        </>
+      ) : query.isError ? (
+        <p>Error: {query.error.message}</p>
+      ) : (
+      <section className={"w-fit bg-opacity-15"}>
         <span>Please select a Quiz you wish to fill in</span>
-        <div className={"flex flex-row justify-center"}>
-          {RenderQuizzes}
+        <div className={"flex flex-row flex-wrap pl-5 justify-start"}>
+          {renderQuiz}
         </div>
+
       </section>
+)}
 
     </>
   )

@@ -1,16 +1,13 @@
-
 import React from "react";
 
-import {QuizDataDTO} from "@/src/types/question/quizData";
+import { QuizData } from "@/src/types/question/quizData";
 import QuizSelectPage from "@/src/components/quizPage/quizSelectPage";
-import { APIResponse } from "playwright-core";
-import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
 import { auth } from "@/src/auth";
 import { JWT } from "next-auth/jwt";
 
 export default function Home() {
 
-  const quizData: Array<QuizDataDTO> = [
+  const quizData: Array<QuizData> = [
     {
       id: "quiz1",
       name: "Sample Quiz",
@@ -363,7 +360,7 @@ export default function Home() {
     }
   ]
 
-  async function fetch_selectQuizPages(token: JWT | undefined): Promise<QuizDataDTO[] | unknown>  {
+  async function fetch_selectQuizPages(token: JWT | undefined): Promise<QuizData[] | unknown> {
     if(token == undefined){
       throw new Error("Token is undefined")
     }

@@ -9,24 +9,20 @@ export const siteConfig = {
       href: "/",
     },
     {
-      label: "Docs",
-      href: "/docs",
+      label: "Quiz",
+      href: "/quiz"
     },
     {
-      label: "Classrooms",
-      href: "/classrooms",
+      label: "Quiz Create",
+      href: "/quiz-create"
     },
     {
-      label: "Assignments",
-      href: "/assignments",
+      label: "Quiz Select",
+      href: "/quiz-select"
     },
     {
-      label: "Quizzes",
-      href: "/quizzes",
-    },
-    {
-      label: "Settings",
-      href: "/settings",
+      label: "Quiz Grade",
+      href: "/quiz-grade"
     },
     {
       label: "Logout",

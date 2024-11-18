@@ -1,79 +1,72 @@
-"use client"
+"use client";
 
-import {
-  Navbar as NextUINavbar,
-  NavbarContent,
-  NavbarItem,
-} from "@nextui-org/navbar";
+import { Navbar as NextUINavbar, NavbarContent, NavbarItem } from "@nextui-org/navbar";
+import { link } from "@nextui-org/theme";
 import NextLink from "next/link";
-import React, { useEffect, useState } from "react";
-
+import React, { useRef } from "react";
 import { Avatar } from "@nextui-org/avatar";
-import { auth } from "@/src/auth";
-import { useSession } from "next-auth/react";
+import clsx from "clsx";
+import { signOut, useSession } from "next-auth/react";
+
+import { siteConfig } from "@/src/config/site";
+import { Button } from "@nextui-org/button";
 
 export const NavbarCustom = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const loggedIn = useRef(false);
 
-/*
-  useEffect(() => {
-    async function checkLogin(){
+  loggedIn.current = useSession().status === "authenticated";
 
-      const session = (await auth()) ?? false;
-      setLoggedIn(!!session);
-    }
-    checkLogin();
-   }, []);
-*/
+  const handleLogout = () => {
+    signOut().then(r => console.log("Logged out", r));
+  };
+
   return (
     <>
       <NextUINavbar
         className="rounded-md w-10/11 bg-content1"
+        height={"3em"}
         maxWidth="full"
         style={{
           marginLeft: "0.3em",
           marginRight: "0.3em",
           borderRadius: "0.6em",
         }}
-        height={"3em"}
       >
         <NavbarContent className="flex flex-nowrap">
           <ul className="flex gap-4  w-full">
-            <NavbarItem>
-              <NextLink className={"align-middle"} href={"/"}>
-                Home
-              </NextLink>
-            </NavbarItem>
-            <NavbarItem>
-              <NextLink className={"align-middle"} href={"/quiz-select"}>
-                Quiz
-              </NextLink>
-            </NavbarItem>
-            <NavbarItem>
-              {/*THIS IS TEMPORARY*/}
-              <NextLink className={"align-middle"} href={"/quiz-create"}>
-                QuizCreate
-              </NextLink>
-            </NavbarItem>
+            {siteConfig.navItems.map((item, index) => (
+              <NavbarItem key={index}>
+                <NextLink
+                  className={clsx(
+                    link({ color: "foreground" }),
+                    "data-[active=true]:text-primary data-[active=true]:font-medium"
+                  )}
+                  color={"foreground"}
+                  href={item.href}
+                >
+                  {item.label}
+                </NextLink>
+              </NavbarItem>
+            ))}
           </ul>
 
           <ul className="flex gap-4 justify-end items-center">
             <NavbarItem>
-              {!loggedIn ? (
+              {!loggedIn.current ? (
                 <>
-                  <NextLink href={"/login"} className={"align-middle"}>
+                  <NextLink className={"align-middle"} href={"/login"}>
                     Log in
                   </NextLink>
                   <span className={"align-middle"}> or </span>
-                  <NextLink href={"/login"} className={"align-middle"}>
+                  <NextLink className={"align-middle"} href={"/login"}>
                     Register
                   </NextLink>
                 </>
               ) : (
                 <>
-                  <NextLink href={"/login"} className={"align-middle"}>
+                  <Button className={"align-middle"} onPress={handleLogout}>
                     Sign out
-                  </NextLink>
+                  </Button>
                 </>
               )}
             </NavbarItem>

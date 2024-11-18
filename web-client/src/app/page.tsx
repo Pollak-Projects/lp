@@ -2,7 +2,7 @@ import { Button } from "@nextui-org/button";
 import React from "react";
 
 import Link from "next/link";
-import { auth, signOut } from "@/src/auth";
+import { auth } from "@/src/auth";
 
 import { NavbarCustom } from "@/src/components/NavbarCustom";
 
@@ -18,13 +18,7 @@ export default async function Home() {
         >
           <Button>Click me</Button>
           {session ? (
-            <form
-              action={async () => {
-                await signOut();
-              }}
-            >
-              <Button type={"submit"}>Sign out</Button>
-            </form>
+            <></>
           ) : (
             <>
               <Link href="/login">

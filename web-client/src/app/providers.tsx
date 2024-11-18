@@ -1,16 +1,15 @@
 "use client";
 
 import * as React from "react";
+import { useState } from "react";
 import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from "next-themes";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
-import { QueryClient } from "@tanstack/query-core";
 import axios from "axios";
-import { auth } from "@/src/auth";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { AxiosProvider } from "@/src/lib/AxiosProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export interface ProvidersProps {
   children: React.ReactNode;
@@ -21,14 +20,17 @@ export interface ProvidersProps {
 export function Providers({ children, themeProps, Session }: ProvidersProps) {
   const router = useRouter();
 
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 1000 * 5,
-        refetchInterval: 1000 * 5,
-      },
-    },
-  });
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 1000 * 5,
+            refetchInterval: 1000 * 5
+          }
+        }
+      })
+  );
 
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
@@ -38,14 +40,13 @@ export function Providers({ children, themeProps, Session }: ProvidersProps) {
   });
 
   return (
-      <SessionProvider session={Session}>
-        <AxiosProvider instance={instance}>
-          <QueryClientProvider client={queryClient}>
-            <NextUIProvider navigate={router.push}>
-              <NextThemesProvider>{children}</NextThemesProvider>
-            </NextUIProvider>
-          </QueryClientProvider>
-        </AxiosProvider>
-      </SessionProvider>
+    <SessionProvider session={Session}>
+      <NextUIProvider navigate={router.push}>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools />
+          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+        </QueryClientProvider>
+      </NextUIProvider>
+    </SessionProvider>
   );
 }

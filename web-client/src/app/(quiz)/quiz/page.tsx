@@ -1,14 +1,12 @@
-
 import React from "react";
 
 import QuizPage from "@/src/components/quizPage/quizPage";
-import { QuizDataDTO } from "@/src/types/question/quizData";
-
+import { QuizData } from "@/src/types/question/quizData";
 
 
 export default function Quiz() {
 
-  const quizData: Array<QuizDataDTO> = [
+  const quizData: Array<QuizData> = [
     {
       id: "quiz1",
       name: "Sample Quiz",

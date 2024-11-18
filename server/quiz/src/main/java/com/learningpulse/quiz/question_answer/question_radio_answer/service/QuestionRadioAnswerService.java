@@ -25,20 +25,20 @@ public class QuestionRadioAnswerService {
 
     public QuestionRadioAnswer getQuestionRadioAnswerById(UUID id) {
         return questionRadioAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionRadioAnswer> getAllQuestionRadioAnswerByUser(UUID sub) {
         List<QuestionRadioAnswer> questionRadioAnswers = questionRadioAnswerRepository.findAllByCreatedBy(sub);
         if (questionRadioAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NO_CONTENT);
         return questionRadioAnswers;
     }
 
     public List<QuestionRadioAnswer> getAllQuestionRadioAnswer() {
         List<QuestionRadioAnswer> questionRadioAnswers = questionRadioAnswerRepository.findAll();
         if (questionRadioAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NO_CONTENT);
         return questionRadioAnswers;
     }
 
@@ -73,7 +73,7 @@ public class QuestionRadioAnswerService {
                     }
                     return questionRadioAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionRadioAnswer deleteQuestionRadioAnswer(UUID id) {
@@ -82,6 +82,6 @@ public class QuestionRadioAnswerService {
                     questionRadioAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

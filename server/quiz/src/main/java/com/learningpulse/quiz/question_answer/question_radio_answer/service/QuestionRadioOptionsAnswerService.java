@@ -26,20 +26,20 @@ public class QuestionRadioOptionsAnswerService {
 
     public QuestionRadioOptionsAnswer getQuestionRadioOptionsAnswerById(UUID id) {
         return questionRadioOptionsAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionRadioOptionsAnswer> getAllQuestionRadioOptionsAnswerByUser(UUID sub) {
         List<QuestionRadioOptionsAnswer> questionRadioOptionsAnswers = questionRadioOptionsAnswerRepository.findAllByCreatedBy(sub);
         if (questionRadioOptionsAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NO_CONTENT);
         return questionRadioOptionsAnswers;
     }
 
     public List<QuestionRadioOptionsAnswer> getAllQuestionRadioOptionsAnswer() {
         List<QuestionRadioOptionsAnswer> questionRadioOptionsAnswers = questionRadioOptionsAnswerRepository.findAll();
         if (questionRadioOptionsAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NO_CONTENT);
         return questionRadioOptionsAnswers;
     }
 
@@ -64,7 +64,7 @@ public class QuestionRadioOptionsAnswerService {
                         q.setAnswer(dto.answer());
                     return questionRadioOptionsAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionRadioOptionsAnswer deleteQuestionRadioOptionsAnswer(UUID id) {
@@ -73,6 +73,6 @@ public class QuestionRadioOptionsAnswerService {
                     questionRadioOptionsAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionRadioOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

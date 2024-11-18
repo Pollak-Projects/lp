@@ -26,20 +26,20 @@ public class QuestionCheckboxOptionsAnswerService {
 
     public QuestionCheckboxOptionsAnswer getQuestionCheckboxOptionsAnswerById(UUID id) {
         return QuestionCheckboxOptionsAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionCheckboxOptionsAnswer> getAllQuestionCheckboxOptionsAnswerByUser(UUID sub) {
         List<QuestionCheckboxOptionsAnswer> QuestionCheckboxOptionsAnswers = QuestionCheckboxOptionsAnswerRepository.findAllByCreatedBy(sub);
         if (QuestionCheckboxOptionsAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NO_CONTENT);
         return QuestionCheckboxOptionsAnswers;
     }
 
     public List<QuestionCheckboxOptionsAnswer> getAllQuestionCheckboxOptionsAnswer() {
         List<QuestionCheckboxOptionsAnswer> QuestionCheckboxOptionsAnswers = QuestionCheckboxOptionsAnswerRepository.findAll();
         if (QuestionCheckboxOptionsAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NO_CONTENT);
         return QuestionCheckboxOptionsAnswers;
     }
 
@@ -65,7 +65,7 @@ public class QuestionCheckboxOptionsAnswerService {
                         q.setAnswer(dto.answer());
                     return QuestionCheckboxOptionsAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionCheckboxOptionsAnswer deleteQuestionCheckboxOptionsAnswer(UUID id) {
@@ -74,6 +74,6 @@ public class QuestionCheckboxOptionsAnswerService {
                     QuestionCheckboxOptionsAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

@@ -25,20 +25,20 @@ public class QuestionOrderOptionsAnswerService {
 
     public QuestionOrderOptionsAnswer getQuestionOrderOptionsAnswerById(UUID id) {
         return questionOrderOptionsAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionOrderOptionsAnswer> getAllQuestionOrderOptionsAnswer() {
         List<QuestionOrderOptionsAnswer> questionOrderOptionsAnswers = questionOrderOptionsAnswerRepository.findAll();
         if (questionOrderOptionsAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NO_CONTENT);
         return questionOrderOptionsAnswers;
     }
 
     public List<QuestionOrderOptionsAnswer> getAllQuestionOrderOptionsAnswerByUser(UUID sub) {
         List<QuestionOrderOptionsAnswer> questionOrderOptionsAnswers = questionOrderOptionsAnswerRepository.findAllByCreatedBy(sub);
         if (questionOrderOptionsAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NO_CONTENT);
         return questionOrderOptionsAnswers;
     }
 
@@ -63,7 +63,7 @@ public class QuestionOrderOptionsAnswerService {
                         q.setPlace(dto.place());
                     return questionOrderOptionsAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionOrderOptionsAnswer deleteQuestionOrderOptionsAnswer(UUID id) {
@@ -72,6 +72,6 @@ public class QuestionOrderOptionsAnswerService {
                     questionOrderOptionsAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderOptionsAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

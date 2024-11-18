@@ -42,20 +42,20 @@ public class QuizAnswerService {
 
     public QuizAnswer getQuizAnswerById(UUID id) {
         return quizAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuizAnswer> getAllQuizAnswersByUser(UUID sub) {
         List<QuizAnswer> quizAnswers = quizAnswerRepository.findAllByCreatedBy(sub);
         if (quizAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NO_CONTENT);
         return quizAnswers;
     }
 
     public List<QuizAnswer> getAllQuizAnswers() {
         List<QuizAnswer> quizAnswers = quizAnswerRepository.findAll();
         if (quizAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NO_CONTENT);
         return quizAnswers;
     }
 
@@ -221,7 +221,7 @@ public class QuizAnswerService {
                                         .build()).toList());
                     return quizAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuizAnswer deleteQuizAnswer(UUID id) {
@@ -230,6 +230,6 @@ public class QuizAnswerService {
                     quizAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

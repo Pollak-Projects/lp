@@ -25,20 +25,20 @@ public class QuestionCheckboxAnswerService {
 
     public QuestionCheckboxAnswer getQuestionCheckboxAnswerById(UUID id) {
         return questionCheckboxAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionCheckboxAnswer> getAllQuestionCheckboxAnswerByUser(UUID sub) {
         List<QuestionCheckboxAnswer> questionCheckboxAnswers = questionCheckboxAnswerRepository.findAllByCreatedBy(sub);
         if (questionCheckboxAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NO_CONTENT);
         return questionCheckboxAnswers;
     }
 
     public List<QuestionCheckboxAnswer> getAllQuestionCheckboxAnswer() {
         List<QuestionCheckboxAnswer> questionCheckboxAnswers = questionCheckboxAnswerRepository.findAll();
         if (questionCheckboxAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NO_CONTENT);
         return questionCheckboxAnswers;
     }
 
@@ -71,7 +71,7 @@ public class QuestionCheckboxAnswerService {
                                 .build()).toList());
                     return questionCheckboxAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionCheckboxAnswer deleteQuestionCheckboxAnswer(UUID id) {
@@ -80,6 +80,6 @@ public class QuestionCheckboxAnswerService {
                     questionCheckboxAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionCheckboxAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

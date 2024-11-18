@@ -25,20 +25,20 @@ public class QuestionPairCollectionAnswerService {
 
     public QuestionPairCollectionAnswer getQuestionPairCollectionAnswerById(UUID id) {
         return questionPairCollectionAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionPairCollectionAnswer> getAllQuestionPairCollectionAnswersByUser(UUID sub) {
         List<QuestionPairCollectionAnswer> questionPairCollectionAnswers = questionPairCollectionAnswerRepository.findAllByCreatedBy(sub);
         if (questionPairCollectionAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NO_CONTENT);
         return questionPairCollectionAnswers;
     }
 
     public List<QuestionPairCollectionAnswer> getAllQuestionPairCollectionAnswers() {
         List<QuestionPairCollectionAnswer> questionPairCollectionAnswers = questionPairCollectionAnswerRepository.findAll();
         if (questionPairCollectionAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NO_CONTENT);
         return questionPairCollectionAnswers;
     }
 
@@ -75,7 +75,7 @@ public class QuestionPairCollectionAnswerService {
                                 .build()).toList());
                     return questionPairCollectionAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionPairCollectionAnswer deleteQuestionPairCollectionAnswer(UUID id) {
@@ -84,14 +84,14 @@ public class QuestionPairCollectionAnswerService {
                     questionPairCollectionAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     // This is an easter egg lol
     //    public void deleteAllQuestionPairCollectionAnswersByQuestionPairCollectionId(UUID questionPairCollection_id) {
     //        List<QuestionPairCollectionAnswer> questionPairCollectionAnswers = questionPairCollectionAnswerRepository.findAllByQuestionPairCollectionId(questionPairCollection_id);
     //        if (questionPairCollectionAnswers.isEmpty())
-    //            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NOT_FOUND);
+    //            throw new HttpStatusCodeException("QuestionPairCollectionAnswer not found", HttpStatus.NO_CONTENT);
     //        questionPairCollectionAnswerRepository.deleteAll(questionPairCollectionAnswers);
     //    }
 }

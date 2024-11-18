@@ -20,27 +20,27 @@ public class QuestionTextAnswerService {
     private final QuestionTextAnswerRepository questionTextAnswerRepository;
     public QuestionTextAnswer getQuestionTextAnswerById(UUID id) {
         return questionTextAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionTextAnswer> getAllQuestionTextAnswersByUser(UUID sub) {
         List<QuestionTextAnswer> questionTextAnswers = questionTextAnswerRepository.findAllByCreatedBy(sub);
         if (questionTextAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NO_CONTENT);
         return questionTextAnswers;
     }
 
     public List<QuestionTextAnswer> getAllQuestionTextAnswers() {
         List<QuestionTextAnswer> questionTextAnswers = questionTextAnswerRepository.findAll();
         if (questionTextAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NO_CONTENT);
         return questionTextAnswers;
     }
 
     public List<QuestionTextAnswer> getAllQuestionTextAnswersByQuestion(UUID questionTextId) {
         List<QuestionTextAnswer> questionTextAnswers = questionTextAnswerRepository.findAllByBelongsToId(questionTextId);
         if (questionTextAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NO_CONTENT);
         return questionTextAnswers;
     }
 
@@ -62,7 +62,7 @@ public class QuestionTextAnswerService {
                         q.setAnswer(questionTextAnswerDTO.answer());
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionTextAnswer deleteQuestionTextAnswer(UUID id) {
@@ -71,6 +71,6 @@ public class QuestionTextAnswerService {
                     questionTextAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionTextAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

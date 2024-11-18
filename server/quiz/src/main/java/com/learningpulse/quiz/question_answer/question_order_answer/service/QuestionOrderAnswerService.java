@@ -24,20 +24,20 @@ public class QuestionOrderAnswerService {
 
     public QuestionOrderAnswer getQuestionOrderAnswerById(UUID id){
         return questionOrderAnswerRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public List<QuestionOrderAnswer> getAllQuestionOrderAnswer() {
         List<QuestionOrderAnswer> questionOrderAnswers = questionOrderAnswerRepository.findAll();
         if (questionOrderAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NO_CONTENT);
         return questionOrderAnswers;
     }
 
     public List<QuestionOrderAnswer> getAllQuestionOrderAnswerByUser(UUID sub) {
         List<QuestionOrderAnswer> questionOrderAnswers = questionOrderAnswerRepository.findAllByCreatedBy(sub);
         if (questionOrderAnswers.isEmpty())
-            throw new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NO_CONTENT);
         return questionOrderAnswers;
     }
 
@@ -73,7 +73,7 @@ public class QuestionOrderAnswerService {
                                 .build()).toList());
                     return questionOrderAnswerRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NO_CONTENT));
     }
 
     public QuestionOrderAnswer deleteQuestionOrderAnswer(UUID id) {
@@ -82,6 +82,6 @@ public class QuestionOrderAnswerService {
                     questionOrderAnswerRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("QuestionOrderAnswer not found", HttpStatus.NO_CONTENT));
     }
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { Pages } from "@/src/pathRoles";
+import { Pages } from "@/src/config/pathRoles";
 import { auth } from "@/src/auth";
 import { NextAuthRequest } from "next-auth";
 import logger from "@logger";

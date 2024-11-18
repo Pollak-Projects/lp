@@ -4,5 +4,6 @@ import {
 
 export interface QuestionPairCollectionAnswer {
   questionPairCollectionId: string,
+  points: number,
   pairs: Array<QuestionPairCollectionPairAnswer>
 }

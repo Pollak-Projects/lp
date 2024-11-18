@@ -6,7 +6,10 @@ import { QuestionPairCollectionAnswer } from "@/src/types/questionAnswer/questio
 import { QuestionTextAnswer } from "@/src/types/questionAnswer/questionTextAnswer";
 
 export interface QuizAnswerData {
+  id: string;
   quizId: string;
+  points: number;
+  createdBy: string;
   questionCheckboxAnswers: Array<QuestionCheckboxAnswer>;
   questionFileAnswers: Array<QuestionFileAnswer>;
   questionOrderAnswers: Array<QuestionOrderAnswer>;

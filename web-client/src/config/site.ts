@@ -19,6 +19,9 @@ export const siteConfig = {
     {
       label: "Quiz Select",
       href: "/quiz-select"
+    },   {
+      label: "Quiz Answer Select",
+      href: "/quiz-answer-select"
     },
     {
       label: "Quiz Grade",

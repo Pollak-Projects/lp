@@ -21,7 +21,7 @@ export default async function axiosFetch() {
   const requestInterceptor = instance.interceptors.request.use(
     (config) => {
       config.headers.Authorization = `Bearer ${session.token?.access_token}`;
-
+      config.headers["Content-Type"] = "application/json";
       return config;
     },
     (error) => {

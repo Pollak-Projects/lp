@@ -36,7 +36,7 @@ export async function getQuiz(quizId: string) {
 export async function getAllQuizzesByUser(quizId: string) {
   const response = await (await axiosFetch())?.get(`/api/v1/quiz/allbyuser?id=${quizId}`)!;
 
-  if (response.status !== 200) {
+  if (![200, 204].includes(response.status)) {
     log.error("getAllQuizzesByUser", { json: await response.data });
     throw new Error("Failed to get fetch quizzesByUser");
   }

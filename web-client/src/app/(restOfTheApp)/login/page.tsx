@@ -1,5 +1,4 @@
 import LoginForm from "@/src/components/login-form";
-import { NavbarCustom } from "@/src/components/NavbarCustom";
 import { auth } from "@/src/auth";
 import { cookies } from "next/headers";
 
@@ -14,7 +13,6 @@ export default async function LoginPage() {
     <main>
       <section className={"pt-2"}>
         <div>
-          <NavbarCustom/>
           <LoginForm csrfToken={csrfToken} />
         </div>
       </section>

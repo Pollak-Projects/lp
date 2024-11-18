@@ -2,15 +2,15 @@ import React from "react";
 import { NavbarCustom } from "@/src/components/NavbarCustom";
 import QuizGradePage from "@/src/components/QuizGradeComponents/QuizGradePage";
 
-export default async function QuizGrade(props: { params: Promise<{ quizId: string }> }) {
-  const params = await props.params;
+export default async function QuizGrade({ params }: { params: Promise<{ quizId: string }> }) {
+  const quizId = (await params).quizId;
 
   return (
     <>
       <NavbarCustom />
-      <div className={"inline-flex h-full w-full"}>
+      <main className={"inline-flex h-full w-full"}>
         <QuizGradePage />
-      </div>
+      </main>
     </>
   );
 }

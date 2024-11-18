@@ -1,4 +1,4 @@
-export interface QuestionFilesDTO {
+export interface QuestionFile {
   id: string;
   quiz: string;
   title: string;

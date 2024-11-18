@@ -1,4 +1,4 @@
-export interface PairCollectionsDTO {
+export interface QuestionPairCollectionPair {
   id: string;
   belongsTo: string;
   createdBy: string;

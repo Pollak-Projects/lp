@@ -1,10 +1,10 @@
-export interface QuestionRadiosDTO {
+export interface QuestionCheckbox {
   id: string;
   quiz: string;
   title: string;
   options: Array<{
     id: string;
-    questionRadio: string;
+    questionCheckbox: string;
     name: string;
     answer: boolean;
     createdBy: string;

@@ -4,6 +4,7 @@ import com.learningpulse.quiz.config.KeycloakJwt;
 import com.learningpulse.quiz.external.UserDTO;
 import com.learningpulse.quiz.quiz.dto.QuizCreateDTO;
 import com.learningpulse.quiz.quiz.dto.QuizFullCreateDTO;
+import com.learningpulse.quiz.quiz.dto.QuizGetNamesByQuizAnswerIdsDTO;
 import com.learningpulse.quiz.quiz.dto.QuizUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -44,11 +45,22 @@ public class QuizController {
         return quizService.getQuizById(id);
     }
 
-    // TODO implement
-    @GetMapping("/allbyuser")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public List<Quiz> getAllQuizzesByUser(@RequestBody UserDTO user) {
-        return null;
+    @GetMapping(params = "quizAnswerId")
+    @ResponseStatus(HttpStatus.OK)
+    public Quiz getQuizByQuizAnswerId(@RequestParam UUID quizAnswerId) {
+        return quizService.getQuizByQuizAnswerId(quizAnswerId);
+    }
+
+    @PostMapping("/by-quiz-answer-ids")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Quiz> getQuizzesByQuizAnswerIds(@RequestBody QuizGetNamesByQuizAnswerIdsDTO quizAnswerIds) {
+        return quizService.getQuizzesByQuizAnswerIds(quizAnswerIds.quizAnswerIds());
+    }
+
+    @GetMapping("/current-user")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Quiz> getAllQuizzesByUser(@AuthenticationPrincipal KeycloakJwt jwt) {
+        return quizService.getAllQuizzesByUser(jwt.getSub());
     }
 
     // TODO: remove after testing, is not needed for the final implementation

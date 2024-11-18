@@ -46,13 +46,31 @@ public class QuizService {
 
     public Quiz getQuizById(UUID id) {
         return quizRepository.findById(id)
-                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NO_CONTENT));
+    }
+
+    public Quiz getQuizByQuizAnswerId(UUID id) {
+        return quizRepository.findByQuizAnswersId(id)
+                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NO_CONTENT));
+    }
+
+    public List<Quiz> getQuizzesByQuizAnswerIds(@NotNull List<UUID> quizAnswerIds) {
+        return quizAnswerIds.stream().map(quizRepository::findByQuizAnswersId)
+                .map(q -> q.orElseThrow(() -> new HttpStatusCodeException("QuizAnswer not found", HttpStatus.NO_CONTENT)))
+                .toList();
     }
 
     public List<Quiz> getAllQuizzes() {
         List<Quiz> quizzes = quizRepository.findAll();
         if (quizzes.isEmpty())
-            throw new HttpStatusCodeException("Quiz not found", HttpStatus.NOT_FOUND);
+            throw new HttpStatusCodeException("Quiz not found", HttpStatus.NO_CONTENT);
+        return quizzes;
+    }
+
+    public List<Quiz> getAllQuizzesByUser(UUID sub) {
+        List<Quiz> quizzes = quizRepository.findByCreatedBy(sub);
+        if (quizzes.isEmpty())
+            throw new HttpStatusCodeException("Quiz not found", HttpStatus.NO_CONTENT);
         return quizzes;
     }
 
@@ -224,7 +242,7 @@ public class QuizService {
                                 .build()).toList());
                     return quizRepository.save(q);
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NO_CONTENT));
     }
 
     public Quiz deleteQuiz(UUID id) {
@@ -233,6 +251,6 @@ public class QuizService {
                     quizRepository.delete(q);
                     return q;
                 })
-                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new HttpStatusCodeException("Quiz not found", HttpStatus.NO_CONTENT));
     }
 }

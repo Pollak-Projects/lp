@@ -3,12 +3,12 @@ import { Button } from "@nextui-org/button";
 import { Dispatch, SetStateAction } from "react";
 import { PressEvent } from "@react-types/shared";
 
-import { QuizDataDTO } from "@/src/types/question/quizData";
+import { QuizData } from "@/src/types/question/quizData";
 
 export default function QuizCreateSidebar({
   onCreateAction,
 }: {
-  onCreateAction: Dispatch<SetStateAction<QuizDataDTO>>;
+  onCreateAction: Dispatch<SetStateAction<QuizData>>;
 }) {
   const handleQuestionCheckboxCreation = (e: PressEvent) => {
     onCreateAction((prevQuizData) => ({

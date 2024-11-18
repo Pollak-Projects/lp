@@ -5,15 +5,15 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
 
-import { QuestionOrdersDTO } from "@/src/types/question/questionOrders";
-import { QuestionOrderOptionDTO } from "@/src/types/question/questionOrderOption";
+import { QuestionOrderDTO } from "@/src/types/question/questionOrder";
+import { QuestionOrderOption } from "@/src/types/question/questionOrderOption";
 
 export default function QuestionOrderCreateList({
   questionOrders,
   onUpdateAction,
 }: {
-  questionOrders: Array<QuestionOrdersDTO>;
-  onUpdateAction: (questionOrders: QuestionOrdersDTO[]) => void;
+  questionOrders: Array<QuestionOrderDTO>;
+  onUpdateAction: (questionOrders: QuestionOrderDTO[]) => void;
 }) {
   const handleQuestionOrderTitleChange =
     (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ export default function QuestionOrderCreateList({
     };
 
   const handleQuestionOrderOptionsChange =
-    (index: number) => (questionOrdersOptions: QuestionOrderOptionDTO[]) => {
+    (index: number) => (questionOrdersOptions: QuestionOrderOption[]) => {
       const updatedQuestionOrders = [...questionOrders];
 
       updatedQuestionOrders[index].options = questionOrdersOptions;
@@ -114,8 +114,8 @@ function QuestionOrderCreateListOptions({
   onUpdateAction,
 }: {
   currentQuestionOrderIndex: number;
-  questionOrdersOptions: Array<QuestionOrderOptionDTO>;
-  onUpdateAction: (questionOrders: QuestionOrderOptionDTO[]) => void;
+  questionOrdersOptions: Array<QuestionOrderOption>;
+  onUpdateAction: (questionOrders: QuestionOrderOption[]) => void;
 }) {
   const handleQuestionOrderOptionNameChange =
     (optionIndex: number) => (e: ChangeEvent<HTMLInputElement>) => {

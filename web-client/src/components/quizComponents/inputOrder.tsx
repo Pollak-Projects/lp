@@ -1,4 +1,4 @@
-import { QuestionOrder } from "@/src/types/question/questionOrders";
+import { QuestionOrder } from "@/src/types/question/questionOrder";
 import React, { useEffect, useRef, useState } from "react";
 
 export default function InputOrder({ question }: { question: QuestionOrder }) {

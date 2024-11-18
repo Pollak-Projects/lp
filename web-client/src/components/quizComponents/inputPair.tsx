@@ -1,4 +1,4 @@
-import { QuestionPair } from "@/src/types/question/questionPairCollections";
+import { QuestionPair } from "@/src/types/question/questionPairCollection";
 import React, { useEffect, useRef, useState } from "react";
 
 

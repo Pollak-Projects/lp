@@ -6,16 +6,16 @@ import { ChangeEvent, useState } from "react";
 import { PressEvent } from "@react-types/shared";
 import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
 
-import { PairCollectionsDTO } from "@/src/types/question/pairCollection/pairCollections";
-import { QuestionPairCollectionsDTO } from "@/src/types/question/questionPairCollections";
+import { QuestionPairCollectionPair } from "@/src/types/question/pairCollection/questionPairCollectionPair";
+import { QuestionPairCollection } from "@/src/types/question/questionPairCollection";
 
 export default function QuestionPairCollectionCreateList({
   questionPairCollections,
   onUpdateAction,
 }: {
-  questionPairCollections: Array<QuestionPairCollectionsDTO>;
+  questionPairCollections: Array<QuestionPairCollection>;
   onUpdateAction: (
-    questionPairCollections: QuestionPairCollectionsDTO[]
+    questionPairCollections: QuestionPairCollection[]
   ) => void;
 }) {
   const handleQuestionPairCollectionTitleChange =
@@ -28,7 +28,7 @@ export default function QuestionPairCollectionCreateList({
 
   const handleQuestionPairCollectionOptionsChange =
     (index: number) =>
-    (questionPairCollectionOptions: PairCollectionsDTO[]) => {
+      (questionPairCollectionOptions: QuestionPairCollectionPair[]) => {
       const updatedQuestionPairCollections = [...questionPairCollections];
 
       updatedQuestionPairCollections[index].options =
@@ -135,8 +135,8 @@ function QuestionPairCollectionCreateListOptions({
   onUpdateAction,
 }: {
   currentQuestionPairCollectionIndex: number;
-  questionPairCollectionOptions: Array<PairCollectionsDTO>;
-  onUpdateAction: (questionPair: PairCollectionsDTO[]) => void;
+  questionPairCollectionOptions: Array<QuestionPairCollectionPair>;
+  onUpdateAction: (questionPair: QuestionPairCollectionPair[]) => void;
 }) {
   const handleDragEndLeft = (result: DropResult) => {
     const updatedQuestionPairCollections = [...questionPairCollectionOptions];

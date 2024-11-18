@@ -1,11 +1,14 @@
-"use client"
+"use client";
 import { useState } from "react";
-import { QuizDataDTO } from "@/src/types/question/quizData";
+import { QuizData } from "@/src/types/question/quizData";
 
 
-export default function QuizSelectPage({quizData, quizSelectResponse}:{quizData:Array<QuizDataDTO>, quizSelectResponse:Promise<unknown> }) {
+export default function QuizSelectPage({ quizData, quizSelectResponse }: {
+  quizData: Array<QuizData>,
+  quizSelectResponse: Promise<unknown>
+}) {
   //TODO: ONLY FOR TEST PURPOSES!! REMOVE ARRAY WHEN DONE WITH API REQUEST!! !IMPORTANT
-  const QuizDataRequest: QuizDataDTO | Array<string>  = ["", ""]
+  const QuizDataRequest: QuizData | Array<string> = ["", ""];
 
   console.log(quizSelectResponse)
 

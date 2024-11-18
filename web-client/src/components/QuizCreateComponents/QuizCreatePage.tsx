@@ -4,22 +4,23 @@ import React, { ChangeEvent, useState } from "react";
 import { Input } from "@nextui-org/input";
 
 import QuizCreateSidebar from "@/src/components/QuizCreateComponents/QuizCreateSidebar";
-import { QuizDataDTO } from "@/src/types/question/quizData";
+import { QuizData } from "@/src/types/question/quizData";
 import QuestionTextCreateList from "@/src/components/QuizCreateComponents/QuestionTextCreateList";
 import QuestionCheckboxCreateList from "@/src/components/QuizCreateComponents/QuestionCheckboxCreateList";
-import { QuestionTextsDTO } from "@/src/types/question/questionTexts";
-import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
+import { QuestionText } from "@/src/types/question/questionText";
+import { QuestionCheckbox } from "@/src/types/question/questionCheckbox";
 import QuestionFileCreateList from "@/src/components/QuizCreateComponents/QuestionFileCreateList";
-import { QuestionFilesDTO } from "@/src/types/question/questionFiles";
+import { QuestionFile } from "@/src/types/question/questionFile";
 import QuestionOrderCreateList from "@/src/components/QuizCreateComponents/QuestionOrderCreateList";
-import { QuestionOrdersDTO } from "@/src/types/question/questionOrders";
+import { QuestionOrderDTO } from "@/src/types/question/questionOrder";
 import QuestionRadioCreateList from "@/src/components/QuizCreateComponents/QuestionRadioCreateList";
-import { QuestionRadiosDTO } from "@/src/types/question/questionRadios";
+import { QuestionRadio } from "@/src/types/question/questionRadio";
 import QuestionPairCollectionCreateList from "@/src/components/QuizCreateComponents/QuestionPairCollectionCreateList";
-import { QuestionPairCollectionsDTO } from "@/src/types/question/questionPairCollections";
+import { QuestionPairCollection } from "@/src/types/question/questionPairCollection";
+import QuizCreateButton from "@/src/components/QuizCreateComponents/QuizCreateButton";
 
 export default function QuizCreatePage() {
-  const initialQuizData: QuizDataDTO = {
+  const initialQuizData: QuizData = {
     id: "",
     name: "",
     description: "",
@@ -36,7 +37,7 @@ export default function QuizCreatePage() {
     quizAnswers: [],
   };
 
-  const [quizData, setQuizData] = useState<QuizDataDTO>(initialQuizData);
+  const [quizData, setQuizData] = useState<QuizData>(initialQuizData);
 
   const handleQuizNameChange = (
     e: ChangeEvent<HTMLInputElement> | undefined
@@ -62,7 +63,7 @@ export default function QuizCreatePage() {
     setQuizData({ ...quizData, viewAfterSubmission: e!.target.checked });
   };
 
-  const handelQuestionTextsChange = (questionTexts: QuestionTextsDTO[]) => {
+  const handelQuestionTextsChange = (questionTexts: QuestionText[]) => {
     setQuizData((prevQuizData) => ({
       ...prevQuizData,
       questionTexts,
@@ -70,7 +71,7 @@ export default function QuizCreatePage() {
   };
 
   const handleQuestionCheckboxesChange = (
-    questionCheckboxes: QuestionCheckboxesDTO[]
+    questionCheckboxes: QuestionCheckbox[]
   ) => {
     setQuizData((prevQuizData) => ({
       ...prevQuizData,
@@ -78,21 +79,21 @@ export default function QuizCreatePage() {
     }));
   };
 
-  const handleQuestionFilesChange = (questionFiles: QuestionFilesDTO[]) => {
+  const handleQuestionFilesChange = (questionFiles: QuestionFile[]) => {
     setQuizData((prevQuizData) => ({
       ...prevQuizData,
       questionFiles,
     }));
   };
 
-  const handleQuestionOrdersChange = (questionOrders: QuestionOrdersDTO[]) => {
+  const handleQuestionOrdersChange = (questionOrders: QuestionOrderDTO[]) => {
     setQuizData((prevQuizData) => ({
       ...prevQuizData,
       questionOrders,
     }));
   };
 
-  const handleQuestionRadiosChange = (questionRadios: QuestionRadiosDTO[]) => {
+  const handleQuestionRadiosChange = (questionRadios: QuestionRadio[]) => {
     setQuizData((prevQuizData) => ({
       ...prevQuizData,
       questionRadios,
@@ -100,7 +101,7 @@ export default function QuizCreatePage() {
   };
 
   const handleQuestionPairCollectionsChange = (
-    questionPairCollections: QuestionPairCollectionsDTO[]
+    questionPairCollections: QuestionPairCollection[]
   ) => {
     setQuizData((prevQuizData) => ({
       ...prevQuizData,
@@ -174,6 +175,9 @@ export default function QuizCreatePage() {
             onUpdateAction={handleQuestionRadiosChange}
           />
         </div>
+      </div>
+      <div>
+        <QuizCreateButton quizData={quizData} />
       </div>
       <div className={"w-[25dvw]"}>
         <QuizCreateSidebar onCreateAction={setQuizData} />

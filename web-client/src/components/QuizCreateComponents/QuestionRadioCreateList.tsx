@@ -4,14 +4,14 @@ import React, { ChangeEvent, useState } from "react";
 import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 
-import { QuestionRadiosDTO } from "@/src/types/question/questionRadios";
+import { QuestionRadio } from "@/src/types/question/questionRadio";
 
 export default function QuestionRadioCreateList({
   questionRadios,
   onUpdateAction,
 }: {
-  questionRadios: Array<QuestionRadiosDTO>;
-  onUpdateAction: (questionRadios: QuestionRadiosDTO[]) => void;
+  questionRadios: Array<QuestionRadio>;
+  onUpdateAction: (questionRadios: QuestionRadio[]) => void;
 }) {
   const handleQuestionRadioTitleChange =
     (index: number) => (e: ChangeEvent<HTMLInputElement>) => {

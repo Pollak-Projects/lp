@@ -1,20 +1,21 @@
-"use client"
+"use client";
 import NextLink from "next/link";
 import QuizSidebar from "@/src/components/quizComponents/quizSidebar";
 import React, { useState } from "react";
-import { QuestionFileAnswersDTO } from "@/src/types/questionAnswer/questionFileAnswers";
-import { QuestionTextAnswersDTO } from "@/src/types/questionAnswer/questionTextAnswers";
+import { QuestionFileAnswer } from "@/src/types/questionAnswer/questionFileAnswer";
+import { QuestionTextAnswer } from "@/src/types/questionAnswer/questionTextAnswer";
 import { useSession } from "next-auth/react";
-import { QuestionRadioAnswersDTO } from "@/src/types/questionAnswer/questionRadioAnswers";
-import { QuestionOrderAnswersDTO } from "@/src/types/questionAnswer/questionOrderAnswers";
-import { QuestionCheckboxAnswersDTO } from "@/src/types/questionAnswer/questionCheckboxAnswers";
-import { QuestionPairCollectionAnswersDTO } from "@/src/types/questionAnswer/questionPairCollectionAnswers";
-import { PairCollectionAnswersDTO} from "@/src/types/questionAnswer/pairCollection/pairCollectionAnswers";
-import { QuizDataDTO } from "@/src/types/question/quizData";
+import { QuestionRadioAnswer } from "@/src/types/questionAnswer/questionRadioAnswer";
+import { QuestionOrderAnswer } from "@/src/types/questionAnswer/questionOrderAnswer";
+import { QuestionCheckboxAnswer } from "@/src/types/questionAnswer/questionCheckboxAnswer";
+import { QuestionPairCollectionAnswer } from "@/src/types/questionAnswer/questionPairCollectionAnswer";
+import {
+  QuestionPairCollectionPairAnswer
+} from "@/src/types/questionAnswer/pairCollection/questionPairCollectionPairAnswer";
+import { QuizData } from "@/src/types/question/quizData";
 import { Textarea } from "@nextui-org/input";
-import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
 
-export default function QuizPage({quizData}:{quizData: QuizDataDTO}) {
+export default function QuizPage({ quizData }: { quizData: QuizData }) {
 
   /*
  const QuizDummyData: QuizData = {
@@ -98,16 +99,16 @@ export default function QuizPage({quizData}:{quizData: QuizDataDTO}) {
   */
 
 
-  const [QuizFileAnswers, setQuizFileAnswers] = useState(Array<QuestionFileAnswersDTO>);
-  const [QuizTextAnswers, setQuizTextAnswers] = useState(Array<QuestionTextAnswersDTO>);
+  const [QuizFileAnswers, setQuizFileAnswers] = useState(Array<QuestionFileAnswer>);
+  const [QuizTextAnswers, setQuizTextAnswers] = useState(Array<QuestionTextAnswer>);
 
   console.log(useSession())
-  const [QuizRadioAnswers, setQuizRadioAnswers] = useState(Array<QuestionRadioAnswersDTO>);
-  const [QuizOrderAnswers, setQuizOrderAnswers] = useState(Array<QuestionOrderAnswersDTO>);
-  const [QuizCheckboxAnswers, setQuizCheckboxAnswers] = useState(Array<QuestionCheckboxAnswersDTO>);
+  const [QuizRadioAnswers, setQuizRadioAnswers] = useState(Array<QuestionRadioAnswer>);
+  const [QuizOrderAnswers, setQuizOrderAnswers] = useState(Array<QuestionOrderAnswer>);
+  const [QuizCheckboxAnswers, setQuizCheckboxAnswers] = useState(Array<QuestionCheckboxAnswer>);
 
-  const [QuizPairCollectionAnswers, setQuizPairCollectionAnswers] = useState(Array<QuestionPairCollectionAnswersDTO>);
-  const [PairCollectionAnswers, setPairCollectionAnswers] = useState(Array<PairCollectionAnswersDTO>);
+  const [QuizPairCollectionAnswers, setQuizPairCollectionAnswers] = useState(Array<QuestionPairCollectionAnswer>);
+  const [PairCollectionAnswers, setPairCollectionAnswers] = useState(Array<QuestionPairCollectionPairAnswer>);
 
   const scrapeQuestionTexts = quizData.questionTexts.map((val)=>{
     return (

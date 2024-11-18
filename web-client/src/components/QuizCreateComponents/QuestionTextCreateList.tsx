@@ -2,14 +2,14 @@
 
 import { Input } from "@nextui-org/input";
 import React, { ChangeEvent } from "react";
-import { QuestionTextsDTO } from "@/src/types/question/questionTexts";
+import { QuestionText } from "@/src/types/question/questionText";
 
 export default function QuestionTextCreateList({
   questionTexts,
   onUpdateAction,
 }: {
-  questionTexts: Array<QuestionTextsDTO>;
-  onUpdateAction: (questionTexts: QuestionTextsDTO[]) => void;
+  questionTexts: Array<QuestionText>;
+  onUpdateAction: (questionTexts: QuestionText[]) => void;
 }) {
   const handleQuestionTextTitleChange =
     (index: number) => (e: ChangeEvent<HTMLInputElement>) => {

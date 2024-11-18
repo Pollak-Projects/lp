@@ -1,5 +1,5 @@
 "use client";
-import { QuestionRadio } from "@/src/types/question/questionRadios";
+import { QuestionRadio } from "@/src/types/question/questionRadio";
 import { Radio, RadioGroup } from "@nextui-org/radio";
 import React, { useState } from "react";
 

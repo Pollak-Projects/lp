@@ -3,14 +3,14 @@
 import React, { ChangeEvent } from "react";
 import { Input } from "@nextui-org/input";
 
-import { QuestionFilesDTO } from "@/src/types/question/questionFiles";
+import { QuestionFile } from "@/src/types/question/questionFile";
 
 export default function QuestionFileCreateList({
   questionFiles,
   onUpdateAction,
 }: {
-  questionFiles: Array<QuestionFilesDTO>;
-  onUpdateAction: (questionFiles: QuestionFilesDTO[]) => void;
+  questionFiles: Array<QuestionFile>;
+  onUpdateAction: (questionFiles: QuestionFile[]) => void;
 }) {
   const handleQuestionFileTitleChange =
     (index: number) => (e: ChangeEvent<HTMLInputElement>) => {

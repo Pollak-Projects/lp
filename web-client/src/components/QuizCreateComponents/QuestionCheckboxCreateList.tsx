@@ -4,14 +4,14 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { PressEvent } from "@react-types/shared";
 
-import { QuestionCheckboxesDTO } from "@/src/types/question/questionCheckboxes";
+import { QuestionCheckbox } from "@/src/types/question/questionCheckbox";
 
 export default function QuestionCheckboxCreateList({
   questionCheckboxes,
   onUpdateAction,
 }: {
-  questionCheckboxes: Array<QuestionCheckboxesDTO>;
-  onUpdateAction: (questionCheckboxes: QuestionCheckboxesDTO[]) => void;
+  questionCheckboxes: Array<QuestionCheckbox>;
+  onUpdateAction: (questionCheckboxes: QuestionCheckbox[]) => void;
 }) {
   const handleQuestionCheckboxTitleChange =
     (index: number) => (e: ChangeEvent<HTMLInputElement>) => {

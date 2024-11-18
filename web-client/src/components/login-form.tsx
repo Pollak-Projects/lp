@@ -7,7 +7,7 @@ import { Input } from "@nextui-org/input";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
 
-export default function LoginForm() {
+export default function LoginForm({ csrfToken }: { csrfToken: string }) {
   const { pending } = useFormStatus();
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -19,6 +19,7 @@ export default function LoginForm() {
       username: formData.get("username"),
       password: formData.get("password"),
       redirect: true,
+      csrfToken: csrfToken
     });
   };
 

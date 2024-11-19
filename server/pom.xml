@@ -23,6 +23,7 @@
         <module>quiz</module>
         <module>user</module>
         <module>drive</module>
+        <module>administration</module>
     </modules>
     <properties>
         <java.version>21</java.version>

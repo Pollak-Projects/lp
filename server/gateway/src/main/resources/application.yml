@@ -71,7 +71,13 @@ spring:
             - Path=/api/v1/classroom/**
           filters:
             - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
-
+        # administration service
+        - id: administration
+          uri: lb://administration
+          predicates:
+            - Path=/api/v1/administration/**
+          filters:
+            - AddResponseHeader=X-Powered-By, LearningPulse Gateway Service
   security:
     oauth2:
       resourceserver:
@@ -110,6 +116,8 @@ springdoc:
         url: /api/v1/drive/v3/api-docs
       - name: Classroom Service API
         url: /api/v1/classroom/v3/api-docs
+      - name: Administration Service API
+        url: /api/v1/administration/v3/api-docs
 
 eureka:
   client:

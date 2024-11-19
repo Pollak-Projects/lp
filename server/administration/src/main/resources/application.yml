@@ -1,0 +1,20 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: administration
+  config:
+    import: "optional:file:./.env[.properties]"
+
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api/v1/administration/v3/api-docs
+  swagger-ui:
+    path: /api/v1/administration/swagger-ui.html
+
+logging:
+  file:
+    name: ././logs/administration.log

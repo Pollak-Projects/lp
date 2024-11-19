@@ -11,15 +11,21 @@
         <module name="quiz" />
         <module name="report-aggregate" />
         <module name="eureka" />
+        <module name="administration" />
         <module name="classroom" />
         <module name="drive" />
         <module name="user" />
         <module name="gateway" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="administration-service" target="21" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="administration" options="-parameters" />
+      <module name="administration-service" options="-parameters" />
       <module name="classroom" options="-parameters" />
       <module name="drive" options="-parameters" />
       <module name="dummy" options="-parameters" />

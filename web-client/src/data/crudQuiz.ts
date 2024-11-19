@@ -1,7 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { QuizData } from "@/src/types/question/quizData";
-import { createFullQuiz, getAllQuizzes, getAllQuizzesByUser, getQuiz } from "@/src/app/actions/QuizActions";
+import {
+  createFullQuiz,
+  getAllQuizzes,
+  getAllQuizzesByUser,
+  getQuizById
+} from "@/src/app/actions/QuizActions";
 
 export function useCreateFullQuiz({
   quizData,
@@ -24,16 +29,16 @@ export function useGetAllQuizzes() {
   });
 }
 
-export function useGetAllQuizzesById(quizId: string) {
+export function useGetAllQuizzesById(userId: string) {
   return useQuery({
-    queryFn: async () => getAllQuizzesByUser(quizId),
-    queryKey: ["getAllQuizzesById", quizId],
+    queryFn: async () => getAllQuizzesByUser(userId),
+    queryKey: ["getAllQuizzesById", userId],
   });
 }
 
 export function useGetQuizById(quizId: string) {
   return useQuery({
-    queryFn: async () => getQuiz(quizId),
-    queryKey: ["getAllQuizzesById", quizId],
+    queryFn: async () => getQuizById(quizId),
+    queryKey: ["getQuizById", quizId],
   });
 }

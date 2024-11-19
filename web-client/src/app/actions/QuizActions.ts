@@ -20,15 +20,15 @@ export async function getAllQuizzes() {
   return response.data;
 }
 
-export async function getQuiz(quizId: string) {
-  const response = await (await axiosFetch())?.get(`/api/v1/quiz/?id=${quizId}`)!;
+export async function getQuizById(quizId: string) {
+  const response = await (await axiosFetch())?.get(`/api/v1/quiz?id=${quizId}`)!;
 
   if (response.status !== 200) {
-    log.error("getQuiz", { json: await response.data });
+    log.error("getQuizById", { json: await response.data });
     throw new Error("Failed to get fetch quiz");
   }
 
-  log.debug("getQuiz", response.data);
+  log.debug("getQuizById", response.data);
 
   return response.data;
 }

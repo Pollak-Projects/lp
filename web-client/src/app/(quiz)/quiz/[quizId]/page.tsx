@@ -5,14 +5,20 @@ import { QuizData } from "@/src/types/question/quizData";
 import { auth } from "@/src/auth";
 
 
-export default async function Quiz() {
+export default async function Quiz({
+  params,
+}:{
+  params: Promise<{quizId: string}>}) {
 
 
+  const session = await auth()
+
+  const quizId = (await params).quizId
 
 
   return (
     <>
-      <QuizPage quizData={session?.user?.id} />
+      <QuizPage quizId={quizId} />
 
     </>
   );

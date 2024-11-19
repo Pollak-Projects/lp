@@ -1,7 +1,7 @@
 import { QuizData } from "@/src/types/question/quizData";
 import { Button } from "@nextui-org/button";
 
-export default function QuizSubmit({QuizDummyData}:{QuizDummyData: QuizData}) {
+export default function QuizSubmit({quizSubmit}:{quizSubmit:any}) {
 
   function submitAllValues():void{
 
@@ -15,16 +15,16 @@ export default function QuizSubmit({QuizDummyData}:{QuizDummyData: QuizData}) {
         </div>
         <div className={"h-[37%] border-b flex px-2 flex-row border-gray-200 w-full m-2 pb-2 text-center"}>
           <div className={"text-left"}>
-            Deadline:
+            Deadline: {quizSubmit.deadline}
           </div>
           <div className={"text-right ml-auto"}>
-            {QuizDummyData.deadline}
+            {quizSubmit.deadline}
 
           </div>
         </div>
 
         <div className={"h-[37%] border-b border-gray-200 w-full m-2 pb-2 text-center"}>
-
+          {quizSubmit.description}
         </div>
 
         <div className={"h-[10%] justify-self-end border-gray-200 w-full m-2 pb-2 text-center place-content-center"}>

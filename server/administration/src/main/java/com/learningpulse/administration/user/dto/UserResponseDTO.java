@@ -1,4 +1,7 @@
 package com.learningpulse.administration.user.dto;
 
-public class UserResponseDTO {
+public record UserResponseDTO(
+        int status,
+        String message
+) {
 }

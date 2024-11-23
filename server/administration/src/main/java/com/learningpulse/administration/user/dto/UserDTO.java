@@ -1,5 +1,6 @@
 package com.learningpulse.administration.user.dto;
 
+import com.learningpulse.administration.role.dto.ClientRoleMapDTO;
 import com.learningpulse.administration.role.dto.RoleDTO;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public record UserDTO(
         String lastName,
         String email,
         Map<String, List<String>> attributes,
-        List<RoleDTO> realmRoles
+        List<RoleDTO> realmRoles,
+        List<ClientRoleMapDTO> clientRoles
 ) {
 }

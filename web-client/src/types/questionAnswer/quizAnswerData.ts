@@ -7,6 +7,9 @@ import { QuestionTextAnswer } from "@/src/types/questionAnswer/questionTextAnswe
 
 export interface QuizAnswerData {
   id: string;
+  // This exists in the database, but is not needed to create the entity
+  // DO NOT ADD THIS TO THE ENTITY WHEN CREATING A NEW ENTITY
+  createdBy: string;
   questionCheckboxAnswers: Array<QuestionCheckboxAnswer>;
   questionFileAnswers: Array<QuestionFileAnswer>;
   questionOrderAnswers: Array<QuestionOrderAnswer>;

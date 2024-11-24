@@ -59,12 +59,12 @@ export async function getAllQuizAnswersByUserId() {
   return response.data
 }
 
-export async function getQuizAnswerById(quizId: string) {
+export async function getQuizAnswerById(quizAnswerId: string) {
   const response = await (
     await axiosFetch()
-  )?.get(`/api/v1/quiz/answer?id=${quizId}`)!;
+  )?.get(`/api/v1/quiz/answer?id=${quizAnswerId}`)!;
 
-  if (response.status !== 200) {
+  if (![200].includes(response.status)) {
     log.error("getQuizAnswerById", response.data);
     throw new Error("Failed to get fetch quiz answer");
   }

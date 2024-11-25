@@ -20,7 +20,6 @@ export default function InputPair({question}:{question: QuestionPair}) {
 
   const [loading, setLoading] = useState(true);
 
-
   const [isPairLeft, setPairLeft] = useState(question.value.left);
   const [isPairRight, setPairRight] = useState(question.value.right);
 

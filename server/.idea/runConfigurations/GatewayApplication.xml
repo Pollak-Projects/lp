@@ -1,5 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ENABLE_JMX_AGENT" value="false" />
     <option name="envFilePaths">
       <option value="$PROJECT_DIR$/.env" />
     </option>

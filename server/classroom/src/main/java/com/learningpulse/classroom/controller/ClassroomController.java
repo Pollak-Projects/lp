@@ -1,14 +1,17 @@
 package com.learningpulse.classroom.controller;
 
 import com.learningpulse.classroom.ClassroomCreateRequest;
+import com.learningpulse.classroom.config.RabbitConfig;
 import com.learningpulse.classroom.entity.Classroom;
-import com.learningpulse.classroom.entity.Member;
+import com.learningpulse.classroom.messages.ClassroomCreated;
 import com.learningpulse.classroom.repository.ClassroomRepository;
 import com.learningpulse.classroom.util.KeycloakJwt;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.data.domain.Example;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,14 +30,15 @@ public class ClassroomController {
 
     private static final Logger logger = LoggerFactory.getLogger(ClassroomController.class);
     private final Random random = new Random();
-    private final EntityManagerFactory entityManagerFactory;
+
+    private final RabbitTemplate rabbitTemplate;
     private final ClassroomRepository ClassroomRepository;
 
     @PostMapping
     public ResponseEntity<Classroom> createNewClassroom(@RequestBody ClassroomCreateRequest classroom_model,
             @AuthenticationPrincipal KeycloakJwt jwt) {
-        // TODO emmit AMQP ClassroomCreated Event
         logger.info("CreatedBy:" + jwt.getSub());
+        // TODO a better implementation of this
         String joinCode = generateJoinCode(4);
         Classroom classroom = Classroom.builder().joinCode(joinCode).name(classroom_model.getName())
                 .createdBy(jwt.getSub()).build();
@@ -47,20 +51,10 @@ public class ClassroomController {
             classroom.setJoinCode(joinCode);
         }
 
-        // Open a transaction
-        EntityManager em = entityManagerFactory.createEntityManager();
+        // TODO send message createChat where a chat is created and creator is included
+        classroom.addMember(jwt.getSub());
+        ClassroomRepository.save(classroom);
 
-        Member initmember = new Member();
-        initmember.setClassroom_id(classroom);
-        initmember.setUser_id(jwt.getSub());
-
-        classroom.getMembers().add(initmember);
-        em.persist(classroom);
-        em.persist(initmember);
-        em.getTransaction().commit();
-        em.close();
-
-        // TODO transactional join/create for atomic
         return ResponseEntity.ok(classroom);
     }
 

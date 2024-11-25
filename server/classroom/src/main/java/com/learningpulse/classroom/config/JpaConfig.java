@@ -9,8 +9,4 @@ import jakarta.persistence.Persistence;
 @Configuration
 public class JpaConfig {
 
-    @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        return Persistence.createEntityManagerFactory("classroomPersistence");
-    }
 }

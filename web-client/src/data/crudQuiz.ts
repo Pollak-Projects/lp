@@ -39,6 +39,6 @@ export function useGetAllQuizzesById(userId: string) {
 export function useGetQuizById(quizId: string) {
   return useQuery({
     queryFn: async () => getQuizById(quizId),
-    queryKey: ["getQuizById", quizId],
+    queryKey: ["getQuizById", quizId]
   });
 }

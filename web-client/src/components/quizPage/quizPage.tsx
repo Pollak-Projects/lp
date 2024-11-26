@@ -1,7 +1,7 @@
 "use client"
 import NextLink from "next/link";
 import QuizSidebar from "@/src/components/quizComponents/quizSidebar";
-import React, { JSX, useState } from "react";
+import React, { JSX, useRef, useState } from "react";
 import { QuestionFileAnswer } from "@/src/types/questionAnswer/questionFileAnswer";
 import { QuestionTextAnswer } from "@/src/types/questionAnswer/questionTextAnswer";
 import { useSession } from "next-auth/react";
@@ -56,19 +56,21 @@ export default function QuizPage({
     viewAfterSubmission: false
   }
 
-  const [answerData, setAnswerData] = useState<QuizAnswerData>(initialQuizAnswerData);
+  const [answerData, setAnswerData] = useState<QuizAnswerData>(initialQuizAnswerData)
 
   const [loading, setLoading] = useState(true);
 
 
-  const [quizData, setQuizData] = useState<QuizData>(initialQuizData);
+  const quizData = useRef<QuizData>(initialQuizData);
+
+
 
   const queryByQuizId = useGetQuizById(quizId)
 
   if (queryByQuizId.isError) return queryByQuizId.error.message
   if(queryByQuizId.isLoading) return <Loading color={"default"}/>
 
-  setQuizData({ ...queryByQuizId.data })
+  quizData.current = { ...queryByQuizId.data }
 
   const shuffle = <T,>(array: Array<T>) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -77,7 +79,7 @@ export default function QuizPage({
     }
     return array;
   };
-
+/*
   const shuffledQuestionText = shuffle(quizData.questionTexts)
   setQuizData({...quizData, questionTexts: shuffledQuestionText})
 
@@ -95,7 +97,7 @@ export default function QuizPage({
 
   const shuffledQuestionFiles = shuffle(quizData.questionFiles)
   setQuizData({...quizData, questionFiles: shuffledQuestionFiles})
-
+*/
 
 
 
@@ -140,11 +142,12 @@ export default function QuizPage({
             </NextLink>
 
             {
-                shuffledQuestionText.map((questionText: QuestionText, index: number )=>{
+                quizData.current.questionTexts.map((questionText: QuestionText, index: number )=>{
                 return <InputText onAnswerChangeAction={handleQuestionTextAnswerChange}
                                   quizTextAnswerData={answerData.questionTextAnswers}
                                   questionText={questionText}
                                   index={index}
+                                  key={index}
                                   />
               })
             }

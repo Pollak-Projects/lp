@@ -54,12 +54,10 @@ export default function QuizPage({
     questionTexts: [],
     quizAnswers: [],
     viewAfterSubmission: false
-
   }
 
   const [answerData, setAnswerData] = useState<QuizAnswerData>(initialQuizAnswerData);
 
-  const [toRenderComponentList, setToRenderComponentList] = useState(Array<JSX.Element>);
   const [loading, setLoading] = useState(true);
 
 
@@ -68,7 +66,6 @@ export default function QuizPage({
   const queryByQuizId = useGetQuizById(quizId)
 
   if (queryByQuizId.isError) return queryByQuizId.error.message
-
   if(queryByQuizId.isLoading) return <Loading color={"default"}/>
 
   setQuizData({ ...queryByQuizId.data })
@@ -90,6 +87,18 @@ export default function QuizPage({
   const shuffledQuestionCheckboxes = shuffle(quizData.questionCheckboxes)
   setQuizData({...quizData, questionCheckboxes: shuffledQuestionCheckboxes})
 
+  const shuffledQuestionOrders = shuffle(quizData.questionOrders)
+  setQuizData({...quizData, questionOrders: shuffledQuestionOrders})
+
+  const shuffledQuestionPairCollection = shuffle(quizData.questionPairCollection)
+  setQuizData({...quizData, questionPairCollection: shuffledQuestionPairCollection})
+
+  const shuffledQuestionFiles = shuffle(quizData.questionFiles)
+  setQuizData({...quizData, questionFiles: shuffledQuestionFiles})
+
+
+
+
   const handleQuestionTextAnswerChange = (questionTextAnswers: QuestionTextAnswer[]) => {
     setAnswerData((prevState)=>({
       ...prevState,
@@ -98,11 +107,6 @@ export default function QuizPage({
   }
 
 
-  const getQuestionTexts: JSX.Element = queryByQuizId.data.questionTexts.map((index: number, questionTexts: QuestionText)=>{
-    return <InputText onAnswerChangeAction={handleQuestionTextAnswerChange} questionText={questionTexts} QuizAnswerData={answerData.questionTextAnswers} index={index} key={index}/>
-  })
-
-  toRenderComponentList.push(getQuestionTexts)
 
 
   return (
@@ -134,18 +138,17 @@ export default function QuizPage({
             >
               Go back
             </NextLink>
-            {/*
 
-            <InputText question={TextDummyData}/>
+            {
+                shuffledQuestionText.map((questionText: QuestionText, index: number )=>{
+                return <InputText onAnswerChangeAction={handleQuestionTextAnswerChange}
+                                  quizTextAnswerData={answerData.questionTextAnswers}
+                                  questionText={questionText}
+                                  index={index}
+                                  />
+              })
+            }
 
-            <InputRadio question={RadioDummyData} />
-
-            <InputCheck question={CheckDummyData} />
-
-            <InputOrder question={OrderDummyData} />
-
-            <InputPair question={PairDummyData} />
-            */}
           </div>
         </section>
         <section

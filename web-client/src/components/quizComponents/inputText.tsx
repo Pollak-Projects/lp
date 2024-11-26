@@ -4,25 +4,21 @@ import { Textarea } from "@nextui-org/input";
 import { ChangeEvent, FC, useState } from "react";
 import { QuestionTextAnswer } from "@/src/types/questionAnswer/questionTextAnswer";
 import { QuestionText } from "@/src/types/question/questionText";
-import { QuizAnswerData } from "@/src/types/questionAnswer/quizAnswerData";
-
 
 interface Props {
   onAnswerChangeAction: (questionTextsAnswers: QuestionTextAnswer[]) => void;
   questionText: QuestionText;
-  QuizAnswerData: QuestionTextAnswer;
+  quizTextAnswerData: QuestionTextAnswer[];
   index: number;
 }
 
-export default function InputText ( { onAnswerChangeAction ,questionText, QuizAnswerData,index}: Props ) {
+export default function InputText ( { onAnswerChangeAction ,questionText, quizTextAnswerData, index}: Props ) {
 
-
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const questionTextAnswers = QuizAnswerData
-    questionTextAnswers[index].questionTextId = questionText.id;
-    questionTextAnswers[index].answer = event.target.value;
-    onAnswerChangeAction(questionTextAnswers)
+  const handleTextAnswerChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const updatedQuestionTextAnswer: QuestionTextAnswer[] = quizTextAnswerData
+    updatedQuestionTextAnswer[index].questionTextId = questionText.id;
+    updatedQuestionTextAnswer[index].answer = event.target.value;
+    onAnswerChangeAction(updatedQuestionTextAnswer)
   }
 
   return (
@@ -34,7 +30,7 @@ export default function InputText ( { onAnswerChangeAction ,questionText, QuizAn
         isRequired={true}
         style={{ background: "none" }}
         variant="bordered"
-        onChange={handleChange}
+        onChange={handleTextAnswerChange}
         placeholder="Enter the answer"
         className={"max-w-ms mt-2 max-h-60 overflow-scroll text-justify"}
       />

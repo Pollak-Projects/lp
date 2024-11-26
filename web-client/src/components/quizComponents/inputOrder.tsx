@@ -1,7 +1,6 @@
-import { QuestionOrder } from "@/src/types/question/questionOrder";
 import React, { useEffect, useRef, useState } from "react";
 
-export default function InputOrder({ question }: { question: QuestionOrder }) {
+export default function InputOrder({ question }: { question: any }) {
 
   //TODO: random generate the columns on server side
   const shuffle = (array: Array<{
@@ -40,7 +39,7 @@ export default function InputOrder({ question }: { question: QuestionOrder }) {
     setOrder(dataClone);
   }
 
-  const order_elements = isOrder.map((value, index: number) => {
+  const order_elements = isOrder.map((value:any, index: number) => {
     return (
       <div
         className={"w-full flex-1 border rounded-md p-2 m-2 cursor-move"}
